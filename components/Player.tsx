@@ -4,16 +4,21 @@ import PlayerMenu from './PlayerMenu';
 
 export default function Player() {
 
-  const [counter, setCounter] = useState(20);
-  const [tempCounter, setTempCounter] = useState(0);
-  const [showTempCounter, setShowTempCounter] = useState(false)
-
   enum Operations {
     plus = 'plus',
     minus = 'minus'
   }
 
   type ValueOf<T> = T[keyof T];
+
+  const [counter, setCounter] = useState(20);
+  const [tempCounter, setTempCounter] = useState(0);
+  const [showTempCounter, setShowTempCounter] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleOnBurgerMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   const displayTempCounter = () => {
     setShowTempCounter(true)
@@ -38,7 +43,7 @@ export default function Player() {
   return (
     <View style={styles.container}>
       <View style={styles.tempCounterWrapper}>
-        <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter}</Text>
+        <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
       </View>
       <View style={[styles.container, styles.counter]}>
         <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
@@ -65,7 +70,9 @@ export default function Player() {
           />
         </TouchableOpacity>
       </View>
-      <PlayerMenu />
+      <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
+        <PlayerMenu handleOnBurgerMenu={handleOnBurgerMenu} isMenuOpen={isMenuOpen}/>
+      </View>
     </View>
   );
 }
@@ -76,7 +83,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
+    position: 'relative',
   },
   counter: {
     flexDirection: 'row',
@@ -101,5 +109,15 @@ const styles = StyleSheet.create({
   },
   hide: {
     display: 'none'
-  }
+  },
+  playerMenu: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
+  },
+  playerMenu_expanded: {
+    top: 0,
+    height: '100%',
+  },
 });
