@@ -16,7 +16,7 @@ export default function Player() {
   const [showTempCounter, setShowTempCounter] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleOnBurgerMenu = () => {
+  const onBurgerMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
@@ -71,7 +71,7 @@ export default function Player() {
         </TouchableOpacity>
       </View>
       <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
-        <PlayerMenu handleOnBurgerMenu={handleOnBurgerMenu} isMenuOpen={isMenuOpen}/>
+        <PlayerMenu onBurgerMenu={onBurgerMenu} isMenuOpen={isMenuOpen}/>
       </View>
     </View>
   );
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
   },
   counter: {
     flexDirection: 'row',
-    
+    // backgroundColor: 'red',
+    marginBottom: 80,
   },
   counterAmount: {
     fontSize: 150
