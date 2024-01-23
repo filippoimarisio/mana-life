@@ -4,7 +4,7 @@ import PlayerMenuColors from './PlayerMenuColors';
 
 export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
 
-  const [selectedMenu, setSelectedMenu] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState("");
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
@@ -18,6 +18,8 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
 
   function handleMenuSelection(menuName: ValueOf<typeof MenuItemsEnum>): void {
     setSelectedMenu(menuName)
+    console.log(menuName)
+    console.log(typeof menuName)
   }
 
   const handleOnBurgerMenu = () => {
@@ -51,7 +53,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
         </TouchableOpacity>
         </View>
         <View style={styles.menuItem}>
-          { this.selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors />}
+          { selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors />}
         </View>
       </View>
     )
@@ -59,7 +61,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
   
   return (
     <View style={styles.container}>
-      <View style={styles.wrapper}>
+      <View style={[styles.wrapper, isMenuOpen ? styles.wrapper__darker : undefined]}>
         <View style={[styles.menu_expanded, isMenuOpen? undefined : styles.menu_expanded__hide]}>
           { selectedMenu === '' ? <MenuItems /> : <MenuItemWrapper />}
         </View>
@@ -96,6 +98,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     flexDirection: 'column',
     padding: 20
+  },
+  wrapper__darker: {
+    backgroundColor: 'background: rgba(0, 0, 0, 0.5)',
   },
   menu_expanded__hide: {
     display: 'none',

@@ -1,28 +1,88 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
+import React, {useState, useEffect} from 'react';
+
 
 export default function PlayerMenuColors() {
+
+  const [selectedColors, setSelectedColors] = useState([]);
+
+  enum Colors {
+    mountain = 'mountain',
+    swamp = 'swamp',
+    forest = 'forest',
+    plains = 'plains',
+    island = 'island'
+  }
+
+  type ValueOf<T> = T[keyof T];
+
+  const handleOnSelectColor = (color: ValueOf<typeof Colors>) => {
+    if (selectedColors.includes(color)) {
+      setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
+      return
+    }
+    if (selectedColors.length < 3) setSelectedColors([...selectedColors, color])
+    else return
+  }
+
   return (
     <View style={styles.container}>
-      {/* <Text>Colors</Text> */}
+      <View style={styles.row}>
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.forest)} style={styles.row_topLeft}>
+          {selectedColors.includes(Colors.forest) ? 
+            <Image source={require('../assets/forest-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
+            <Image source={require('../assets/forest-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
+          }
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.island)}>
+          {selectedColors.includes(Colors.island) ? 
+            <Image source={require('../assets/island-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
+            <Image source={require('../assets/island-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
+          }
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.plains)} style={styles.row_topRight}>
+          {selectedColors.includes(Colors.plains) ? 
+            <Image source={require('../assets/plains-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
+            <Image source={require('../assets/plains-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
+          }
+        </TouchableOpacity> 
+      </View>
+      <View style={styles.row}>
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.mountain)}>
+          {selectedColors.includes(Colors.mountain) ? 
+            <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
+            <Image source={require('../assets/mountain-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
+          }
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.swamp)}>
+          {selectedColors.includes(Colors.swamp) ? 
+            <Image source={require('../assets/swamp-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
+            <Image source={require('../assets/swamp-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
+          }
+        </TouchableOpacity> 
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    height: '100%'
   },
-  down: {
-    transform: [{ rotate: '180deg'}]
+  row: {
+    height: "50%",
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'space-around',
+    paddingLeft: 50,
+    paddingRight: 50
   },
-  left: {
-    transform: [{ rotate: '90deg'}]
+  row_topLeft: {
+    paddingTop: 100
   },
-  right: {
-    transform: [{ rotate: '270deg'}]
+  row_topRight: {
+    paddingTop: 100
   }
 });
