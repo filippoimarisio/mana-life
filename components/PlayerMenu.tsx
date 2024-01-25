@@ -2,7 +2,7 @@ import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import PlayerMenuColors from './PlayerMenuColors';
 
-export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
+export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
 
@@ -18,8 +18,6 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
 
   function handleMenuSelection(menuName: ValueOf<typeof MenuItemsEnum>): void {
     setSelectedMenu(menuName)
-    console.log(menuName)
-    console.log(typeof menuName)
   }
 
   const handleOnBurgerMenu = () => {
@@ -53,7 +51,8 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
         </TouchableOpacity>
         </View>
         <View style={styles.menuItem}>
-          { selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors />}
+          { selectedMenu === MenuItemsEnum.colorSelection && 
+          <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>}
         </View>
       </View>
     )
@@ -83,14 +82,13 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'background: rgba(255, 255, 0, 1)',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
     height: '100%',
   },
   wrapper: {
-    backgroundColor: 'background: rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'background: rgba(0, 0, 0, 0.05)',
     flex: 1,
     width: '100%',
     height: '100%',

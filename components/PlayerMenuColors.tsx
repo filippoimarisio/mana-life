@@ -1,29 +1,18 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
 
+export enum Colors {
+  mountain = 'mountain',
+  swamp = 'swamp',
+  forest = 'forest',
+  plains = 'plains',
+  island = 'island'
+}
 
-export default function PlayerMenuColors() {
 
-  const [selectedColors, setSelectedColors] = useState([]);
-
-  enum Colors {
-    mountain = 'mountain',
-    swamp = 'swamp',
-    forest = 'forest',
-    plains = 'plains',
-    island = 'island'
-  }
+export default function PlayerMenuColors({handleOnSelectColor, selectedColors}) {
 
   type ValueOf<T> = T[keyof T];
-
-  const handleOnSelectColor = (color: ValueOf<typeof Colors>) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
-      return
-    }
-    if (selectedColors.length < 3) setSelectedColors([...selectedColors, color])
-    else return
-  }
 
   return (
     <View style={styles.container}>

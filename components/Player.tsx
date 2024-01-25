@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
+import {Colors} from'./PlayerMenuColors';
 
 export default function Player() {
 
@@ -9,12 +10,35 @@ export default function Player() {
     minus = 'minus'
   }
 
+  const colorCodes = {
+    mountain: 'rgb(235, 159, 130)',
+    mountain_logo: 'rgb(211, 32, 42)',
+    swamp: 'rgb(166,159,157)',
+    swamp_logo: 'rgb(21,11,0)',
+    forest: 'rgb(196,211,202)',
+    forest_logo: 'rgb(0, 115, 62)',
+    plains: 'rgb(248,231,185)',
+    plains_logo: 'rgb(249, 250, 244)',
+    island: 'rgb(179, 206, 234)',
+    island_logo: 'rgb(14, 104, 171)',
+  }
+
   type ValueOf<T> = T[keyof T];
 
   const [counter, setCounter] = useState(20);
   const [tempCounter, setTempCounter] = useState(0);
   const [showTempCounter, setShowTempCounter] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedColors, setSelectedColors] = useState([])
+
+  const handleOnSelectColor = (color: ValueOf<typeof Colors>) => {
+    if (selectedColors.includes(color)) {
+      setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
+      return
+    }
+    if (selectedColors.length < 3) setSelectedColors([...selectedColors, color])
+    else return
+  }
 
   const onBurgerMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -40,12 +64,19 @@ export default function Player() {
     if (!showTempCounter) displayTempCounter()
   }
 
+  const getBackgroundColor = (): string => {
+    switch (selectedColors.length) {
+      case 1: return colorCodes[selectedColors[0]]
+      default: return colorCodes.plains
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.tempCounterWrapper}>
+    <View style={[styles.container, { backgroundColor: getBackgroundColor() }]}>
+      <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
         <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
       </View>
-      <View style={[styles.container, styles.counter]}>
+      <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
         <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
           <Image
             source={require('../assets/minus-circle-outline.png')}
@@ -71,7 +102,12 @@ export default function Player() {
         </TouchableOpacity>
       </View>
       <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
-        <PlayerMenu onBurgerMenu={onBurgerMenu} isMenuOpen={isMenuOpen}/>
+        <PlayerMenu 
+          onBurgerMenu={onBurgerMenu} 
+          isMenuOpen={isMenuOpen}
+          handleOnSelectColor={handleOnSelectColor}
+          selectedColors={selectedColors}
+        />
       </View>
     </View>
   );
@@ -80,7 +116,6 @@ export default function Player() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
@@ -88,8 +123,10 @@ const styles = StyleSheet.create({
   },
   counter: {
     flexDirection: 'row',
-    // backgroundColor: 'red',
     marginBottom: 80,
+  },
+  hide: {
+    display: 'none'
   },
   counterAmount: {
     fontSize: 150
@@ -107,9 +144,6 @@ const styles = StyleSheet.create({
   },
   tempCounter: {
     fontSize: 30
-  },
-  hide: {
-    display: 'none'
   },
   playerMenu: {
     position: 'absolute',
