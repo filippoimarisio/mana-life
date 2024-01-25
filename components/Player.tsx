@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {Colors} from'./PlayerMenuColors';
+import {LinearGradient} from 'expo-linear-gradient';
 
 export default function Player() {
 
@@ -64,51 +65,69 @@ export default function Player() {
     if (!showTempCounter) displayTempCounter()
   }
 
-  const getBackgroundColor = (): string => {
+  const getColorCode = (color: string): string => {
+    if (color === 'mountain') return colorCodes.mountain_logo
+    if (color === 'plains') return colorCodes.plains
+    if (color === 'island') return colorCodes.island_logo
+    if (color === 'forest') return colorCodes.forest_logo
+    if (color === 'swamp') return colorCodes.swamp_logo
+    return colorCodes.plains_logo
+  }
+
+  const getBackgroundColors = (): string[] => {
     switch (selectedColors.length) {
-      case 1: return colorCodes[selectedColors[0]]
-      default: return colorCodes.plains
+      case 1: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
+      case 2: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1])]
+      case 3: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1]), getColorCode(selectedColors[2])]
+      default: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
     }
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: getBackgroundColor() }]}>
-      <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
-        <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
-      </View>
-      <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
-        <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
-          <Image
-            source={require('../assets/minus-circle-outline.png')}
-            resizeMode = 'contain'
-            style= {{
-              height: 40,
-              width: 40,
-              tintColor: 'black'
-            }}
+    <View style={[styles.container]}>
+      <LinearGradient
+        style={[styles.container, {flex: 1}]}
+        colors={[...getBackgroundColors()]}
+        start={{x: 0, y: 0}}
+        end={{x: 0, y: 1}}
+      >
+        <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
+          <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
+        </View>
+        <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
+          <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
+            <Image
+              source={require('../assets/minus-circle-outline.png')}
+              resizeMode = 'contain'
+              style= {{
+                height: 40,
+                width: 40,
+                tintColor: 'white'
+              }}
+            />
+          </TouchableOpacity>
+          <Text style={styles.counterAmount}>{counter}</Text>
+          <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
+            <Image
+              source={require('../assets/plus-circle-outline.png')}
+              resizeMode = 'contain'
+              style= {{
+                height: 40,
+                width: 40,
+                tintColor: 'white',
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
+          <PlayerMenu 
+            onBurgerMenu={onBurgerMenu} 
+            isMenuOpen={isMenuOpen}
+            handleOnSelectColor={handleOnSelectColor}
+            selectedColors={selectedColors}
           />
-        </TouchableOpacity>
-        <Text style={styles.counterAmount}>{counter}</Text>
-        <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
-          <Image
-            source={require('../assets/plus-circle-outline.png')}
-            resizeMode = 'contain'
-            style= {{
-              height: 40,
-              width: 40,
-              tintColor: 'black'
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
-        <PlayerMenu 
-          onBurgerMenu={onBurgerMenu} 
-          isMenuOpen={isMenuOpen}
-          handleOnSelectColor={handleOnSelectColor}
-          selectedColors={selectedColors}
-        />
-      </View>
+        </View>
+      </LinearGradient>
     </View>
   );
 }
@@ -129,7 +148,12 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   counterAmount: {
-    fontSize: 150
+    fontSize: 150,
+    color: 'white',
+    shadowColor: 'black',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10
   },
   counterButton: {
     height: '100%',
