@@ -79,7 +79,7 @@ export default function Player() {
       case 1: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
       case 2: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1])]
       case 3: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1]), getColorCode(selectedColors[2])]
-      default: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
+      default: return ['rgb(248,231,185)', 'rgb(248,231,185)']
     }
   }
 
@@ -88,8 +88,8 @@ export default function Player() {
       <LinearGradient
         style={[styles.container, {flex: 1}]}
         colors={[...getBackgroundColors()]}
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 0}}
       >
         <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
           <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
