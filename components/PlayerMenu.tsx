@@ -60,7 +60,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
         <View style={selectedMenu && styles.navbar}>
           { selectedMenu && <TouchableOpacity onPress={()=> setSelectedMenu('')}>
             <Image
-              source={require('../assets/arrow-left.png')}
+              source={require('../assets/arrow-left__white.png')}
               resizeMode = 'contain'
               style= {{
                 height: 40,
@@ -71,12 +71,11 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
           </TouchableOpacity> }
           <TouchableOpacity onPress={()=>handleOnBurgerMenu()}>
             <Image
-              source={require('../assets/burger-menu.png')}
+              source={require('../assets/burger-menu__white.png')}
               resizeMode = 'contain'
               style= {{
                 height: 40,
                 width: 40,
-                tintColor: 'black'
               }}
             />
           </TouchableOpacity>
@@ -94,7 +93,6 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   wrapper: {
-    backgroundColor: 'background: rgba(0, 0, 0, 0.05)',
     flex: 1,
     width: '100%',
     height: '100%',

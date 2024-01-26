@@ -29,6 +29,7 @@ export default function Player() {
   const [counter, setCounter] = useState(20);
   const [tempCounter, setTempCounter] = useState(0);
   const [showTempCounter, setShowTempCounter] = useState(false)
+  const [tempCounterLogs, setTempCounterLogs] = useState([])
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedColors, setSelectedColors] = useState([])
 
@@ -49,6 +50,7 @@ export default function Player() {
     setShowTempCounter(true)
     setTimeout(()=> {
       setShowTempCounter(false)
+      setTempCounterLogs([...tempCounterLogs, tempCounter])
       setTempCounter(0)
     }, 3000)
   }
@@ -97,24 +99,22 @@ export default function Player() {
         <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
           <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
             <Image
-              source={require('../assets/minus-circle-outline.png')}
+              source={require('../assets/minus-logo__white.png')}
               resizeMode = 'contain'
               style= {{
                 height: 40,
                 width: 40,
-                tintColor: 'white'
               }}
             />
           </TouchableOpacity>
           <Text style={styles.counterAmount}>{counter}</Text>
           <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
             <Image
-              source={require('../assets/plus-circle-outline.png')}
+              source={require('../assets/plus-logo__white.png')}
               resizeMode = 'contain'
               style= {{
                 height: 40,
                 width: 40,
-                tintColor: 'white',
               }}
             />
           </TouchableOpacity>
@@ -167,7 +167,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   tempCounter: {
-    fontSize: 30
+    fontSize: 30,
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10
   },
   playerMenu: {
     position: 'absolute',
