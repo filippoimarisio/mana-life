@@ -44,16 +44,9 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
 
   function MenuItemWrapper() {
     return (
-      <View style={styles.menuItem__wrapper}>
-        <View style={styles.menuItem__icon}>
-        <TouchableOpacity onPress={()=> setSelectedMenu('')}>
-          <Image source={require('../assets/color-pie.png')} resizeMode = 'contain' style= {{ height: 50, width: 50,}}/>
-        </TouchableOpacity>
-        </View>
-        <View style={styles.menuItem}>
-          { selectedMenu === MenuItemsEnum.colorSelection && 
-          <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>}
-        </View>
+      <View style={styles.menuItem}>
+        { selectedMenu === MenuItemsEnum.colorSelection && 
+        <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>}
       </View>
     )
   }
@@ -64,7 +57,19 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
         <View style={[styles.menu_expanded, isMenuOpen? undefined : styles.menu_expanded__hide]}>
           { selectedMenu === '' ? <MenuItems /> : <MenuItemWrapper />}
         </View>
-        <TouchableOpacity onPress={()=>handleOnBurgerMenu()}>
+        <View style={selectedMenu && styles.navbar}>
+          { selectedMenu && <TouchableOpacity onPress={()=> setSelectedMenu('')}>
+            <Image
+              source={require('../assets/arrow-left.png')}
+              resizeMode = 'contain'
+              style= {{
+                height: 40,
+                width: 40,
+                tintColor: 'black'
+              }}
+            />
+          </TouchableOpacity> }
+          <TouchableOpacity onPress={()=>handleOnBurgerMenu()}>
             <Image
               source={require('../assets/burger-menu.png')}
               resizeMode = 'contain'
@@ -75,6 +80,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
               }}
             />
           </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -123,10 +129,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row'
   },
-  menuItem__wrapper: {
-    height: '100%',
-    width: '100%',
-  },
   menuItem__icon: {
     alignItems: 'center',
   },
@@ -135,5 +137,10 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  navbar: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: "100%"
   }
 });
