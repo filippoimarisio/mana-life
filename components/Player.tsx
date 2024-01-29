@@ -1,10 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {Colors} from'./PlayerMenuColors';
 import {LinearGradient} from 'expo-linear-gradient';
+import {Context} from '../App';
 
-export default function Player() {
+export default function Player({playerIndex}) {
 
   enum Operations {
     plus = 'plus',
@@ -29,9 +30,10 @@ export default function Player() {
   const [counter, setCounter] = useState(20);
   const [tempCounter, setTempCounter] = useState(0);
   const [showTempCounter, setShowTempCounter] = useState(false)
-  const [tempCounterLogs, setTempCounterLog] = useState([])
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedColors, setSelectedColors] = useState([])
+
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useContext(Context)
 
   const handleOnSelectColor = (color: ValueOf<typeof Colors>) => {
     if (selectedColors.includes(color)) {
@@ -53,34 +55,22 @@ export default function Player() {
     }, 2000)
   }
 
-  const clearTempCounter = () => {
-    setTempCounter(0)
-  }
-
-  // Sets intial life total
-  useEffect(()=>{
-    setTempCounterLog(tempCounterLogs=>[...tempCounterLogs, 20])
-  }, [])
-
-  // Auxiliary functions to update life total
-  function usePrevious<T>(value: T): T {
-    const ref = React.useRef<T>()
-    React.useEffect(() => {
-      ref.current = value
-    }, [value])
-    return ref.current;
-  }
-  const prevAmount = usePrevious(tempCounter);
+  const logs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
 
   // Updates the current lifeTotal
   useEffect(() => {
     if (showTempCounter || tempCounter === 0) return
-    setTempCounterLog(tempCounterLogs=>[...tempCounterLogs, tempCounterLogs[tempCounterLogs.length -1] + tempCounter])
+    if (playerIndex === 0) {
+      setLifeLogsPlayerOne([...lifeLogsPlayerOne, lifeLogsPlayerOne[lifeLogsPlayerOne.length - 1] + tempCounter])
+    }
+    if (playerIndex === 1) {
+      setLifeLogsPlayerTwo([...lifeLogsPlayerTwo, lifeLogsPlayerTwo[lifeLogsPlayerTwo.length - 1] + tempCounter])
+    }
   }, [showTempCounter])
 
   useEffect(() => {
     if (tempCounter !== 0) setTempCounter(0)
-  }, [tempCounterLogs])
+  }, [logs])
 
   const handleCounterInteraction = (operation: ValueOf<typeof Operations>) => {
     if (operation === Operations.plus) {
@@ -152,7 +142,7 @@ export default function Player() {
             isMenuOpen={isMenuOpen}
             handleOnSelectColor={handleOnSelectColor}
             selectedColors={selectedColors}
-            tempCounterLogs={tempCounterLogs}
+            playerIndex={playerIndex}
           />
         </View>
       </LinearGradient>

@@ -3,17 +3,13 @@ import React, {useState, useEffect} from 'react';
 import PlayerMenuColors from './PlayerMenuColors';
 import PlayerMenuLifeLogs from './PlayerMenuLifeLogs';
 
-export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, tempCounterLogs}) {
+export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
     lifeLogs = 'lifeLogs'
-  }
-
-  enum MenuItemsIconEnum {
-    colorPie = 'color-pie',
   }
 
   type ValueOf<T> = T[keyof T];
@@ -53,7 +49,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
         <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>
         }
         { selectedMenu === MenuItemsEnum.lifeLogs && 
-        <PlayerMenuLifeLogs tempCounterLogs={tempCounterLogs}/>
+        <PlayerMenuLifeLogs playerIndex={playerIndex}/>
         }
       </View>
     )

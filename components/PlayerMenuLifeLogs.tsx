@@ -1,7 +1,17 @@
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
+import {Context} from '../App';
 
-export default function PlayerMenuLifeLogs({tempCounterLogs}) {
+export default function PlayerMenuLifeLogs({playerIndex}) {
+
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useContext(Context)
+  
+  const playerLogs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
+  const opponentLogs = playerIndex === 0 ? lifeLogsPlayerTwo : lifeLogsPlayerOne
+
+  console.log('playerLogs', playerLogs)
+  console.log('opponentLogs', opponentLogs)
+
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -9,15 +19,23 @@ export default function PlayerMenuLifeLogs({tempCounterLogs}) {
           <Text style={styles.playerBox}>Me</Text>
           <Text style={styles.opponentBox}>You</Text>
         </View>
-        <ScrollView style={styles.logs}>
-          <View style={styles.playerLogs}>
-            {tempCounterLogs.map((log: number, logIndex: number) => {
-              return (
-                <Text key={logIndex} style={[styles.log, logIndex !== tempCounterLogs.length - 1 && styles.lineThrough]}>{log}</Text>
-              )
-            })}
+        <ScrollView style={styles.logsWrapper}>
+          <View style={styles.logs}>
+            <View style={styles.playerLogs}>
+              {playerLogs.map((log: number, logIndex: number) => {
+                return (
+                  <Text key={logIndex} style={[styles.log, logIndex !== playerLogs.length - 1 && styles.lineThrough]}>{log}</Text>
+                )
+              })}
+            </View>
+            <View style={styles.opponentLogs}>
+              {opponentLogs.map((log: number, logIndex: number) => {
+                return (
+                  <Text key={logIndex} style={[styles.log, logIndex !== opponentLogs.length - 1 && styles.lineThrough]}>{log}</Text>
+                )
+              })}
+            </View>
           </View>
-          <View></View>
         </ScrollView>
       </View>
     </View>
@@ -32,19 +50,13 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     width: "70%",
-    height: '80%'
+    height: '80%',
   },
   names: {
     height: 50,
     flexDirection: 'row',
     borderBottomColor: 'white',
     borderBottomWidth: 2,
-  },
-  logs: {
-    width: '100%',
-    maxHeight: '100%',
-    height: '100%',
-    overflow: 'scroll'
   },
   playerBox: {
     borderRightColor: 'white',
@@ -60,13 +72,24 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white'
   },
+  logsWrapper: {
+    maxHeight: '100%',
+    height: '100%',
+    overflow: 'scroll',
+  },
+  logs: {
+    flexDirection: 'row',
+    minHeight: 200,
+  },
   playerLogs: {
-    minHeight: '100%',
     width: '50%',
-    justifyContent: 'flex-start',
     alignItems: 'center',
     borderRightColor: 'white',
     borderRightWidth: 2,
+  },
+  opponentLogs: {
+    width: '50%',
+    alignItems: 'center',
   },
   log: {
     color: 'white',
