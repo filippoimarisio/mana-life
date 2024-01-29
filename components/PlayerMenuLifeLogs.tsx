@@ -9,9 +9,6 @@ export default function PlayerMenuLifeLogs({playerIndex}) {
   const playerLogs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
   const opponentLogs = playerIndex === 0 ? lifeLogsPlayerTwo : lifeLogsPlayerOne
 
-  console.log('playerLogs', playerLogs)
-  console.log('opponentLogs', opponentLogs)
-
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
