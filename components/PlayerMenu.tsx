@@ -1,13 +1,15 @@
 import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import PlayerMenuColors from './PlayerMenuColors';
+import PlayerMenuLifeLogs from './PlayerMenuLifeLogs';
 
-export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors}) {
+export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, tempCounterLogs}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
+    lifeLogs = 'lifeLogs'
   }
 
   enum MenuItemsIconEnum {
@@ -30,13 +32,15 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
       <View style={styles.menuItems__wrapper}>
         <View style={styles.menuItems_row}>
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.colorSelection)}>
-            <Image source={require(`../assets/color-pie.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50,}}/>
+            <Image source={require(`../assets/color-pie.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/>
           </TouchableOpacity> 
-          <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 50, width: 50,}}/></TouchableOpacity> 
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.lifeLogs)}>
+            <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/>
+          </TouchableOpacity> 
         </View>
         <View style={styles.menuItems_row}>
-          <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 50, width: 50,}}/></TouchableOpacity> 
-          <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 50, width: 50,}}/></TouchableOpacity> 
+          <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/></TouchableOpacity> 
+          <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/></TouchableOpacity> 
         </View>
       </View>
     )
@@ -46,7 +50,11 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
     return (
       <View style={styles.menuItem}>
         { selectedMenu === MenuItemsEnum.colorSelection && 
-        <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>}
+        <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>
+        }
+        { selectedMenu === MenuItemsEnum.lifeLogs && 
+        <PlayerMenuLifeLogs tempCounterLogs={tempCounterLogs}/>
+        }
       </View>
     )
   }
@@ -65,7 +73,6 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
               style= {{
                 height: 40,
                 width: 40,
-                tintColor: 'black'
               }}
             />
           </TouchableOpacity> }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {Colors} from'./PlayerMenuColors';
@@ -29,7 +29,7 @@ export default function Player() {
   const [counter, setCounter] = useState(20);
   const [tempCounter, setTempCounter] = useState(0);
   const [showTempCounter, setShowTempCounter] = useState(false)
-  const [tempCounterLogs, setTempCounterLogs] = useState([])
+  const [tempCounterLogs, setTempCounterLog] = useState([])
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedColors, setSelectedColors] = useState([])
 
@@ -50,10 +50,37 @@ export default function Player() {
     setShowTempCounter(true)
     setTimeout(()=> {
       setShowTempCounter(false)
-      setTempCounterLogs([...tempCounterLogs, tempCounter])
-      setTempCounter(0)
-    }, 3000)
+    }, 2000)
   }
+
+  const clearTempCounter = () => {
+    setTempCounter(0)
+  }
+
+  // Sets intial life total
+  useEffect(()=>{
+    setTempCounterLog(tempCounterLogs=>[...tempCounterLogs, 20])
+  }, [])
+
+  // Auxiliary functions to update life total
+  function usePrevious<T>(value: T): T {
+    const ref = React.useRef<T>()
+    React.useEffect(() => {
+      ref.current = value
+    }, [value])
+    return ref.current;
+  }
+  const prevAmount = usePrevious(tempCounter);
+
+  // Updates the current lifeTotal
+  useEffect(() => {
+    if (showTempCounter || tempCounter === 0) return
+    setTempCounterLog(tempCounterLogs=>[...tempCounterLogs, tempCounterLogs[tempCounterLogs.length -1] + tempCounter])
+  }, [showTempCounter])
+
+  useEffect(() => {
+    if (tempCounter !== 0) setTempCounter(0)
+  }, [tempCounterLogs])
 
   const handleCounterInteraction = (operation: ValueOf<typeof Operations>) => {
     if (operation === Operations.plus) {
@@ -81,7 +108,7 @@ export default function Player() {
       case 1: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
       case 2: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1])]
       case 3: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1]), getColorCode(selectedColors[2])]
-      default: return ['rgb(248,231,185)', 'rgb(248,231,185)']
+      default: return [colorCodes.swamp_logo, colorCodes.mountain_logo]
     }
   }
 
@@ -125,6 +152,7 @@ export default function Player() {
             isMenuOpen={isMenuOpen}
             handleOnSelectColor={handleOnSelectColor}
             selectedColors={selectedColors}
+            tempCounterLogs={tempCounterLogs}
           />
         </View>
       </LinearGradient>
