@@ -5,7 +5,7 @@ import {Colors} from'./PlayerMenuColors';
 import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../App';
 
-export default function Player({playerIndex}) {
+export default function Player({playerIndex, counter, setCounter}) {
 
   enum Operations {
     plus = 'plus',
@@ -27,11 +27,11 @@ export default function Player({playerIndex}) {
 
   type ValueOf<T> = T[keyof T];
 
-  const [counter, setCounter] = useState(20);
   const [tempCounter, setTempCounter] = useState(0);
   const [showTempCounter, setShowTempCounter] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedColors, setSelectedColors] = useState([])
+  const [counterTimeout, setCounterTimeout] = useState(null)
 
   const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useContext(Context)
 
@@ -45,14 +45,18 @@ export default function Player({playerIndex}) {
   }
 
   const onBurgerMenu = () => {
+    if (!isMenuOpen) setShowTempCounter(false)
     setIsMenuOpen(!isMenuOpen)
   }
 
   const displayTempCounter = () => {
-    setShowTempCounter(true)
-    setTimeout(()=> {
+    if (!showTempCounter) setShowTempCounter(true)
+    if (counterTimeout) {
+      clearTimeout(counterTimeout)
+    }
+    setCounterTimeout(setTimeout(() => {
       setShowTempCounter(false)
-    }, 2000)
+    }, 2000))
   }
 
   const logs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
@@ -81,7 +85,7 @@ export default function Player({playerIndex}) {
       setCounter(counter - 1)
       setTempCounter(tempCounter - 1)
     }
-    if (!showTempCounter) displayTempCounter()
+    displayTempCounter()
   }
 
   const getColorCode = (color: string): string => {

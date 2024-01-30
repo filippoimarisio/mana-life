@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 
-export default function MainMenu() {
+export default function MainMenu({resetPlayersLife}) {
   return (
     <View style={styles.container}>
-      <Text>Main Menu</Text>
+      <TouchableOpacity onPress={()=>resetPlayersLife()}>
+        <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
+      </TouchableOpacity>
     </View>
   );
 }

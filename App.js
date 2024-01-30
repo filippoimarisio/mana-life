@@ -9,25 +9,33 @@ export default function App() {
 
   const [lifeLogsPlayerOne, setLifeLogsPlayerOne] = useState([])
   const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
+  const [counterPlayerOne, setCounterPlayerOne] = useState(0)
+  const [counterPlayerTwo, setCounterPlayerTwo] = useState(0)
 
   const initialLifeTotal = 20
 
   // Sets intial life total
   useEffect(()=>{
+    resetPlayersLife()
+  }, [])
+
+  const resetPlayersLife = () => {
     setLifeLogsPlayerOne([initialLifeTotal])
     setLifeLogsPlayerTwo([initialLifeTotal])
-  }, [])
+    setCounterPlayerOne(initialLifeTotal)
+    setCounterPlayerTwo(initialLifeTotal)
+  }
 
   return (
     <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo]}>
       <View style={styles.container}>
         <View style={[styles.container, styles.down]}>
-          <Player playerIndex={0}/>
+          <Player playerIndex={0} counter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
         </View>
         <View style={{height: 30, width: '100%'}}>
-          <MainMenu />
+          <MainMenu resetPlayersLife={resetPlayersLife}/>
         </View>
-        <Player playerIndex={1}/>
+        <Player playerIndex={1} counter={counterPlayerTwo} setCounter={setCounterPlayerTwo}/>
       </View>
     </Context.Provider>
   );
