@@ -61,10 +61,10 @@ export default function Player({playerIndex}) {
   useEffect(() => {
     if (showTempCounter || tempCounter === 0) return
     if (playerIndex === 0) {
-      setLifeLogsPlayerOne([...lifeLogsPlayerOne, lifeLogsPlayerOne[lifeLogsPlayerOne.length - 1] + tempCounter])
+      setLifeLogsPlayerOne([...lifeLogsPlayerOne, counter])
     }
     if (playerIndex === 1) {
-      setLifeLogsPlayerTwo([...lifeLogsPlayerTwo, lifeLogsPlayerTwo[lifeLogsPlayerTwo.length - 1] + tempCounter])
+      setLifeLogsPlayerTwo([...lifeLogsPlayerTwo, counter])
     }
   }, [showTempCounter])
 
