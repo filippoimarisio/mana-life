@@ -25,56 +25,68 @@ export default function PlayerMenuMana({}) {
 
   const ManaCounter = ({manaColor}) => {
     return (
-      <View style={[styles.manaCounter]}>
+      <View style={[styles.manaCounter, { borderColor: colorCodes[manaColor + '_logo']}]}>
         <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.minus)} style={styles.counterButton}>
-            <Image
-              source={require('../assets/minus-logo__white.png')}
-              resizeMode = 'contain'
-              style= {{
-                height: 30,
-                width: 30,
-              }}
-            />
-          </TouchableOpacity>
-          <Text style={styles.manaCounterDigit}>{manaCounter[manaColor]}</Text>
-          <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.plus)} style={styles.counterButton}>
-            <Image
-              source={require('../assets/plus-logo__white.png')}
-              resizeMode = 'contain'
-              style= {{
-                height: 30,
-                width: 30,
-              }}
-            />
-          </TouchableOpacity>
+          <Image
+            source={require('../assets/minus-logo__white.png')}
+            resizeMode = 'contain'
+            style= {{
+              height: 25,
+              width: 25,
+            }}
+          />
+        </TouchableOpacity>
+        <Text style={styles.manaCounterDigit}>{manaCounter[manaColor]}</Text>
+        <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.plus)} style={styles.counterButton}>
+          <Image
+            source={require('../assets/plus-logo__white.png')}
+            resizeMode = 'contain'
+            style= {{
+              height: 25,
+              width: 25,
+            }}
+          />
+        </TouchableOpacity>
       </View>
     )
   }
   return (
     <View style={styles.container}>
       <View style={styles.manaList}>
-        <View style={[styles.manaElement, { backgroundColor: colorCodes['mountain'] }]}>
-          <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style={[{ height: 20, width: 20}]}/>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['mountain_logo'],}]}>
+            <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
           <ManaCounter manaColor={'mountain'}/>
         </View>
-        <View style={[styles.manaElement, { backgroundColor: colorCodes['swamp'] }]}>
-          <Image source={require('../assets/swamp-logo__colored.png')} resizeMode = 'contain' style={[{ height: 20, width: 20}]}/>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['swamp_logo'],}]}>
+            <Image source={require('../assets/swamp-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
           <ManaCounter manaColor={'swamp'}/>
         </View>
-        <View style={[styles.manaElement, { backgroundColor: colorCodes['forest'] }]}>
-          <Image source={require('../assets/forest-logo__colored.png')} resizeMode = 'contain' style={[{ height: 20, width: 20}]}/>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['forest_logo'],}]}>
+            <Image source={require('../assets/forest-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
           <ManaCounter manaColor={'forest'}/>
         </View>
-        <View style={[styles.manaElement, { backgroundColor: colorCodes['plains'] }]}>
-          <Image source={require('../assets/plains-logo__colored.png')} resizeMode = 'contain' style={[{ height: 20, width: 20}]}/>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['plains_logo'],}]}>
+            <Image source={require('../assets/plains-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
           <ManaCounter manaColor={'plains'}/>
         </View>
-        <View style={[styles.manaElement, { backgroundColor: colorCodes['island'] }]}>
-          <Image source={require('../assets/island-logo__colored.png')} resizeMode = 'contain' style={[{ height: 20, width: 20}]}/>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['island_logo'],}]}>
+            <Image source={require('../assets/island-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
           <ManaCounter manaColor={'island'}/>
         </View>
-        <View style={[styles.manaElement, { backgroundColor: colorCodes['mountain'] }]}>
-          <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style={[{ height: 20, width: 20}]}/>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['mountain_logo'],}]}>
+            <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
           <ManaCounter manaColor={'mountain'}/>
         </View>
       </View>
@@ -100,7 +112,6 @@ const styles = StyleSheet.create({
   manaList: {
     height: '100%',
     width: '80%',
-    backgroundColor: 'blue',
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap'
@@ -108,7 +119,6 @@ const styles = StyleSheet.create({
   manaElement: {
     height: '33.3%',
     width: '50%',
-    backgroundColor: 'green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
@@ -117,10 +127,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 40,
+    marginRight: 10,
+    marginLeft: 10,
+    marginBottom: 10,
+    paddingTop: 10
   },
   manaCounterDigit: {
-    fontSize: 40,
+    fontSize: 35,
     color: 'white',
     shadowColor: 'black',
     textShadowColor: 'rgba(0, 0, 0, 1)',
@@ -133,4 +149,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
+  manaLogoWrapper: {
+    borderWidth: 2,
+    borderRadius: 20,
+    padding: 5,
+    marginBottom: -18,
+    backgroundColor: 'white',
+    zIndex: 2
+  }
 });
