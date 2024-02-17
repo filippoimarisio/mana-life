@@ -20,8 +20,25 @@ export default function PlayerMenuMana({}) {
     const modifier = operation === Operations.plus ? 1 : -1;
     const counterObject = {...manaCounter, [mana]: manaCounter[mana] + modifier};
     setManaCounter(counterObject);
-}
+  }
 
+  const handleWubrgInteraction = (operation: ValueOf<typeof Operations>) => {
+    const updatedCounterObject = {...manaCounter};
+
+    // Define which mana colors should be updated and which should be skipped
+    const colorsToUpdate = Object.keys(updatedCounterObject).filter(color => color !== 'colorless');
+
+    // Update each mana color based on the operation
+    colorsToUpdate.forEach(color => {
+        if (operation === Operations.plus) {
+            updatedCounterObject[color]++;
+        } else {
+            updatedCounterObject[color]--;
+        }
+    });
+
+    setManaCounter(updatedCounterObject);
+}
 
   const ManaCounter = ({manaColor}) => {
     return (
@@ -38,6 +55,34 @@ export default function PlayerMenuMana({}) {
         </TouchableOpacity>
         <Text style={styles.manaCounterDigit}>{manaCounter[manaColor]}</Text>
         <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.plus)} style={styles.counterButton}>
+          <Image
+            source={require('../assets/plus-logo__white.png')}
+            resizeMode = 'contain'
+            style= {{
+              height: 25,
+              width: 25,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  const Wubrg = () => {
+    return (
+      <View style={styles.wubrg}>
+        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.minus)} style={styles.counterButton}>
+          <Image
+            source={require('../assets/minus-logo__white.png')}
+            resizeMode = 'contain'
+            style= {{
+              height: 25,
+              width: 25,
+            }}
+          />
+        </TouchableOpacity>
+        <Image source={require('../assets/color-pie.png')} resizeMode = 'contain' style={[{ height: 60, width: 60}]}/>
+        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.plus)} style={styles.counterButton}>
           <Image
             source={require('../assets/plus-logo__white.png')}
             resizeMode = 'contain'
@@ -90,7 +135,12 @@ export default function PlayerMenuMana({}) {
           <ManaCounter manaColor={'mountain'}/>
         </View>
       </View>
-      <View style={styles.wubrg}></View>
+      <View style={styles.auxiliary}>
+        <Wubrg/>
+        <View style={styles.reset}>
+          <Image source={require('../assets/restart.png')} resizeMode = 'contain' style={[{ tintColor: 'white', height: 40, width: 40}]}/>
+        </View>
+      </View>
     </View>
   );
 }
@@ -104,10 +154,12 @@ const styles = StyleSheet.create({
     height: '100%',
     flexDirection: 'row',
   },
-  wubrg: {
+  auxiliary: {
     width: '20%',
-    backgroundColor: 'yellow',
     height: '100%',
+    borderLeftWidth: 1,
+    borderLeftColor: 'white',
+    marginLeft: 20
   },
   manaList: {
     height: '100%',
@@ -156,5 +208,16 @@ const styles = StyleSheet.create({
     marginBottom: -18,
     backgroundColor: 'white',
     zIndex: 2
+  },
+  wubrg: {
+    alignItems: 'center',
+    height: '50%'
+  },
+  reset: {
+    height: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 20
   }
 });
