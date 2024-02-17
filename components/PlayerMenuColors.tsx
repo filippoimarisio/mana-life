@@ -1,14 +1,6 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
-
-export enum Colors {
-  mountain = 'mountain',
-  swamp = 'swamp',
-  forest = 'forest',
-  plains = 'plains',
-  island = 'island'
-}
-
+import {Mana} from '../utils'
 
 export default function PlayerMenuColors({handleOnSelectColor, selectedColors}) {
 
@@ -17,34 +9,34 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors}) 
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.forest)} style={styles.row_topLeft}>
-          {selectedColors.includes(Colors.forest) ? 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.forest)} style={styles.row_topLeft}>
+          {selectedColors.includes(Mana.forest) ? 
             <Image source={require('../assets/forest-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
             <Image source={require('../assets/forest-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
           }
         </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.island)}>
-          {selectedColors.includes(Colors.island) ? 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.island)}>
+          {selectedColors.includes(Mana.island) ? 
             <Image source={require('../assets/island-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
             <Image source={require('../assets/island-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
           }
         </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.plains)} style={styles.row_topRight}>
-          {selectedColors.includes(Colors.plains) ? 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.plains)} style={styles.row_topRight}>
+          {selectedColors.includes(Mana.plains) ? 
             <Image source={require('../assets/plains-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
             <Image source={require('../assets/plains-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
           }
         </TouchableOpacity> 
       </View>
       <View style={styles.row}>
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.mountain)}>
-          {selectedColors.includes(Colors.mountain) ? 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.mountain)}>
+          {selectedColors.includes(Mana.mountain) ? 
             <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
             <Image source={require('../assets/mountain-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
           }
         </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Colors.swamp)}>
-          {selectedColors.includes(Colors.swamp) ? 
+        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.swamp)}>
+          {selectedColors.includes(Mana.swamp) ? 
             <Image source={require('../assets/swamp-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
             <Image source={require('../assets/swamp-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
           }

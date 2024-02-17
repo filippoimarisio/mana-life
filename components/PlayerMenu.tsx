@@ -2,6 +2,7 @@ import { StyleSheet, Image, View, TouchableOpacity } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import PlayerMenuColors from './PlayerMenuColors';
 import PlayerMenuLifeLogs from './PlayerMenuLifeLogs';
+import PlayerMenuMana from './PlayerMenuMana';
 
 export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex}) {
 
@@ -9,7 +10,8 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
-    lifeLogs = 'lifeLogs'
+    lifeLogs = 'lifeLogs',
+    manaCount = 'manaCount'
   }
 
   type ValueOf<T> = T[keyof T];
@@ -35,7 +37,9 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
           </TouchableOpacity> 
         </View>
         <View style={styles.menuItems_row}>
-          <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/></TouchableOpacity> 
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)}>
+            <Image source={require(`../assets/color-pie.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'red'}}/>
+          </TouchableOpacity> 
           <TouchableOpacity><Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/></TouchableOpacity> 
         </View>
       </View>
@@ -50,6 +54,9 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
         }
         { selectedMenu === MenuItemsEnum.lifeLogs && 
         <PlayerMenuLifeLogs playerIndex={playerIndex}/>
+        }
+        { selectedMenu === MenuItemsEnum.manaCount && 
+        <PlayerMenuMana />
         }
       </View>
     )

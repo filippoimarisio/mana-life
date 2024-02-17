@@ -1,29 +1,17 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
-import {Colors} from'./PlayerMenuColors';
+import {Mana} from'../utils';
 import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../App';
+import {colorCodes} from '../utils'
+
+export enum Operations {
+  plus = 'plus',
+  minus = 'minus'
+}
 
 export default function Player({playerIndex, counter, setCounter}) {
-
-  enum Operations {
-    plus = 'plus',
-    minus = 'minus'
-  }
-
-  const colorCodes = {
-    mountain: 'rgb(235, 159, 130)',
-    mountain_logo: 'rgb(211, 32, 42)',
-    swamp: 'rgb(166,159,157)',
-    swamp_logo: 'rgb(21,11,0)',
-    forest: 'rgb(196,211,202)',
-    forest_logo: 'rgb(0, 115, 62)',
-    plains: 'rgb(248,231,185)',
-    plains_logo: 'rgb(249, 250, 244)',
-    island: 'rgb(179, 206, 234)',
-    island_logo: 'rgb(14, 104, 171)',
-  }
 
   type ValueOf<T> = T[keyof T];
 
@@ -35,7 +23,7 @@ export default function Player({playerIndex, counter, setCounter}) {
 
   const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useContext(Context)
 
-  const handleOnSelectColor = (color: ValueOf<typeof Colors>) => {
+  const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
       return
