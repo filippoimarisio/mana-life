@@ -16,6 +16,17 @@ export default function PlayerMenuMana({}) {
     colorless: 0
   });
 
+  const resetCounters = () => {
+    setManaCounter({
+      mountain: 0,
+      swamp: 0,
+      forest: 0,
+      plains: 0,
+      island: 0,
+      colorless: 0
+    })
+  }
+
   const handleCounterInteraction = (mana: ValueOf<typeof Mana>, operation: ValueOf<typeof Operations>) => {
     const modifier = operation === Operations.plus ? 1 : -1;
     const counterObject = {...manaCounter, [mana]: manaCounter[mana] + modifier};
@@ -81,7 +92,7 @@ export default function PlayerMenuMana({}) {
             }}
           />
         </TouchableOpacity>
-        <Image source={require('../assets/color-pie.png')} resizeMode = 'contain' style={[{ height: 60, width: 60}]}/>
+        <Image source={require('../assets/wubrg_compact.png')} resizeMode = 'contain' style={[{ height: 55, width: 55}]}/>
         <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.plus)} style={styles.counterButton}>
           <Image
             source={require('../assets/plus-logo__white.png')}
@@ -99,46 +110,48 @@ export default function PlayerMenuMana({}) {
     <View style={styles.container}>
       <View style={styles.manaList}>
         <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['mountain_logo'],}]}>
-            <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'mountain'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['swamp_logo'],}]}>
-            <Image source={require('../assets/swamp-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'swamp'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['forest_logo'],}]}>
-            <Image source={require('../assets/forest-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'forest'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['plains_logo'],}]}>
-            <Image source={require('../assets/plains-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          <View style={[styles.manaLogoWrapper]}>
+            <Image source={require('../assets/plains-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
           </View>
           <ManaCounter manaColor={'plains'}/>
         </View>
         <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['island_logo'],}]}>
-            <Image source={require('../assets/island-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          <View style={[styles.manaLogoWrapper]}>
+            <Image source={require('../assets/island-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
           </View>
           <ManaCounter manaColor={'island'}/>
         </View>
         <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper, {borderColor: colorCodes['mountain_logo'],}]}>
-            <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          <View style={[styles.manaLogoWrapper]}>
+            <Image source={require('../assets/mountain-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
           </View>
           <ManaCounter manaColor={'mountain'}/>
+        </View>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper]}>
+            <Image source={require('../assets/swamp-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
+          <ManaCounter manaColor={'swamp'}/>
+        </View>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper]}>
+            <Image source={require('../assets/forest-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
+          <ManaCounter manaColor={'forest'}/>
+        </View>
+        <View style={[styles.manaElement]}>
+          <View style={[styles.manaLogoWrapper]}>
+            <Image source={require('../assets/colorless-logo.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
+          </View>
+          <ManaCounter manaColor={'colorless'}/>
         </View>
       </View>
       <View style={styles.auxiliary}>
         <Wubrg/>
         <View style={styles.reset}>
+        <TouchableOpacity onPress={()=>resetCounters()}>
           <Image source={require('../assets/restart.png')} resizeMode = 'contain' style={[{ tintColor: 'white', height: 40, width: 40}]}/>
+        </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -202,11 +215,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   manaLogoWrapper: {
-    borderWidth: 2,
-    borderRadius: 20,
-    padding: 5,
-    marginBottom: -18,
-    backgroundColor: 'white',
+    marginBottom: -12,
     zIndex: 2
   },
   wubrg: {
