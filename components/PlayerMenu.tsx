@@ -7,10 +7,9 @@ import {Context} from '../App';
 import {CounterTypes} from '../utils'
 import PlayerMenuCounters from './PlayerMenuCounters'
 
-export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex, poisonCounter, edhCounter, stormCounter, lifeCounter, setCurrentCounterType, currentCounterType}) {
+export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex, poisonCounter, edhCounter, stormCounter, lifeCounter, setCurrentCounterType, currentCounterType, selectedCounterTypes, setSelectedCounterTypes}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
-  const [selectedCounterTypes] = useContext(Context)
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
@@ -59,7 +58,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
         { selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>}
         { selectedMenu === MenuItemsEnum.lifeLogs && <PlayerMenuLifeLogs playerIndex={playerIndex}/>}
         { selectedMenu === MenuItemsEnum.manaCount && <PlayerMenuMana /> }
-        { selectedMenu === MenuItemsEnum.counterTypes && <PlayerMenuCounters /> }
+        { selectedMenu === MenuItemsEnum.counterTypes && <PlayerMenuCounters selectedCounterTypes={selectedCounterTypes} setSelectedCounterTypes={setSelectedCounterTypes}/> }
       </View>
     )
   }

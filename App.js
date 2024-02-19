@@ -17,14 +17,18 @@ export default function App() {
 
   // Sets intial life total
   useEffect(()=>{
-    resetPlayersLife()
+    setInitialPlayersLife()
   }, [])
 
-  const resetPlayersLife = () => {
+  const setInitialPlayersLife = () => {
     setLifeLogsPlayerOne([initialLifeTotal])
     setLifeLogsPlayerTwo([initialLifeTotal])
     setCounterPlayerOne(initialLifeTotal)
     setCounterPlayerTwo(initialLifeTotal)
+  }
+
+  const resetPlayersLife = () => {
+    setInitialPlayersLife()
     setResetTrigger(true)
   }
 
@@ -32,13 +36,13 @@ export default function App() {
     <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger]}>
       <View style={styles.container}>
         <View style={[styles.playerContainer, styles.down]}>
-          <Player playerIndex={0} counter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
+          <Player playerIndex={0} lifeCounter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
         </View>
         <View style={{height: 30, width: '100%'}}>
           <MainMenu resetPlayersLife={resetPlayersLife}/>
         </View>
         <View style={[styles.playerContainer]}>
-          <Player playerIndex={1} counter={counterPlayerTwo} setCounter={setCounterPlayerTwo}/>
+          <Player playerIndex={1} lifeCounter={counterPlayerTwo} setCounter={setCounterPlayerTwo}/>
         </View>
       </View>
     </Context.Provider>

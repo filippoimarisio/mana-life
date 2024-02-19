@@ -11,7 +11,7 @@ export enum Operations {
   minus = 'minus'
 }
 
-export default function Player({playerIndex, counter, setCounter}) {
+export default function Player({playerIndex, lifeCounter, setCounter}) {
 
   type ValueOf<T> = T[keyof T];
 
@@ -58,10 +58,10 @@ export default function Player({playerIndex, counter, setCounter}) {
   useEffect(() => {
     if (currentCounterType !== CounterTypes.life || showTempCounter || tempCounter === 0) return
     if (playerIndex === 0) {
-      setLifeLogsPlayerOne([...lifeLogsPlayerOne, counter])
+      setLifeLogsPlayerOne([...lifeLogsPlayerOne, lifeCounter])
     }
     if (playerIndex === 1) {
-      setLifeLogsPlayerTwo([...lifeLogsPlayerTwo, counter])
+      setLifeLogsPlayerTwo([...lifeLogsPlayerTwo, lifeCounter])
     }
   }, [showTempCounter])
 
@@ -69,7 +69,7 @@ export default function Player({playerIndex, counter, setCounter}) {
     if (tempCounter !== 0) setTempCounter(0)
   }, [logs])
 
-  // Resets the temp counter when changing counter type
+  // Resets the temp lifeCounter when changing lifeCounter type
   useEffect(() => {
     if (tempCounter !== 0) setTempCounter(0)
     if (showTempCounter) setShowTempCounter(false)
@@ -100,7 +100,7 @@ export default function Player({playerIndex, counter, setCounter}) {
 
     switch (currentCounterType) {
       case CounterTypes.life: {
-        setCounter(counter + increment)
+        setCounter(lifeCounter + increment)
         return 
       }
       case CounterTypes.poison: {
@@ -115,7 +115,10 @@ export default function Player({playerIndex, counter, setCounter}) {
         setStormCounter(stormCounter + increment)
         return 
       }
-      default: return counter
+      default: {
+        setCounter(lifeCounter + increment)
+        return
+      }
     }
   }
 
@@ -139,11 +142,11 @@ export default function Player({playerIndex, counter, setCounter}) {
 
   const currentCounter = () => {
     switch (currentCounterType) {
-      case CounterTypes.life: return counter
+      case CounterTypes.life: return lifeCounter
       case CounterTypes.poison: return poisonCounter
       case CounterTypes.edh: return edhCounter
       case CounterTypes.storm: return stormCounter
-      default: return counter
+      default: return lifeCounter
     }
   }
 
@@ -153,12 +156,11 @@ export default function Player({playerIndex, counter, setCounter}) {
       case CounterTypes.poison: return <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
       case CounterTypes.edh: return <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
       case CounterTypes.storm: return <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
-      default: return counter
+      default: return <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
     }
   }
 
   return (
-    <Context.Provider value={[selectedCounterTypes, setSelectedCounterTypes, currentCounterType]}>
       <View style={[styles.container]}>
         <LinearGradient
           style={[styles.container, {flex: 1}]}
@@ -170,7 +172,7 @@ export default function Player({playerIndex, counter, setCounter}) {
             <View style={[styles.mainCounterLogo, isMenuOpen && styles.hide]}>
               <MainCounterLogo />
             </View>
-            <View style={[styles.counter, isMenuOpen && styles.hide]}>
+            <View style={[styles.lifeCounter, isMenuOpen && styles.hide]}>
               <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
                 <Image
                   source={require('../assets/minus-logo__white.png')}
@@ -207,14 +209,15 @@ export default function Player({playerIndex, counter, setCounter}) {
               poisonCounter={poisonCounter}
               edhCounter={edhCounter}
               stormCounter={stormCounter}
-              lifeCounter={counter}
+              lifeCounter={lifeCounter}
               setCurrentCounterType={setCurrentCounterType}
               currentCounterType={currentCounterType}
+              selectedCounterTypes={selectedCounterTypes}
+              setSelectedCounterTypes={setSelectedCounterTypes}
             />
           </View>
         </LinearGradient>
       </View>
-    </Context.Provider>
   );
 }
 
@@ -233,7 +236,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems:'center',
   },
-  counter: {
+  lifeCounter: {
     flexDirection: 'row',
     flex: 1,
     alignItems: 'center',

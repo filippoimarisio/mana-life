@@ -3,10 +3,9 @@ import React, {useState, useContext} from 'react';
 import {CounterTypes} from '../utils'
 import {Context} from '../App';
 
-export default function PlayerMenuCounters() {
+export default function PlayerMenuCounters({selectedCounterTypes, setSelectedCounterTypes}) {
 
   type ValueOf<T> = T[keyof T];
-  const [selectedCounterTypes, setSelectedCounterTypes] = useContext(Context)
 
   const onSelectCounter = (counterType: ValueOf<typeof CounterTypes>) => {
     if(selectedCounterTypes.includes(counterType)) setSelectedCounterTypes([...selectedCounterTypes.filter(type=>type !== counterType)])
