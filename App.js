@@ -31,6 +31,7 @@ export default function App() {
   const resetPlayersLife = () => {
     setInitialPlayersLife()
     setResetTrigger(true)
+    showMainMenu && setShowMainMenu(false)
   }
 
   return (
@@ -46,7 +47,7 @@ export default function App() {
           <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide}>
             <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30}}/>
           </TouchableOpacity>
-          { showMainMenu && <MainMenu setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu}/>}
+          { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu}/>}
         </View>
       </View>
     </Context.Provider>
@@ -59,7 +60,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    position: 'relative'
+    position: 'relative',
+    borderWidth: 1
   },
   playerContainer: {
     flex: 1,

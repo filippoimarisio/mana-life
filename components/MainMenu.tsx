@@ -1,14 +1,28 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
+import {privacyStatement} from '../utils'
 
 export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu}) {
 
   enum Options {
+    reset = 'reset',
     dices = 'dices',
-    startingLife = 'startingLife'
+    startingLife = 'startingLife',
+    legal = 'legal'
   }
 
   const [selectedOption, setSelectedOption] = useState('')
+
+  const Restart = () => {
+    return (
+    <View style={styles.reset}>
+      <Text style={{color: 'white', fontSize: 25, marginBottom: '20%'}}>Restart a new match?</Text>
+      <TouchableOpacity onPress={()=>resetPlayersLife()}>
+        <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
+      </TouchableOpacity>
+    </View>
+    )
+  }
 
   const DiceImages = [
     require('../assets/dice-1-outline.png'),
@@ -18,7 +32,6 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     require('../assets/dice-5-outline.png'),
     require('../assets/dice-6-outline.png')
   ];
-
 
   const DiceRoller = () => {
     const [diceIndex, setDiceIndex] = useState(5);
@@ -62,7 +75,15 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         </TouchableOpacity>
         </View>
     );
-  };
+  }
+
+  const Legal = () => {
+    return (
+      <View style={styles.legal}>
+        <Text style={{color: 'white'}}>{privacyStatement}</Text>
+      </View>
+    )
+  }
 
 
   return (
@@ -73,7 +94,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         </TouchableOpacity>
       </View>
       <View style={[styles.options, {borderBottomWidth: 2}]}>
-        <TouchableOpacity onPress={()=>resetPlayersLife()}>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
@@ -82,12 +103,14 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         <TouchableOpacity onPress={()=>resetPlayersLife()}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>resetPlayersLife()}>
-          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
+          <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
+        {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
+        {selectedOption === Options.legal && <Legal />}
       </View>
     </View>
   );
@@ -117,11 +140,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     borderBottomColor: 'white',
+    marginBottom: 10
   },
   content: {
     height: '70%'
   },
   dices: {
+    display: 'flex',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  legal: {
+    height: '100%'
+  },
+  reset: {
     display: 'flex',
     height: '100%',
     alignItems: 'center',

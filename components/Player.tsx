@@ -122,6 +122,13 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
     }
   }
 
+  // Assigns random colors on load and handles selected ones
+  useEffect(() => {
+    const startingColors = getDefaultBackgroundColors()
+    console.log('startingColors', startingColors)
+    setSelectedColors(startingColors)
+  }, [])
+
   const getColorCode = (color: string): string => {
     if (color === 'mountain') return colorCodes.mountain_logo
     if (color === 'plains') return colorCodes.plains
@@ -136,12 +143,12 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
       case 1: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
       case 2: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1])]
       case 3: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1]), getColorCode(selectedColors[2])]
-      default: return getDefaultBackgroundColors()
+      default: return [colorCodes.forest_logo, colorCodes.forest_logo]
     }
   }
 
   const getRandomColor = (excludeColors: string[] = []): string => {
-    const colors = ['mountain', 'plains', 'island', 'forest', 'swamp'];
+    const colors = ['mountain', 'plains', 'island', 'forest', 'swamp']
     const availableColors = colors.filter(color => !excludeColors.includes(color));
     const randomIndex = Math.floor(Math.random() * availableColors.length);
     return availableColors[randomIndex];
@@ -158,7 +165,7 @@ const getDefaultBackgroundColors = (): string[] => {
     } else {
         selectedColors = [getRandomColor(), getRandomColor()];
     }
-    return selectedColors.map(getColorCode);
+    return selectedColors;
 };
 
   const currentCounter = () => {
