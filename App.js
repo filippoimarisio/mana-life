@@ -12,8 +12,7 @@ export default function App() {
   const [lifeLogsPlayerOne, setLifeLogsPlayerOne] = useState([])
   const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
   const [resetTrigger, setResetTrigger] = useState(false)
-
-  const initialLifeTotal = 20
+  const [initialLifeTotal, setInitialLifeTotal] = useState(20)
 
   // Sets intial life totale
   useEffect(()=>{
@@ -46,7 +45,7 @@ export default function App() {
           <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide}>
             <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30}}/>
           </TouchableOpacity>
-          { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu}/>}
+          { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu} initialLifeTotal={initialLifeTotal} setInitialLifeTotal={setInitialLifeTotal}/>}
         </View>
       </View>
     </Context.Provider>

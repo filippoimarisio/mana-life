@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView, TextInput } from 'react-native';
 import {privacyStatement} from '../utils'
 
-export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu}) {
+export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal}) {
 
   enum Options {
     reset = 'reset',
     dices = 'dices',
-    startingLife = 'startingLife',
+    initialLife = 'initialLife',
     legal = 'legal'
   }
 
@@ -85,6 +85,28 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     )
   }
 
+  const InitialLife = () => {
+    return (
+      <View style={styles.initialLife}>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(20)}>
+          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 20 && styles.selectedValue]}>
+            <Text style={[styles.initialLifeValue, initialLifeTotal === 20 && styles.selectedValue]}>20</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(30)}>
+          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 30 && styles.selectedValue]}>
+            <Text style={[styles.initialLifeValue, initialLifeTotal === 30 && styles.selectedValue]}>30</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(40)}>
+          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 40 && styles.selectedValue]}>
+            <Text style={[styles.initialLifeValue, initialLifeTotal === 40 && styles.selectedValue]}>40</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
 
   return (
     <View style={styles.container}>
@@ -100,8 +122,8 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>resetPlayersLife()}>
-          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.initialLife)}>
+          <Image source={require(`../assets/heart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
           <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
@@ -111,6 +133,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
+        {selectedOption === Options.initialLife && <InitialLife />}
       </View>
     </View>
   );
@@ -161,5 +184,32 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  initialLife: {
+    height: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'column',
+  },
+  initialLifeValue: {
+    fontSize: 60,
+    color: 'gray',
+  },
+  initialLifeValueWrapper: {
+    padding: 5,
+    width: 130,
+    height: 130,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'gray',
+    borderWidth: 4,
+    borderRadius: 20,
+  },
+  selectedValue: {
+    borderColor: 'white',
+    color: 'white'
   }
 });
