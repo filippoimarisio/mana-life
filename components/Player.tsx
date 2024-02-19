@@ -136,9 +136,34 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
       case 1: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
       case 2: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1])]
       case 3: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1]), getColorCode(selectedColors[2])]
-      default: return [colorCodes.swamp_logo, colorCodes.mountain_logo]
+      default: return getDefaultBackgroundColors()
     }
   }
+
+  const getRandomColor = (excludeColors: string[] = []): string => {
+    const colors = ['mountain', 'plains', 'island', 'forest', 'swamp'];
+    const availableColors = colors.filter(color => !excludeColors.includes(color));
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    return availableColors[randomIndex];
+  };
+
+  const getRandomColors = (): string[] => {
+    const selectedColors: string[] = []; 
+    const numColors = Math.floor(Math.random() * 2) + 2;
+    for (let i = 0; i < numColors; i++) {
+        if (i === 2) {
+            selectedColors.push(getRandomColor(selectedColors.slice(0, 2)));
+        } else {
+            selectedColors.push(getRandomColor());
+        }
+    }
+    return selectedColors;
+  };
+
+  const getDefaultBackgroundColors = (): string[] => {
+      const selectedColors = getRandomColors();
+      return selectedColors.map(getColorCode);
+  };
 
   const currentCounter = () => {
     switch (currentCounterType) {
