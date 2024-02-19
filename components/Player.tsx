@@ -147,6 +147,16 @@ export default function Player({playerIndex, counter, setCounter}) {
     }
   }
 
+  const MainCounterLogo = () => {
+    switch (currentCounterType) {
+      case CounterTypes.life: return <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
+      case CounterTypes.poison: return <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
+      case CounterTypes.edh: return <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
+      case CounterTypes.storm: return <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
+      default: return counter
+    }
+  }
+
   return (
     <Context.Provider value={[selectedCounterTypes, setSelectedCounterTypes, currentCounterType]}>
       <View style={[styles.container]}>
@@ -156,31 +166,36 @@ export default function Player({playerIndex, counter, setCounter}) {
           start={{x: 0, y: 1}}
           end={{x: 1, y: 0}}
         >
-          <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
-            <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
-          </View>
-          <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
-            <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
-              <Image
-                source={require('../assets/minus-logo__white.png')}
-                resizeMode = 'contain'
-                style= {{
-                  height: 40,
-                  width: 40,
-                }}
-              />
-            </TouchableOpacity>
-            <Text style={styles.counterAmount}>{currentCounter()}</Text>
-            <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
-              <Image
-                source={require('../assets/plus-logo__white.png')}
-                resizeMode = 'contain'
-                style= {{
-                  height: 40,
-                  width: 40,
-                }}
-              />
-            </TouchableOpacity>
+          <View style={styles.mainCounter}>
+            <View style={[styles.mainCounterLogo, isMenuOpen && styles.hide]}>
+              <MainCounterLogo />
+            </View>
+            <View style={[styles.counter, isMenuOpen && styles.hide]}>
+              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
+                <Image
+                  source={require('../assets/minus-logo__white.png')}
+                  resizeMode = 'contain'
+                  style= {{
+                    height: 40,
+                    width: 40,
+                  }}
+                />
+              </TouchableOpacity>
+              <Text style={styles.counterAmount}>{currentCounter()}</Text>
+              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
+                <Image
+                  source={require('../assets/plus-logo__white.png')}
+                  resizeMode = 'contain'
+                  style= {{
+                    height: 40,
+                    width: 40,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
+              <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
+            </View>
           </View>
           <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
             <PlayerMenu 
@@ -209,11 +224,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+    height: '100%',
     position: 'relative',
+  },
+  mainCounter: {
+    marginTop: '30%',
+    marginBottom: '5%',
+    display: 'flex',
+    alignItems:'center',
   },
   counter: {
     flexDirection: 'row',
-    marginBottom: 80,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '100%',
   },
   hide: {
     display: 'none'
@@ -224,7 +250,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
+    textShadowRadius: 10,
   },
   counterButton: {
     height: '100%',
@@ -235,7 +261,7 @@ const styles = StyleSheet.create({
   tempCounterWrapper: {
     flexDirection: 'row',
     height: 60,
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
   },
   tempCounter: {
     fontSize: 30,
@@ -246,12 +272,14 @@ const styles = StyleSheet.create({
   },
   playerMenu: {
     position: 'absolute',
-    bottom: 0,
+    top: 0,
     right: 0,
     left: 0,
   },
   playerMenu_expanded: {
-    top: 0,
-    height: '100%',
+    bottom: 0,
   },
+  mainCounterLogo: {
+    marginBottom: '-10%'
+  }
 });

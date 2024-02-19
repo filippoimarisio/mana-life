@@ -31,13 +31,15 @@ export default function App() {
   return (
     <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger]}>
       <View style={styles.container}>
-        <View style={[styles.container, styles.down]}>
+        <View style={[styles.playerContainer, styles.down]}>
           <Player playerIndex={0} counter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
         </View>
         <View style={{height: 30, width: '100%'}}>
           <MainMenu resetPlayersLife={resetPlayersLife}/>
         </View>
-        <Player playerIndex={1} counter={counterPlayerTwo} setCounter={setCounterPlayerTwo}/>
+        <View style={[styles.playerContainer]}>
+          <Player playerIndex={1} counter={counterPlayerTwo} setCounter={setCounterPlayerTwo}/>
+        </View>
       </View>
     </Context.Provider>
   );
@@ -46,10 +48,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+  },
+  playerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%'
   },
   down: {
     transform: [{ rotate: '180deg'}]
