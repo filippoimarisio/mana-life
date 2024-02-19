@@ -1,7 +1,6 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
-import React, {useState, useContext} from 'react';
+import React from 'react';
 import {CounterTypes} from '../utils'
-import {Context} from '../App';
 
 export default function PlayerMenuCounters({selectedCounterTypes, setSelectedCounterTypes}) {
 

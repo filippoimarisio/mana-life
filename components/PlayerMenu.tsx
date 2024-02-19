@@ -1,9 +1,8 @@
 import { StyleSheet, Image, View, TouchableOpacity, Text } from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import PlayerMenuColors from './PlayerMenuColors';
 import PlayerMenuLifeLogs from './PlayerMenuLifeLogs';
 import PlayerMenuMana from './PlayerMenuMana';
-import {Context} from '../App';
 import {CounterTypes} from '../utils'
 import PlayerMenuCounters from './PlayerMenuCounters'
 

@@ -2,21 +2,20 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import Player from './components/Player';
 import MainMenu from './components/MainMenu';
-
-export const Context = React.createContext([])
+import {Context} from './context'
 
 export default function App() {
 
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne] = useState([])
-  const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
   const [counterPlayerOne, setCounterPlayerOne] = useState(0)
   const [counterPlayerTwo, setCounterPlayerTwo] = useState(0)
-  const [resetTrigger, setResetTrigger] = useState(false)
   const [showMainMenu, setShowMainMenu] = useState(false)
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne] = useState([])
+  const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
+  const [resetTrigger, setResetTrigger] = useState(false)
 
   const initialLifeTotal = 20
 
-  // Sets intial life total
+  // Sets intial life totale
   useEffect(()=>{
     setInitialPlayersLife()
   }, [])
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     position: 'relative',
-    borderWidth: 1
   },
   playerContainer: {
     flex: 1,

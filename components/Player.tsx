@@ -3,13 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {CounterTypes, Mana} from'../utils';
 import {LinearGradient} from 'expo-linear-gradient';
-import {Context} from '../App';
-import {colorCodes} from '../utils'
-
-export enum Operations {
-  plus = 'plus',
-  minus = 'minus'
-}
+import {Context} from '../context';
+import {Operations, colorCodes} from '../utils'
 
 export default function Player({playerIndex, lifeCounter, setCounter}) {
 

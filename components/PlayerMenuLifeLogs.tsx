@@ -1,10 +1,10 @@
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import React, {useContext, useEffect} from 'react';
-import {Context} from '../App';
+import {Context} from '../context'
 
 export default function PlayerMenuLifeLogs({playerIndex}) {
 
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger] = useContext(Context)
+  const [lifeLogsPlayerOne, lifeLogsPlayerTwo] = useContext(Context)
   
   const playerLogs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
   const opponentLogs = playerIndex === 0 ? lifeLogsPlayerTwo : lifeLogsPlayerOne

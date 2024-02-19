@@ -1,7 +1,6 @@
 import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
-import { Mana, colorCodes } from '../utils'
-import { Operations } from './Player'
+import { Mana, colorCodes, Operations } from '../utils'
 
 export default function PlayerMenuMana({}) {
 
