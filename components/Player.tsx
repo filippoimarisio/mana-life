@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   mainCounter: {
-    marginTop: '30%',
+    marginTop: '35%',
     marginBottom: '5%',
     display: 'flex',
     alignItems:'center',
@@ -283,6 +283,6 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   mainCounterLogo: {
-    marginBottom: '-10%'
+    marginBottom: '-5%'
   }
 });

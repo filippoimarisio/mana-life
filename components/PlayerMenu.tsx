@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   },
   navbar: {
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     position: 'absolute',
     top: 0,
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     height: 70,
     marginRight: 10,
     marginLeft: 10,
+    marginTop: 30
   },
   counter: {
     display: 'flex',
