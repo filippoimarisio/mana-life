@@ -34,18 +34,18 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
       <View style={styles.menuItems__wrapper}>
         <View style={styles.menuItems_row}>
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.colorSelection)}>
-            <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'orange'}}/>
+            <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.lifeLogs)}>
-            <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: '#D2042D'}}/>
+            <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
           </TouchableOpacity> 
         </View>
         <View style={styles.menuItems_row}>
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)}>
-            <Image source={require(`../assets/wubrg_compact.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80}}/>
+            <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.counterTypes)}>
-            <Image source={require('../assets/mtg-logo.png')} resizeMode = 'contain' style= {{ height: 80, width: 80,}}/>
+            <Image source={require('../assets/counter-types-logo.png')} resizeMode = 'contain' style= {{ height: 90, width: 90, tintColor: 'white'}}/>
           </TouchableOpacity> 
         </View>
       </View>
