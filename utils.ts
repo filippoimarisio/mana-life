@@ -21,3 +21,10 @@ export const colorCodes = {
   colorless: 'rgb(215, 208, 205)',
   colorless_logo: 'rgb(215, 208, 205)'
 }
+
+export enum CounterTypes {
+  life = 'life',
+  poison = 'poison',
+  edh = 'edh',
+  storm = 'storm'
+}

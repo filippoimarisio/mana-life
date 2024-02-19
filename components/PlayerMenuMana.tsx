@@ -82,7 +82,7 @@ export default function PlayerMenuMana({}) {
   const Wubrg = () => {
     return (
       <View style={styles.wubrg}>
-        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.minus)} style={styles.counterButton}>
+        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.minus)} style={[styles.counterButton, styles.wubrgButton]}>
           <Image
             source={require('../assets/minus-logo__white.png')}
             resizeMode = 'contain'
@@ -93,7 +93,7 @@ export default function PlayerMenuMana({}) {
           />
         </TouchableOpacity>
         <Image source={require('../assets/wubrg_compact.png')} resizeMode = 'contain' style={[{ height: 55, width: 55}]}/>
-        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.plus)} style={styles.counterButton}>
+        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.plus)} style={[styles.counterButton, styles.wubrgButton]}>
           <Image
             source={require('../assets/plus-logo__white.png')}
             resizeMode = 'contain'
@@ -213,6 +213,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+  },
+  wubrgButton: {
+    height: 10,
+    width: '100%'
   },
   manaLogoWrapper: {
     marginBottom: -12,

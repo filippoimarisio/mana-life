@@ -20,7 +20,11 @@ export default function Player({playerIndex, counter, setCounter}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedColors, setSelectedColors] = useState([])
   const [counterTimeout, setCounterTimeout] = useState(null)
-
+  const [selectedCounterTypes, setSelectedCounterTypes] = useState([])
+  const [poisonCounter, setPoisonCounter] = useState(0)
+  const [edhCounter, setEdhCounter] = useState(0)
+  const [stormCounter, setStormCounter] = useState(0)
+  
   const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useContext(Context)
 
   const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
@@ -95,50 +99,56 @@ export default function Player({playerIndex, counter, setCounter}) {
   }
 
   return (
-    <View style={[styles.container]}>
-      <LinearGradient
-        style={[styles.container, {flex: 1}]}
-        colors={[...getBackgroundColors()]}
-        start={{x: 0, y: 1}}
-        end={{x: 1, y: 0}}
-      >
-        <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
-          <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
-        </View>
-        <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
-          <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
-            <Image
-              source={require('../assets/minus-logo__white.png')}
-              resizeMode = 'contain'
-              style= {{
-                height: 40,
-                width: 40,
-              }}
+    <Context.Provider value={[selectedCounterTypes, setSelectedCounterTypes]}>
+      <View style={[styles.container]}>
+        <LinearGradient
+          style={[styles.container, {flex: 1}]}
+          colors={[...getBackgroundColors()]}
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+        >
+          <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
+            <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
+          </View>
+          <View style={[styles.container, styles.counter, isMenuOpen && styles.hide]}>
+            <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
+              <Image
+                source={require('../assets/minus-logo__white.png')}
+                resizeMode = 'contain'
+                style= {{
+                  height: 40,
+                  width: 40,
+                }}
+              />
+            </TouchableOpacity>
+            <Text style={styles.counterAmount}>{counter}</Text>
+            <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
+              <Image
+                source={require('../assets/plus-logo__white.png')}
+                resizeMode = 'contain'
+                style= {{
+                  height: 40,
+                  width: 40,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
+            <PlayerMenu 
+              onBurgerMenu={onBurgerMenu} 
+              isMenuOpen={isMenuOpen}
+              handleOnSelectColor={handleOnSelectColor}
+              selectedColors={selectedColors}
+              playerIndex={playerIndex}
+              poisonCounter={poisonCounter}
+              edhCounter={edhCounter}
+              stormCounter={stormCounter}
+              lifeCounter={counter}
             />
-          </TouchableOpacity>
-          <Text style={styles.counterAmount}>{counter}</Text>
-          <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
-            <Image
-              source={require('../assets/plus-logo__white.png')}
-              resizeMode = 'contain'
-              style= {{
-                height: 40,
-                width: 40,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
-          <PlayerMenu 
-            onBurgerMenu={onBurgerMenu} 
-            isMenuOpen={isMenuOpen}
-            handleOnSelectColor={handleOnSelectColor}
-            selectedColors={selectedColors}
-            playerIndex={playerIndex}
-          />
-        </View>
-      </LinearGradient>
-    </View>
+          </View>
+        </LinearGradient>
+      </View>
+    </Context.Provider>
   );
 }
 
