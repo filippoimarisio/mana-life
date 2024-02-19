@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView } from 'react-native';
 import {privacyStatement} from '../utils'
 
 export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu}) {
@@ -11,7 +11,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     legal = 'legal'
   }
 
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState(Options.dices)
 
   const Restart = () => {
     return (
@@ -79,9 +79,9 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
 
   const Legal = () => {
     return (
-      <View style={styles.legal}>
+      <ScrollView style={styles.legal}>
         <Text style={{color: 'white'}}>{privacyStatement}</Text>
-      </View>
+      </ScrollView>
     )
   }
 
@@ -152,7 +152,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   legal: {
-    height: '100%'
+    height: '100%',
+    maxHeight: '100%',
+    overflow: 'scroll',
   },
   reset: {
     display: 'flex',

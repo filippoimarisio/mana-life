@@ -125,7 +125,6 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
   // Assigns random colors on load and handles selected ones
   useEffect(() => {
     const startingColors = getDefaultBackgroundColors()
-    console.log('startingColors', startingColors)
     setSelectedColors(startingColors)
   }, [])
 
