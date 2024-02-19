@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import PlayerMenu from './PlayerMenu';
-import {Mana} from'../utils';
+import {CounterTypes, Mana} from'../utils';
 import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../App';
 import {colorCodes} from '../utils'
@@ -21,11 +21,12 @@ export default function Player({playerIndex, counter, setCounter}) {
   const [selectedColors, setSelectedColors] = useState([])
   const [counterTimeout, setCounterTimeout] = useState(null)
   const [selectedCounterTypes, setSelectedCounterTypes] = useState([])
+  const [currentCounterType, setCurrentCounterType] = useState(CounterTypes.life)
   const [poisonCounter, setPoisonCounter] = useState(0)
   const [edhCounter, setEdhCounter] = useState(0)
   const [stormCounter, setStormCounter] = useState(0)
   
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useContext(Context)
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger] = useContext(Context)
 
   const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
     if (selectedColors.includes(color)) {
@@ -55,7 +56,7 @@ export default function Player({playerIndex, counter, setCounter}) {
 
   // Updates the current lifeTotal
   useEffect(() => {
-    if (showTempCounter || tempCounter === 0) return
+    if (currentCounterType !== CounterTypes.life || showTempCounter || tempCounter === 0) return
     if (playerIndex === 0) {
       setLifeLogsPlayerOne([...lifeLogsPlayerOne, counter])
     }
@@ -68,16 +69,54 @@ export default function Player({playerIndex, counter, setCounter}) {
     if (tempCounter !== 0) setTempCounter(0)
   }, [logs])
 
+  // Resets the temp counter when changing counter type
+  useEffect(() => {
+    if (tempCounter !== 0) setTempCounter(0)
+    if (showTempCounter) setShowTempCounter(false)
+  }, [currentCounterType])
+
+  // Resets all other counters
+  useEffect(() => {
+    if (resetTrigger) resetCounters()
+    setResetTrigger(false)
+  }, [resetTrigger])
+
+  const resetCounters = () => {
+    setPoisonCounter(0)
+    setEdhCounter(0)
+    setStormCounter(0)
+    setCurrentCounterType(CounterTypes.life)
+  }
+
   const handleCounterInteraction = (operation: ValueOf<typeof Operations>) => {
-    if (operation === Operations.plus) {
-      setCounter(counter + 1)
-      setTempCounter(tempCounter + 1)
-    }
-    if (operation === Operations.minus) {
-      setCounter(counter - 1)
-      setTempCounter(tempCounter - 1)
-    }
+    const increment = operation === Operations.plus ? 1 : -1
+    updateCorrectCounter(operation)
+    setTempCounter(tempCounter + increment)
     displayTempCounter()
+  }
+
+  const updateCorrectCounter = (operation: ValueOf<typeof Operations>) => {
+    const increment = operation === Operations.plus ? 1 : -1
+
+    switch (currentCounterType) {
+      case CounterTypes.life: {
+        setCounter(counter + increment)
+        return 
+      }
+      case CounterTypes.poison: {
+        setPoisonCounter(poisonCounter + increment)
+        return 
+      }
+      case CounterTypes.edh: {
+        setEdhCounter(edhCounter + increment)
+        return 
+      }
+      case CounterTypes.storm: {
+        setStormCounter(stormCounter + increment)
+        return 
+      }
+      default: return counter
+    }
   }
 
   const getColorCode = (color: string): string => {
@@ -98,8 +137,18 @@ export default function Player({playerIndex, counter, setCounter}) {
     }
   }
 
+  const currentCounter = () => {
+    switch (currentCounterType) {
+      case CounterTypes.life: return counter
+      case CounterTypes.poison: return poisonCounter
+      case CounterTypes.edh: return edhCounter
+      case CounterTypes.storm: return stormCounter
+      default: return counter
+    }
+  }
+
   return (
-    <Context.Provider value={[selectedCounterTypes, setSelectedCounterTypes]}>
+    <Context.Provider value={[selectedCounterTypes, setSelectedCounterTypes, currentCounterType]}>
       <View style={[styles.container]}>
         <LinearGradient
           style={[styles.container, {flex: 1}]}
@@ -121,7 +170,7 @@ export default function Player({playerIndex, counter, setCounter}) {
                 }}
               />
             </TouchableOpacity>
-            <Text style={styles.counterAmount}>{counter}</Text>
+            <Text style={styles.counterAmount}>{currentCounter()}</Text>
             <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
               <Image
                 source={require('../assets/plus-logo__white.png')}
@@ -144,6 +193,8 @@ export default function Player({playerIndex, counter, setCounter}) {
               edhCounter={edhCounter}
               stormCounter={stormCounter}
               lifeCounter={counter}
+              setCurrentCounterType={setCurrentCounterType}
+              currentCounterType={currentCounterType}
             />
           </View>
         </LinearGradient>

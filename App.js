@@ -11,6 +11,7 @@ export default function App() {
   const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
   const [counterPlayerOne, setCounterPlayerOne] = useState(0)
   const [counterPlayerTwo, setCounterPlayerTwo] = useState(0)
+  const [resetTrigger, setResetTrigger] = useState(false)
 
   const initialLifeTotal = 20
 
@@ -24,10 +25,11 @@ export default function App() {
     setLifeLogsPlayerTwo([initialLifeTotal])
     setCounterPlayerOne(initialLifeTotal)
     setCounterPlayerTwo(initialLifeTotal)
+    setResetTrigger(true)
   }
 
   return (
-    <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo]}>
+    <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger]}>
       <View style={styles.container}>
         <View style={[styles.container, styles.down]}>
           <Player playerIndex={0} counter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
