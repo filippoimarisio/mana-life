@@ -75,7 +75,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
     <View style={styles.container}>
       <View style={[styles.wrapper, isMenuOpen ? styles.wrapper__darker : undefined]}>
         <View style={styles.navbar}>
-          { selectedMenu ? <TouchableOpacity onPress={()=> setSelectedMenu('')} style={{marginBottom: 4}}>
+          { selectedMenu ? <TouchableOpacity onPress={()=> setSelectedMenu('')} style={styles.backArrow}>
             <Image
               source={require('../assets/arrow-left__white.png')}
               resizeMode = 'contain'
@@ -84,32 +84,32 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
                 width: 40,
               }}
             />
-          </TouchableOpacity> : <View style={{height: 40, width: 40}}></View> }
-          { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={isMenuOpen && styles.hide}>
+          </TouchableOpacity> : <View style={{height: 40, width: 40, flex: 1}}></View> }
+          { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: 'gray', borderLeftWidth: 1}]}>
             <View style={styles.counter}>
               <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{height: 20,width: 20, tintColor: tintColor(CounterTypes.life)}}/>
               <Text style={[styles.counterAmount, {color: tintColor(CounterTypes.life)}]}>{lifeCounter}</Text>
             </View>
           </TouchableOpacity> }
-          { selectedCounterTypes.includes(CounterTypes.poison) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.poison)} style={isMenuOpen && styles.hide}>
+          { selectedCounterTypes.includes(CounterTypes.poison) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.poison)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide]}>
             <View style={styles.counter}>
               <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{height: 20,width: 20, tintColor: tintColor(CounterTypes.poison)}}/>
               <Text style={[styles.counterAmount, {color: tintColor(CounterTypes.poison)}]}>{poisonCounter}</Text>
             </View>
           </TouchableOpacity>}
-          { selectedCounterTypes.includes(CounterTypes.edh) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.edh)} style={isMenuOpen && styles.hide}>
+          { selectedCounterTypes.includes(CounterTypes.edh) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.edh)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide]}>
             <View style={styles.counter}>
               <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{height: 20,width: 20, tintColor: tintColor(CounterTypes.edh)}}/>
               <Text style={[styles.counterAmount, {color: tintColor(CounterTypes.edh)}]}>{edhCounter}</Text>
             </View>
           </TouchableOpacity>}
-          { selectedCounterTypes.includes(CounterTypes.storm) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.storm)} style={isMenuOpen && styles.hide}>
+          { selectedCounterTypes.includes(CounterTypes.storm) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.storm)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide]}>
             <View style={styles.counter}>
               <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{height: 20,width: 20, tintColor: tintColor(CounterTypes.storm)}}/>
               <Text style={[styles.counterAmount, {color: tintColor(CounterTypes.storm)}]}>{stormCounter}</Text>
             </View>
           </TouchableOpacity> }
-          <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: 4}}>
+          <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: 4, flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
             <Image
               source={require('../assets/burger-menu__white.png')}
               resizeMode = 'contain'
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    height: '80%',
+    height: '85%',
   },
   menuItems__wrapper: {
     height: '100%',
@@ -201,7 +201,17 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10
   },
+  extraCounter: {
+    borderRightColor: 'gray',
+    borderRightWidth: 1,
+    flex: 1
+  },
   hide: {
     display: 'none'
+  },
+  backArrow: {
+    flex: 1,
+    marginBottom: 4,
+    alignItems: 'flex-start'
   }
 });
