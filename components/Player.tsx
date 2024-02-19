@@ -145,25 +145,21 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
     const availableColors = colors.filter(color => !excludeColors.includes(color));
     const randomIndex = Math.floor(Math.random() * availableColors.length);
     return availableColors[randomIndex];
-  };
+};
 
-  const getRandomColors = (): string[] => {
-    const selectedColors: string[] = []; 
-    const numColors = Math.floor(Math.random() * 2) + 2;
-    for (let i = 0; i < numColors; i++) {
-        if (i === 2) {
-            selectedColors.push(getRandomColor(selectedColors.slice(0, 2)));
-        } else {
-            selectedColors.push(getRandomColor());
-        }
+const getDefaultBackgroundColors = (): string[] => {
+    let selectedColors: string[];
+    const numColors = Math.floor(Math.random() * 2) + 2
+    if (numColors === 3) {
+        selectedColors = []
+        selectedColors.push(getRandomColor());
+        selectedColors.push(getRandomColor([selectedColors[0]]));
+        selectedColors.push(getRandomColor([selectedColors[0], selectedColors[1]]));
+    } else {
+        selectedColors = [getRandomColor(), getRandomColor()];
     }
-    return selectedColors;
-  };
-
-  const getDefaultBackgroundColors = (): string[] => {
-      const selectedColors = getRandomColors();
-      return selectedColors.map(getColorCode);
-  };
+    return selectedColors.map(getColorCode);
+};
 
   const currentCounter = () => {
     switch (currentCounterType) {
