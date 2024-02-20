@@ -1,46 +1,32 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Mana} from '../utils'
+import {colorCodes} from '../utils'
 
 export default function PlayerMenuColors({handleOnSelectColor, selectedColors}) {
 
   type ValueOf<T> = T[keyof T];
 
+  const ManaButton = ({baseColor, highlightColor, colorIdentity, style}) => {
+    return (
+      <TouchableOpacity onPress={()=> handleOnSelectColor(colorIdentity)} style={style}>
+        <View style={[styles.manaButtonWrapper, {backgroundColor: selectedColors.includes(colorIdentity) ? baseColor: 'transparent'}]}>
+          <View style={[styles.manaButton, {backgroundColor: selectedColors.includes(colorIdentity) ? highlightColor: highlightColor}]}></View>
+        </View>
+      </TouchableOpacity> 
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.forest)} style={styles.row_topLeft}>
-          {selectedColors.includes(Mana.forest) ? 
-            <Image source={require('../assets/forest-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
-            <Image source={require('../assets/forest-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
-          }
-        </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.island)}>
-          {selectedColors.includes(Mana.island) ? 
-            <Image source={require('../assets/island-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
-            <Image source={require('../assets/island-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
-          }
-        </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.plains)} style={styles.row_topRight}>
-          {selectedColors.includes(Mana.plains) ? 
-            <Image source={require('../assets/plains-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
-            <Image source={require('../assets/plains-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
-          }
-        </TouchableOpacity> 
+        <ManaButton baseColor={colorCodes.forest} highlightColor={colorCodes.forest_logo} colorIdentity={Mana.forest} style={styles.row_topLeft}/>
+        <ManaButton baseColor={colorCodes.plains} highlightColor={colorCodes.plains_logo} colorIdentity={Mana.plains} style={{}}/>
+        <ManaButton baseColor={colorCodes.island} highlightColor={colorCodes.island_logo} colorIdentity={Mana.island} style={styles.row_topRight}/>
       </View>
       <View style={styles.row}>
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.mountain)}>
-          {selectedColors.includes(Mana.mountain) ? 
-            <Image source={require('../assets/mountain-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
-            <Image source={require('../assets/mountain-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
-          }
-        </TouchableOpacity> 
-        <TouchableOpacity onPress={()=> handleOnSelectColor(Mana.swamp)}>
-          {selectedColors.includes(Mana.swamp) ? 
-            <Image source={require('../assets/swamp-logo__colored.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> :
-            <Image source={require('../assets/swamp-logo.png')} resizeMode = 'contain' style= {{ height: 70, width: 70,}}/> 
-          }
-        </TouchableOpacity> 
+        <ManaButton baseColor={colorCodes.mountain} highlightColor={colorCodes.mountain_logo} colorIdentity={Mana.mountain} style={{}}/>
+        <ManaButton baseColor={colorCodes.swamp} highlightColor={colorCodes.swamp_logo} colorIdentity={Mana.swamp} style={{}}/>
       </View>
     </View>
   );
@@ -61,9 +47,23 @@ const styles = StyleSheet.create({
     paddingRight: 50
   },
   row_topLeft: {
-    paddingTop: 100
+    paddingTop: 120
   },
   row_topRight: {
-    paddingTop: 100
+    paddingTop: 120
+  },
+  manaButtonWrapper: {
+    borderRadius: 60,
+    height: 80,
+    width: 80,
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  manaButton: {
+    borderRadius: 30,
+    height: 60,
+    width: 60,
   }
 });

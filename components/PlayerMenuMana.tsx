@@ -54,7 +54,7 @@ export default function PlayerMenuMana({}) {
 
   const ManaCounter = ({manaColor}) => {
     return (
-      <View style={[styles.manaCounter, { borderColor: manaColor === 'swamp' ?  colorCodes[manaColor] : colorCodes[manaColor + '_logo']}]}>
+      <View style={[styles.manaCounter, { borderColor: manaColor === 'plains' ?  colorCodes[manaColor] : colorCodes[manaColor + '_logo']}]}>
         <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.minus)} style={styles.counterButton}>
           <Image
             source={require('../assets/minus-logo__white.png')}
@@ -111,45 +111,26 @@ export default function PlayerMenuMana({}) {
       </View>
     )
   }
+
+  const ManaButton = ({baseColor, highlightColor, colorIdentity}) => {
+    return (
+      <View style={[styles.manaElement]}>
+        <View style={[styles.manaLogoWrapper, {backgroundColor: baseColor, borderColor: highlightColor, borderWidth: 2}]}>
+          <View style={[styles.manaLogo, {backgroundColor: highlightColor}]}></View>
+        </View>
+        <ManaCounter manaColor={colorIdentity}/>
+      </View>
+    )
+  }
   return (
     <View style={styles.container}>
       <View style={styles.manaList}>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper]}>
-            <Image source={require('../assets/plains-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'plains'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper]}>
-            <Image source={require('../assets/island-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'island'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper]}>
-            <Image source={require('../assets/mountain-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'mountain'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper]}>
-            <Image source={require('../assets/swamp-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'swamp'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper]}>
-            <Image source={require('../assets/forest-logo_circle.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'forest'}/>
-        </View>
-        <View style={[styles.manaElement]}>
-          <View style={[styles.manaLogoWrapper]}>
-            <Image source={require('../assets/colorless-logo.png')} resizeMode = 'contain' style={[{ height: 25, width: 25}]}/>
-          </View>
-          <ManaCounter manaColor={'colorless'}/>
-        </View>
+        <ManaButton baseColor={colorCodes.forest} highlightColor={colorCodes.forest_logo} colorIdentity={Mana.forest}/>
+        <ManaButton baseColor={colorCodes.plains_logo} highlightColor={colorCodes.plains} colorIdentity={Mana.plains}/>
+        <ManaButton baseColor={colorCodes.island} highlightColor={colorCodes.island_logo} colorIdentity={Mana.island}/>
+        <ManaButton baseColor={colorCodes.mountain} highlightColor={colorCodes.mountain_logo} colorIdentity={Mana.mountain}/>
+        <ManaButton baseColor={colorCodes.swamp} highlightColor={colorCodes.swamp_logo} colorIdentity={Mana.swamp}/>
+        <ManaButton baseColor={colorCodes.colorless} highlightColor={colorCodes.colorless_logo} colorIdentity={Mana.colorless}/>
       </View>
       <View style={[styles.auxiliary, {borderLeftColor: elementsColor}]}>
         <Wubrg/>
@@ -221,7 +202,18 @@ const styles = StyleSheet.create({
   },
   manaLogoWrapper: {
     marginBottom: -12,
-    zIndex: 2
+    zIndex: 2,
+    height: 25,
+    width: 25,
+    borderRadius: 30,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  manaLogo: {
+    height: 18,
+    width: 18,
+    borderRadius: 30
   },
   wubrg: {
     alignItems: 'center',

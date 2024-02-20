@@ -28,7 +28,7 @@ export default function PlayerMenuLifeLogs({playerIndex}) {
             <View style={styles.opponentLogs}>
               {opponentLogs.map((log: number, logIndex: number) => {
                 return (
-                  <Text key={logIndex} style={[styles.log, logIndex !== opponentLogs.length - 1 && styles.lineThrough]}>{log}</Text>
+                  <Text key={logIndex} style={[styles.log, logIndex !== opponentLogs.length - 1 && styles.lineThrough, {color: elementsColor}]}>{log}</Text>
                 )
               })}
             </View>

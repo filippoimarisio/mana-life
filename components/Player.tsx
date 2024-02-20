@@ -191,10 +191,10 @@ const getDefaultBackgroundColors = (): string[] => {
           end={{x: 1, y: 0}}
         >
           <View style={styles.mainCounter}>
-            <View style={[styles.mainCounterLogo, isMenuOpen && styles.hide]}>
+            <View style={[styles.mainCounterLogo]}>
               <MainCounterLogo />
             </View>
-            <View style={[styles.lifeCounter, isMenuOpen && styles.hide]}>
+            <View style={[styles.lifeCounter]}>
               <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
                 <Image
                   source={require('../assets/minus-logo__white.png')}
@@ -217,7 +217,7 @@ const getDefaultBackgroundColors = (): string[] => {
                 />
               </TouchableOpacity>
             </View>
-            <View style={[styles.tempCounterWrapper, isMenuOpen && styles.hide]}>
+            <View style={[styles.tempCounterWrapper]}>
               <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
             </View>
           </View>
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   hide: {
-    // display: 'none'
+    display: 'none'
   },
   counterAmount: {
     fontSize: 150,

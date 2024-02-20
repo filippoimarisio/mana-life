@@ -25,11 +25,11 @@ export default function App() {
 
   const setThemeColors = () => {
     if (darkMode) {
-      setBackgroundColor('black')
+      setBackgroundColor('rgba(40, 44, 53, 0.95)')
       setElementsColor('white')
     } else {
-      setBackgroundColor('#afeeee')
-      setElementsColor('black')
+      setBackgroundColor('rgba(175, 238, 238, 0.95)')
+      setElementsColor('#282C35')
     }
   }
 
