@@ -1,10 +1,12 @@
 import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import { Mana, colorCodes, Operations } from '../utils'
+import {Context} from '../context'
 
 export default function PlayerMenuMana({}) {
 
   type ValueOf<T> = T[keyof T];
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   const [manaCounter, setManaCounter] = useState({
     mountain: 0,
@@ -52,7 +54,7 @@ export default function PlayerMenuMana({}) {
 
   const ManaCounter = ({manaColor}) => {
     return (
-      <View style={[styles.manaCounter, { borderColor: colorCodes[manaColor + '_logo']}]}>
+      <View style={[styles.manaCounter, { borderColor: manaColor === 'swamp' ?  colorCodes[manaColor] : colorCodes[manaColor + '_logo']}]}>
         <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.minus)} style={styles.counterButton}>
           <Image
             source={require('../assets/minus-logo__white.png')}
@@ -60,10 +62,11 @@ export default function PlayerMenuMana({}) {
             style= {{
               height: 25,
               width: 25,
+              tintColor: elementsColor
             }}
           />
         </TouchableOpacity>
-        <Text style={styles.manaCounterDigit}>{manaCounter[manaColor]}</Text>
+        <Text style={[styles.manaCounterDigit, {color: elementsColor, shadowColor: backgroundColor, textShadowColor: backgroundColor}]}>{manaCounter[manaColor]}</Text>
         <TouchableOpacity onPress={()=>handleCounterInteraction(manaColor, Operations.plus)} style={styles.counterButton}>
           <Image
             source={require('../assets/plus-logo__white.png')}
@@ -71,6 +74,7 @@ export default function PlayerMenuMana({}) {
             style= {{
               height: 25,
               width: 25,
+              tintColor: elementsColor
             }}
           />
         </TouchableOpacity>
@@ -88,6 +92,7 @@ export default function PlayerMenuMana({}) {
             style= {{
               height: 25,
               width: 25,
+              tintColor: elementsColor
             }}
           />
         </TouchableOpacity>
@@ -99,6 +104,7 @@ export default function PlayerMenuMana({}) {
             style= {{
               height: 25,
               width: 25,
+              tintColor: elementsColor
             }}
           />
         </TouchableOpacity>
@@ -145,11 +151,11 @@ export default function PlayerMenuMana({}) {
           <ManaCounter manaColor={'colorless'}/>
         </View>
       </View>
-      <View style={styles.auxiliary}>
+      <View style={[styles.auxiliary, {borderLeftColor: elementsColor}]}>
         <Wubrg/>
         <View style={styles.reset}>
         <TouchableOpacity onPress={()=>resetCounters()}>
-          <Image source={require('../assets/restart.png')} resizeMode = 'contain' style={[{ tintColor: 'white', height: 40, width: 40}]}/>
+          <Image source={require('../assets/restart.png')} resizeMode = 'contain' style={[{ tintColor: elementsColor, height: 40, width: 40}]}/>
         </TouchableOpacity>
         </View>
       </View>
@@ -170,7 +176,6 @@ const styles = StyleSheet.create({
     width: '20%',
     height: '100%',
     borderLeftWidth: 1,
-    borderLeftColor: 'white',
     marginLeft: 20
   },
   manaList: {
@@ -201,9 +206,6 @@ const styles = StyleSheet.create({
   },
   manaCounterDigit: {
     fontSize: 35,
-    color: 'white',
-    shadowColor: 'black',
-    textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10
   },

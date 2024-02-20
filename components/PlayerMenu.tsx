@@ -1,14 +1,16 @@
 import { StyleSheet, Image, View, TouchableOpacity, Text } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import PlayerMenuColors from './PlayerMenuColors';
 import PlayerMenuLifeLogs from './PlayerMenuLifeLogs';
 import PlayerMenuMana from './PlayerMenuMana';
 import {CounterTypes} from '../utils'
 import PlayerMenuCounters from './PlayerMenuCounters'
+import {Context} from '../context';
 
 export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex, poisonCounter, edhCounter, stormCounter, lifeCounter, setCurrentCounterType, currentCounterType, selectedCounterTypes, setSelectedCounterTypes}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
@@ -33,18 +35,18 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
       <View style={styles.menuItems__wrapper}>
         <View style={styles.menuItems_row}>
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.colorSelection)}>
-            <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
+            <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.lifeLogs)}>
-            <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
+            <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
         </View>
         <View style={styles.menuItems_row}>
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)}>
-            <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
+            <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.counterTypes)}>
-            <Image source={require('../assets/counter-types-logo.png')} resizeMode = 'contain' style= {{ height: 90, width: 90, tintColor: 'white'}}/>
+            <Image source={require('../assets/counter-types-logo.png')} resizeMode = 'contain' style= {{ height: 90, width: 90, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
         </View>
       </View>
@@ -67,12 +69,12 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
   }
 
   const tintColor = (counterType: ValueOf<typeof CounterTypes>): string => {
-    return currentCounterType.includes(counterType) ? 'white' : 'gray'
+    return currentCounterType.includes(counterType) ? isMenuOpen ? elementsColor : 'white' : 'gray'
   }
   
   return (
     <View style={styles.container}>
-      <View style={[styles.wrapper, isMenuOpen ? styles.wrapper__darker : undefined]}>
+      <View style={[styles.wrapper, { backgroundColor : isMenuOpen ? backgroundColor : undefined}]}>
         <View style={styles.navbar}>
           { selectedMenu ? <TouchableOpacity onPress={()=> setSelectedMenu('')} style={styles.backArrow}>
             <Image
@@ -81,6 +83,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
               style= {{
                 height: 40,
                 width: 40,
+                tintColor: elementsColor
               }}
             />
           </TouchableOpacity> : <View style={{height: 40, width: 40, flex: 1}}></View> }
@@ -115,6 +118,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
               style= {{
                 height: 40,
                 width: 40,
+                tintColor: isMenuOpen ? elementsColor : 'white'
               }}
             />
           </TouchableOpacity>
@@ -143,9 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 20
   },
-  wrapper__darker: {
-    backgroundColor: 'background: rgba(0, 0, 0, 0.5)',
-  },
+
   menu_expanded__hide: {
     display: 'none',
   },
@@ -196,10 +198,9 @@ const styles = StyleSheet.create({
   },
   counterAmount: {
     fontSize: 40,
-    shadowColor: 'black',
-    textShadowColor: 'rgba(0, 0, 0, 1)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
+    textShadowRadius: 10,
+    width:100,
+    textAlign: 'center',
   },
   extraCounter: {
     borderRightColor: 'gray',

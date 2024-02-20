@@ -13,11 +13,29 @@ export default function App() {
   const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
   const [resetTrigger, setResetTrigger] = useState(false)
   const [initialLifeTotal, setInitialLifeTotal] = useState(20)
+  const [darkMode, setDarkMode] = useState(true)
+  const [backgroundColor, setBackgroundColor] = useState('')
+  const [elementsColor, setElementsColor] = useState('')
 
   // Sets intial life totale
   useEffect(()=>{
     setInitialPlayersLife()
+    setThemeColors
   }, [])
+
+  const setThemeColors = () => {
+    if (darkMode) {
+      setBackgroundColor('black')
+      setElementsColor('white')
+    } else {
+      setBackgroundColor('#afeeee')
+      setElementsColor('black')
+    }
+  }
+
+  useEffect(()=>{
+    setThemeColors()
+  }, [darkMode])
 
   const setInitialPlayersLife = () => {
     setLifeLogsPlayerOne([initialLifeTotal])
@@ -33,7 +51,7 @@ export default function App() {
   }
 
   return (
-    <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger]}>
+    <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor]}>
       <View style={styles.container}>
         <View style={[styles.playerContainer, styles.down]}>
           <Player playerIndex={0} lifeCounter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
@@ -41,11 +59,11 @@ export default function App() {
         <View style={[styles.playerContainer]}>
           <Player playerIndex={1} lifeCounter={counterPlayerTwo} setCounter={setCounterPlayerTwo}/>
         </View>
-        <View style={[styles.mainMenu, showMainMenu && styles.mainMenu__expanded]}>
+        <View style={[styles.mainMenu, showMainMenu && styles.mainMenu__expanded, {backgroundColor: backgroundColor}]}>
           <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide}>
             <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30}}/>
           </TouchableOpacity>
-          { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu} initialLifeTotal={initialLifeTotal} setInitialLifeTotal={setInitialLifeTotal}/>}
+          { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu} initialLifeTotal={initialLifeTotal} setInitialLifeTotal={setInitialLifeTotal} darkMode={darkMode} setDarkMode={setDarkMode}/>}
         </View>
       </View>
     </Context.Provider>
@@ -88,16 +106,15 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderRadius: 30,
     padding: 4,
-    backgroundColor: '#AFEEEE'
   },
   mainMenu__expanded: {
     top: 0,
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: 'background: rgba(0, 0, 0, 0.95)',
     marginLeft: 0,
     marginTop: 0,
+    borderRadius: 0,
   },
   hide: {
     display: 'none'

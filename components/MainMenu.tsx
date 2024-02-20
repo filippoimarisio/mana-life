@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView, TextInput } from 'react-native';
+import { useState, useContext } from 'react';
+import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView, Switch } from 'react-native';
 import {privacyStatement} from '../utils'
+import {Context} from '../context';
 
-export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal}) {
+export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal, darkMode, setDarkMode}) {
 
   enum Options {
     reset = 'reset',
@@ -12,13 +13,15 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
   }
 
   const [selectedOption, setSelectedOption] = useState(Options.dices)
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+
 
   const Restart = () => {
     return (
     <View style={styles.reset}>
-      <Text style={{color: 'white', fontSize: 25, marginBottom: '20%'}}>Restart a new match?</Text>
+      <Text style={{color: elementsColor, fontSize: 25, marginBottom: '20%'}}>Restart a new match?</Text>
       <TouchableOpacity onPress={()=>resetPlayersLife()}>
-        <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: 'white'}}/>
+        <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor}}/>
       </TouchableOpacity>
     </View>
     )
@@ -70,7 +73,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
             <Image
                 source={DiceImages[diceIndex]}
                 resizeMode='contain'
-                style={{ height: 200, width: 200, tintColor: 'white' }}
+                style={{ height: 200, width: 200, tintColor: elementsColor }}
             />
         </TouchableOpacity>
         </View>
@@ -80,7 +83,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
   const Legal = () => {
     return (
       <ScrollView style={styles.legal}>
-        <Text style={{color: 'white'}}>{privacyStatement}</Text>
+        <Text style={{color: elementsColor}}>{privacyStatement}</Text>
       </ScrollView>
     )
   }
@@ -89,44 +92,58 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     return (
       <View style={styles.initialLife}>
         <TouchableOpacity onPress={()=>setInitialLifeTotal(20)}>
-          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 20 && styles.selectedValue]}>
-            <Text style={[styles.initialLifeValue, initialLifeTotal === 20 && styles.selectedValue]}>20</Text>
+          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 20 && selectedValues]}>
+            <Text style={[styles.initialLifeValue, initialLifeTotal === 20 && selectedValues]}>20</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setInitialLifeTotal(30)}>
-          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 30 && styles.selectedValue]}>
-            <Text style={[styles.initialLifeValue, initialLifeTotal === 30 && styles.selectedValue]}>30</Text>
+          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 30 && selectedValues]}>
+            <Text style={[styles.initialLifeValue, initialLifeTotal === 30 && selectedValues]}>30</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setInitialLifeTotal(40)}>
-          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 40 && styles.selectedValue]}>
-            <Text style={[styles.initialLifeValue, initialLifeTotal === 40 && styles.selectedValue]}>40</Text>
+          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 40 && selectedValues]}>
+            <Text style={[styles.initialLifeValue, initialLifeTotal === 40 && selectedValues]}>40</Text>
           </View>
         </TouchableOpacity>
       </View>
     )
   }
 
-
+  const selectedValues = {
+    borderColor: elementsColor,
+    color: elementsColor
+  }
   return (
+    
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)}>
-          <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 90, width: 90}}/>
+        <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}}>
+          <Image source={require(`../assets/arrow-left.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
         </TouchableOpacity>
+        <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 90, width: 90}}/>
+        <Switch
+          trackColor={{false: 'gray', true: 'white'}}
+          thumbColor={darkMode ? "#AFEEEE" : elementsColor}
+          ios_backgroundColor="#AFEEEE"
+          onValueChange={setDarkMode}
+          value={darkMode}
+          style={{width: '10%', transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
+        />
       </View>
-      <View style={[styles.options, {borderBottomWidth: 2}]}>
+      
+      <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
-          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
+          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
-          <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
+          <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.initialLife)}>
-          <Image source={require(`../assets/heart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
+          <Image source={require(`../assets/heart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
-          <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: 'white'}}/>
+          <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
@@ -151,9 +168,10 @@ const styles = StyleSheet.create({
   header: {
     height: '20%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    width: '100%'
   },
   options: {
     height: '10%',
@@ -162,7 +180,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width: '100%',
-    borderBottomColor: 'white',
     marginBottom: 10
   },
   content: {
@@ -207,9 +224,5 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 4,
     borderRadius: 20,
-  },
-  selectedValue: {
-    borderColor: 'white',
-    color: 'white'
   }
 });

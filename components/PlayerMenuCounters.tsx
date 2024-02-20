@@ -1,10 +1,12 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {CounterTypes} from '../utils'
+import { Context } from '../context';
 
 export default function PlayerMenuCounters({selectedCounterTypes, setSelectedCounterTypes}) {
 
   type ValueOf<T> = T[keyof T];
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   const onSelectCounter = (counterType: ValueOf<typeof CounterTypes>) => {
     if(selectedCounterTypes.includes(counterType)) setSelectedCounterTypes([...selectedCounterTypes.filter(type=>type !== counterType)])
@@ -12,7 +14,7 @@ export default function PlayerMenuCounters({selectedCounterTypes, setSelectedCou
   }
 
   const tintColor = (counterType: ValueOf<typeof CounterTypes>): string => {
-    return selectedCounterTypes.includes(counterType) ? 'white' : 'gray'
+    return selectedCounterTypes.includes(counterType) ? elementsColor : 'gray'
   }
 
   return (

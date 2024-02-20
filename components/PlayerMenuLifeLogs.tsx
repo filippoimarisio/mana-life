@@ -4,7 +4,7 @@ import {Context} from '../context'
 
 export default function PlayerMenuLifeLogs({playerIndex}) {
 
-  const [lifeLogsPlayerOne, lifeLogsPlayerTwo] = useContext(Context)
+  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
   
   const playerLogs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
   const opponentLogs = playerIndex === 0 ? lifeLogsPlayerTwo : lifeLogsPlayerOne
@@ -12,16 +12,16 @@ export default function PlayerMenuLifeLogs({playerIndex}) {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-        <View style={styles.names}>
-          <Text style={styles.playerBox}>Me</Text>
-          <Text style={styles.opponentBox}>You</Text>
+        <View style={[styles.names, {borderBottomColor: elementsColor}]}>
+          <Text style={[styles.playerBox, {color: elementsColor,borderRightColor: elementsColor}]}>Me</Text>
+          <Text style={[styles.opponentBox, {color: elementsColor}]}>You</Text>
         </View>
         <ScrollView style={styles.logsWrapper}>
           <View style={styles.logs}>
-            <View style={styles.playerLogs}>
+            <View style={[styles.playerLogs,{borderRightColor: elementsColor}]}>
               {playerLogs.map((log: number, logIndex: number) => {
                 return (
-                  <Text key={logIndex} style={[styles.log, logIndex !== playerLogs.length - 1 && styles.lineThrough]}>{log}</Text>
+                  <Text key={logIndex} style={[styles.log, logIndex !== playerLogs.length - 1 && styles.lineThrough, {color: elementsColor}]}>{log}</Text>
                 )
               })}
             </View>
@@ -52,22 +52,18 @@ const styles = StyleSheet.create({
   names: {
     height: 50,
     flexDirection: 'row',
-    borderBottomColor: 'white',
     borderBottomWidth: 2,
   },
   playerBox: {
-    borderRightColor: 'white',
     borderRightWidth: 2,
     width: '50%',
     textAlign: 'center',
     fontSize: 30,
-    color: 'white'
   },
   opponentBox: {
     width: '50%',
     textAlign: 'center',
     fontSize: 30,
-    color: 'white'
   },
   logsWrapper: {
     maxHeight: '100%',
@@ -81,7 +77,6 @@ const styles = StyleSheet.create({
   playerLogs: {
     width: '50%',
     alignItems: 'center',
-    borderRightColor: 'white',
     borderRightWidth: 2,
   },
   opponentLogs: {
@@ -89,7 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   log: {
-    color: 'white',
     fontSize: 30,
     paddingTop: 4,
   },

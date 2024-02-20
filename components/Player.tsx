@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   hide: {
-    display: 'none'
+    // display: 'none'
   },
   counterAmount: {
     fontSize: 150,
@@ -293,7 +293,9 @@ const styles = StyleSheet.create({
     color: 'white',
     textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
+    textShadowRadius: 10,
+    width:100,
+    textAlign: 'center',
   },
   playerMenu: {
     position: 'absolute',
