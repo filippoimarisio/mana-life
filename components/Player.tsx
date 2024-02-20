@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {CounterTypes, Mana} from'../utils';
 import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../context';
-import {Operations, colorCodes} from '../utils'
+import {Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
 
 export default function Player({playerIndex, lifeCounter, setCounter}) {
 
@@ -20,15 +20,17 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
   const [poisonCounter, setPoisonCounter] = useState(0)
   const [edhCounter, setEdhCounter] = useState(0)
   const [stormCounter, setStormCounter] = useState(0)
+  const [backgroundImage, setBackgroundImage] = useState('../assets/minus-logo__white.png')
   
   const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger] = useContext(Context)
 
   const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
+    if ( selectedColors.includes(color)) {
+      if (selectedColors.length>1) setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
       return
     }
-    if (selectedColors.length < 3) setSelectedColors([...selectedColors, color])
+    // Temporarly limited to two waiting to have triomes
+    if (selectedColors.length < 2) setSelectedColors([...selectedColors, color])
     else return
   }
 
@@ -148,17 +150,20 @@ export default function Player({playerIndex, lifeCounter, setCounter}) {
     return availableColors[randomIndex];
 };
 
+// Temporirly commented out to test background images as triomes are missing
 const getDefaultBackgroundColors = (): string[] => {
     let selectedColors: string[];
-    const numColors = Math.floor(Math.random() * 2) + 2
-    if (numColors === 3) {
-        selectedColors = []
-        selectedColors.push(getRandomColor());
-        selectedColors.push(getRandomColor([selectedColors[0]]));
-        selectedColors.push(getRandomColor([selectedColors[0], selectedColors[1]]));
-    } else {
-        selectedColors = [getRandomColor(), getRandomColor()];
-    }
+    // const numColors = Math.floor(Math.random() * 2) + 2
+    const numColors = 2
+    selectedColors = [getRandomColor(), getRandomColor()];
+    // if (numColors === 3) {
+    //     selectedColors = []
+    //     selectedColors.push(getRandomColor());
+    //     selectedColors.push(getRandomColor([selectedColors[0]]));
+    //     selectedColors.push(getRandomColor([selectedColors[0], selectedColors[1]]));
+    // } else {
+    //     selectedColors = [getRandomColor(), getRandomColor()];
+    // }
     return selectedColors;
 };
 
@@ -182,63 +187,61 @@ const getDefaultBackgroundColors = (): string[] => {
     }
   }
 
+
   return (
       <View style={[styles.container]}>
-        <LinearGradient
-          style={[styles.container, {flex: 1}]}
-          colors={[...getBackgroundColors()]}
-          start={{x: 0, y: 1}}
-          end={{x: 1, y: 0}}
-        >
-          <View style={styles.mainCounter}>
-            <View style={[styles.mainCounterLogo]}>
-              <MainCounterLogo />
+        {selectedColors.length > 0 && <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
+          <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.7)'}}>
+            <View style={styles.mainCounter}>
+              <View style={[styles.mainCounterLogo]}>
+                <MainCounterLogo />
+              </View>
+              <View style={[styles.lifeCounter]}>
+                <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
+                  <Image
+                    source={require('../assets/minus-logo__white.png')}
+                    resizeMode = 'contain'
+                    style= {{
+                      height: 40,
+                      width: 40,
+                    }}
+                  />
+                </TouchableOpacity>
+                <Text style={styles.counterAmount}>{currentCounter()}</Text>
+                <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
+                  <Image
+                    source={require('../assets/plus-logo__white.png')}
+                    resizeMode = 'contain'
+                    style= {{
+                      height: 40,
+                      width: 40,
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.tempCounterWrapper]}>
+                <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
+              </View>
             </View>
-            <View style={[styles.lifeCounter]}>
-              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
-                <Image
-                  source={require('../assets/minus-logo__white.png')}
-                  resizeMode = 'contain'
-                  style= {{
-                    height: 40,
-                    width: 40,
-                  }}
-                />
-              </TouchableOpacity>
-              <Text style={styles.counterAmount}>{currentCounter()}</Text>
-              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
-                <Image
-                  source={require('../assets/plus-logo__white.png')}
-                  resizeMode = 'contain'
-                  style= {{
-                    height: 40,
-                    width: 40,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={[styles.tempCounterWrapper]}>
-              <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
+            <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
+              <PlayerMenu 
+                onBurgerMenu={onBurgerMenu} 
+                isMenuOpen={isMenuOpen}
+                handleOnSelectColor={handleOnSelectColor}
+                selectedColors={selectedColors}
+                playerIndex={playerIndex}
+                poisonCounter={poisonCounter}
+                edhCounter={edhCounter}
+                stormCounter={stormCounter}
+                lifeCounter={lifeCounter}
+                setCurrentCounterType={setCurrentCounterType}
+                currentCounterType={currentCounterType}
+                selectedCounterTypes={selectedCounterTypes}
+                setSelectedCounterTypes={setSelectedCounterTypes}
+              />
             </View>
           </View>
-          <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
-            <PlayerMenu 
-              onBurgerMenu={onBurgerMenu} 
-              isMenuOpen={isMenuOpen}
-              handleOnSelectColor={handleOnSelectColor}
-              selectedColors={selectedColors}
-              playerIndex={playerIndex}
-              poisonCounter={poisonCounter}
-              edhCounter={edhCounter}
-              stormCounter={stormCounter}
-              lifeCounter={lifeCounter}
-              setCurrentCounterType={setCurrentCounterType}
-              currentCounterType={currentCounterType}
-              selectedCounterTypes={selectedCounterTypes}
-              setSelectedCounterTypes={setSelectedCounterTypes}
-            />
-          </View>
-        </LinearGradient>
+        </ImageBackground> }
       </View>
   );
 }

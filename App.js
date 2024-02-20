@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, ImageBackground } from 'react-native';
 import Player from './components/Player';
 import MainMenu from './components/MainMenu';
 import {Context} from './context'
@@ -25,10 +25,10 @@ export default function App() {
 
   const setThemeColors = () => {
     if (darkMode) {
-      setBackgroundColor('rgba(40, 44, 53, 0.95)')
+      setBackgroundColor('rgba(40, 44, 53, 0.98)')
       setElementsColor('white')
     } else {
-      setBackgroundColor('rgba(175, 238, 238, 0.95)')
+      setBackgroundColor('rgba(175, 238, 238, 0.98)')
       setElementsColor('#282C35')
     }
   }
@@ -53,6 +53,7 @@ export default function App() {
   return (
     <Context.Provider value={[lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor]}>
       <View style={styles.container}>
+      {/* <ImageBackground source={require('./assets/background-image.png')} resizeMode="cover"> */}
         <View style={[styles.playerContainer, styles.down]}>
           <Player playerIndex={0} lifeCounter={counterPlayerOne} setCounter={setCounterPlayerOne}/>
         </View>
@@ -65,6 +66,7 @@ export default function App() {
           </TouchableOpacity>
           { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu} initialLifeTotal={initialLifeTotal} setInitialLifeTotal={setInitialLifeTotal} darkMode={darkMode} setDarkMode={setDarkMode}/>}
         </View>
+      {/* </ImageBackground> */}
       </View>
     </Context.Provider>
   );
