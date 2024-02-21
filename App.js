@@ -29,12 +29,16 @@ export default function App() {
     setThemeColors
   }, [])
 
+  useEffect(()=>{
+    setInitialPlayersLife()
+  }, [playersNumber])
+
   const setThemeColors = () => {
     if (darkMode) {
-      setBackgroundColor('rgba(40, 44, 53, 0.98)')
+      setBackgroundColor('rgba(40, 44, 53, 0.99)')
       setElementsColor('white')
     } else {
-      setBackgroundColor('rgba(175, 238, 238, 0.98)')
+      setBackgroundColor('rgba(175, 238, 238, 0.99)')
       setElementsColor('#282C35')
     }
   }
@@ -65,11 +69,11 @@ export default function App() {
   }
 
   return (
-    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor]}>
-      <View style={styles.container}>
+    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber]}>
+      <View style={[styles.container, {backgroundColor: 'black'}]}>
         {playersNumber === 2 && 
           <View style={styles.container}>
-            <View style={[styles.playerContainer, styles.down, {borderTopWidth:1}]}>
+            <View style={[styles.playerContainer, styles.down, {borderTopWidth:2}]}>
               <Player 
                 playerIndex={1} 
                 lifeCounter={counterPlayerTwo} 
@@ -79,7 +83,7 @@ export default function App() {
                 setLifeLogs={setLifeLogsPlayerTwo}
               />
             </View>
-            <View style={[styles.playerContainer, {borderTopWidth:1}]}>
+            <View style={[styles.playerContainer, {borderTopWidth:2}]}>
             <Player 
               playerIndex={0} 
               lifeCounter={counterPlayerOne}
@@ -104,7 +108,7 @@ export default function App() {
                   setLifeLogs={setLifeLogsPlayerThree}
                 />
               </View>
-              <View style={[styles.playerContainer,{borderTopWidth: 1}]}>
+              <View style={[styles.playerContainer,{borderTopWidth: 2}]}>
                 <Player 
                   playerIndex={1} 
                   lifeCounter={counterPlayerTwo} 
@@ -115,7 +119,7 @@ export default function App() {
                 />
               </View>
             </View>
-            <View style={[styles.playerContainer, {borderTopWidth: 1}]}>
+            <View style={[styles.playerContainer, {borderTopWidth: 2}]}>
               <Player 
                 playerIndex={0} 
                 lifeCounter={counterPlayerOne}
@@ -130,7 +134,7 @@ export default function App() {
         {playersNumber === 4 && 
         <View style={styles.container}>
           <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
-            <View style={[styles.playerContainer, styles.down, {borderLeftWidth: 0, borderTopWidth: 1}]}>
+            <View style={[styles.playerContainer, styles.down, {borderLeftWidth: 2, borderTopWidth: 2}]}>
               <Player 
                 playerIndex={3} 
                 lifeCounter={counterPlayerFour} 
@@ -140,7 +144,7 @@ export default function App() {
                 setLifeLogs={setLifeLogsPlayerFour}
               />
             </View>
-            <View style={[styles.playerContainer, {borderRightWidth: 0, borderTopWidth: 1}]}>
+            <View style={[styles.playerContainer, {borderRightWidth: 2, borderTopWidth: 2}]}>
               <Player 
                 playerIndex={2} 
                 lifeCounter={counterPlayerThree} 
@@ -152,7 +156,7 @@ export default function App() {
             </View>
           </View>
           <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
-            <View style={[styles.playerContainer, styles.down, {borderRightWidth: 1, borderTopWidth: 1,}]}>
+            <View style={[styles.playerContainer, styles.down, {borderRightWidth: 2, borderTopWidth: 2,}]}>
               <Player 
                 playerIndex={1} 
                 lifeCounter={counterPlayerTwo} 
@@ -162,7 +166,7 @@ export default function App() {
                 setLifeLogs={setLifeLogsPlayerTwo}
               />
             </View>
-            <View style={[styles.playerContainer, {borderLeftWidth: 1, borderTopWidth: 1,}]}>
+            <View style={[styles.playerContainer, {borderLeftWidth: 2, borderTopWidth: 2,}]}>
               <Player 
                 playerIndex={0} 
                 lifeCounter={counterPlayerOne}
@@ -224,7 +228,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   mainMenu__expanded: {
-    top: 38,
+    top: 0,
     bottom: 0,
     right: 0,
     left: 0,

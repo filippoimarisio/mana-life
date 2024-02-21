@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView, Switch } from 'react-native';
 import {privacyStatement} from '../utils'
 import {Context} from '../context';
+import MainMenuNumberOfPlayers from './MainMenuNumberOfPlayers'
 
 export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal, darkMode, setDarkMode}) {
 
@@ -9,6 +10,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     reset = 'reset',
     dices = 'dices',
     initialLife = 'initialLife',
+    numberOfPlayers = 'numberOfPlayers',
     legal = 'legal'
   }
 
@@ -139,6 +141,9 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.numberOfPlayers)}>
+          <Image source={require(`../assets/account-multiple.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+        </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.initialLife)}>
           <Image source={require(`../assets/heart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
@@ -151,6 +156,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
         {selectedOption === Options.initialLife && <InitialLife />}
+        {selectedOption === Options.numberOfPlayers && <MainMenuNumberOfPlayers />}
       </View>
     </View>
   );
