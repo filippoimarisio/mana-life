@@ -2,12 +2,12 @@ import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import React, {useContext, useEffect} from 'react';
 import {Context} from '../context'
 
-export default function PlayerMenuLifeLogs({playerIndex}) {
+export default function PlayerMenuLifeLogs({playerIndex, lifeLogs}) {
 
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
   
-  const playerLogs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
-  const opponentLogs = playerIndex === 0 ? lifeLogsPlayerTwo : lifeLogsPlayerOne
+  const playerLogs = playerIndex === 0 ? lifeLogs[playerIndex] : lifeLogs[playerIndex]
+  const opponentLogs = playerIndex === 0 ? lifeLogs[playerIndex] : lifeLogs[playerIndex]
 
   return (
     <View style={styles.container}>

@@ -60,6 +60,10 @@ export default function App() {
     showMainMenu && setShowMainMenu(false)
   }
 
+  const playersLifeLogs = () => {
+    return [lifeLogsPlayerOne, lifeLogsPlayerTwo, lifeLogsPlayerThree, lifeLogsPlayerFour]
+  }
+
   const PlayerOne = (size) => {
     return  (
       <Player 
@@ -67,7 +71,7 @@ export default function App() {
         lifeCounter={counterPlayerOne}
         setCounter={setCounterPlayerOne} 
         scaleSize={size}
-        lifeLogs={lifeLogsPlayerOne} 
+        lifeLogs={playersLifeLogs()} 
         setLifeLogsPlayerOne={setLifeLogsPlayerOne}
       />
     )
@@ -79,7 +83,7 @@ export default function App() {
         lifeCounter={counterPlayerTwo} 
         setCounter={setCounterPlayerTwo} 
         scaleSize={size}
-        lifeLogs={lifeLogsPlayerTwo} 
+        lifeLogs={playersLifeLogs()} 
         setLifeLogs={setLifeLogsPlayerTwo}
       />
     )
@@ -91,7 +95,7 @@ export default function App() {
         lifeCounter={counterPlayerThree} 
         setCounter={setCounterPlayerThree} 
         scaleSize={size}
-        lifeLogs={lifeLogsPlayerThree} 
+        lifeLogs={playersLifeLogs()} 
         setLifeLogs={setLifeLogsPlayerThree}
       />
     )
@@ -103,7 +107,7 @@ export default function App() {
         lifeCounter={counterPlayerFour} 
         setCounter={setCounterPlayerFour} 
         scaleSize={size}
-        lifeLogs={lifeLogsPlayerFour} 
+        lifeLogs={playersLifeLogs()} 
         setLifeLogs={setLifeLogsPlayerFour}
       />
     )

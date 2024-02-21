@@ -1,10 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import PlayerMenu from './PlayerMenu';
-import {CounterTypes, Mana} from'../utils';
-import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../context';
-import {Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
+import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
 
 export default function Player({playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs}) {
 
@@ -51,12 +49,12 @@ export default function Player({playerIndex, lifeCounter, setCounter, scaleSize,
   // Updates the current lifeTotal
   useEffect(() => {
     if (currentCounterType !== CounterTypes.life || showTempCounter || tempCounter === 0) return
-    setLifeLogs([...lifeLogs, lifeCounter])
+    setLifeLogs([...[lifeLogs[playerIndex]], lifeCounter])
   }, [showTempCounter])
 
   useEffect(() => {
     if (tempCounter !== 0) setTempCounter(0)
-  }, [lifeLogs])
+  }, [lifeLogs[playerIndex]])
 
   // Resets the temp lifeCounter when changing lifeCounter type
   useEffect(() => {
@@ -105,7 +103,6 @@ export default function Player({playerIndex, lifeCounter, setCounter, scaleSize,
         return 
       }
       default: {
-        setCounter(lifeCounter + increment)
         return
       }
     }
@@ -179,61 +176,63 @@ const getDefaultBackgroundColors = (): string[] => {
     }
   }
 
-
   return (
       <View style={[styles.container]}>
-        {selectedColors.length > 0 && <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
-          <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.6)'}}>
-            <View style={styles.mainCounter}>
-              <View style={[styles.mainCounterLogo]}>
-                <MainCounterLogo />
-              </View>
-              <View style={[styles.lifeCounter]}>
-                <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
-                  <Image
-                    source={require('../assets/minus-logo__white.png')}
-                    resizeMode = 'contain'
-                    style= {{
-                      height: 40,
-                      width: 40,
-                    }}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.counterAmount}>{currentCounter()}</Text>
-                <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
-                  <Image
-                    source={require('../assets/plus-logo__white.png')}
-                    resizeMode = 'contain'
-                    style= {{
-                      height: 40,
-                      width: 40,
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={[styles.tempCounterWrapper]}>
-                <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
-              </View>
+        {selectedColors.length > 0 && <View style={styles.backgroundImage}>
+          <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
+            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.6)'}}>
             </View>
-            <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
-              <PlayerMenu 
-                onBurgerMenu={onBurgerMenu} 
-                isMenuOpen={isMenuOpen}
-                handleOnSelectColor={handleOnSelectColor}
-                selectedColors={selectedColors}
-                playerIndex={playerIndex}
-                poisonCounter={poisonCounter}
-                edhCounter={edhCounter}
-                stormCounter={stormCounter}
-                lifeCounter={lifeCounter}
-                setCurrentCounterType={setCurrentCounterType}
-                currentCounterType={currentCounterType}
-                selectedCounterTypes={selectedCounterTypes}
-                setSelectedCounterTypes={setSelectedCounterTypes}
-              />
+          </ImageBackground> 
+        </View> }
+          <View style={styles.mainCounter}>
+            <View style={[styles.mainCounterLogo]}>
+              <MainCounterLogo />
+            </View>
+            <View style={[styles.lifeCounter]}>
+              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
+                <Image
+                  source={require('../assets/minus-logo__white.png')}
+                  resizeMode = 'contain'
+                  style= {{
+                    height: 40,
+                    width: 40,
+                  }}
+                />
+              </TouchableOpacity>
+              <Text style={styles.counterAmount}>{currentCounter()}</Text>
+              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
+                <Image
+                  source={require('../assets/plus-logo__white.png')}
+                  resizeMode = 'contain'
+                  style= {{
+                    height: 40,
+                    width: 40,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.tempCounterWrapper]}>
+              <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
             </View>
           </View>
-        </ImageBackground> }
+          <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
+            <PlayerMenu 
+              onBurgerMenu={onBurgerMenu} 
+              isMenuOpen={isMenuOpen}
+              handleOnSelectColor={handleOnSelectColor}
+              selectedColors={selectedColors}
+              playerIndex={playerIndex}
+              poisonCounter={poisonCounter}
+              edhCounter={edhCounter}
+              stormCounter={stormCounter}
+              lifeCounter={lifeCounter}
+              setCurrentCounterType={setCurrentCounterType}
+              currentCounterType={currentCounterType}
+              selectedCounterTypes={selectedCounterTypes}
+              setSelectedCounterTypes={setSelectedCounterTypes}
+              lifeLogs={lifeLogs} 
+            />
+          </View>
       </View>
   );
 }
@@ -303,5 +302,12 @@ const styles = StyleSheet.create({
   },
   mainCounterLogo: {
     marginBottom: '-5%'
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0
   }
 });
