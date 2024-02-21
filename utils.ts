@@ -83,3 +83,16 @@ export const fetchBackgroundImageKey = (selectedColors: string[]) => {
   }
   return 'plains';
 };
+
+type ValueOf<T> = T[keyof T];
+
+export enum Size {
+  small = 'small',
+  big = 'big'
+}
+
+export const scaleSize = (value: number|string, size: ValueOf<typeof Size>) => {
+  if (size === Size.big) return value
+  if (typeof value === 'string') return Math.round((Number(value) / 2)).toString()
+  return Math.round(value / 2)
+}

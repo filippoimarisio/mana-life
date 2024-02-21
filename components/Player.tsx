@@ -6,7 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../context';
 import {Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
 
-export default function Player({playerIndex, lifeCounter, setCounter}) {
+export default function Player({playerIndex, lifeCounter, setCounter, scaleSize}) {
 
   type ValueOf<T> = T[keyof T];
 
@@ -191,7 +191,7 @@ const getDefaultBackgroundColors = (): string[] => {
   return (
       <View style={[styles.container]}>
         {selectedColors.length > 0 && <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
-          <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.7)'}}>
+          <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.6)'}}>
             <View style={styles.mainCounter}>
               <View style={[styles.mainCounterLogo]}>
                 <MainCounterLogo />
