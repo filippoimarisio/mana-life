@@ -4,9 +4,8 @@ import PlayerMenu from './PlayerMenu';
 import {Context} from '../context';
 import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
 
-export default function Player({playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs}) {
+export default function Player({playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs, size}) {
 
-  console.log(playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs)
 
   type ValueOf<T> = T[keyof T];
 
@@ -51,7 +50,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, scaleSize,
   // Updates the current lifeTotal
   useEffect(() => {
     if (currentCounterType !== CounterTypes.life || showTempCounter || tempCounter === 0) return
-    setLifeLogs([...[lifeLogs[playerIndex]], lifeCounter])
+    setLifeLogs([...lifeLogs[playerIndex], lifeCounter])
   }, [showTempCounter])
 
   useEffect(() => {

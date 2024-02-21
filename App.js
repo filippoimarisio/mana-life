@@ -21,7 +21,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true)
   const [backgroundColor, setBackgroundColor] = useState('')
   const [elementsColor, setElementsColor] = useState('')
-  const [playersNumber, setPlayersNumber] = useState(2)
+  const [playersNumber, setPlayersNumber] = useState(4)
 
   // Sets intial life totale
   useEffect(()=>{
@@ -46,10 +46,10 @@ export default function App() {
   const setInitialPlayersLife = () => {
     setLifeLogsPlayerOne([initialLifeTotal])
     setLifeLogsPlayerTwo([initialLifeTotal])
-    setCounterPlayerOne(initialLifeTotal)
-    setCounterPlayerTwo(initialLifeTotal)
     setLifeLogsPlayerThree([initialLifeTotal])
     setLifeLogsPlayerFour([initialLifeTotal])
+    setCounterPlayerOne(initialLifeTotal)
+    setCounterPlayerTwo(initialLifeTotal)
     setCounterPlayerThree(initialLifeTotal)
     setCounterPlayerFour(initialLifeTotal)
   }
@@ -64,119 +64,117 @@ export default function App() {
     return [lifeLogsPlayerOne, lifeLogsPlayerTwo, lifeLogsPlayerThree, lifeLogsPlayerFour]
   }
 
-  const PlayerOne = (size) => {
-    return  (
-      <Player 
-        playerIndex={0} 
-        lifeCounter={counterPlayerOne}
-        setCounter={setCounterPlayerOne} 
-        scaleSize={size}
-        lifeLogs={playersLifeLogs()} 
-        setLifeLogs={setLifeLogsPlayerOne}
-      />
-    )
-  }
-  const PlayerTwo = (size) => {
-    return  (
-      <Player 
-        playerIndex={1} 
-        lifeCounter={counterPlayerTwo} 
-        setCounter={setCounterPlayerTwo} 
-        scaleSize={size}
-        lifeLogs={playersLifeLogs()} 
-        setLifeLogs={setLifeLogsPlayerTwo}
-      />
-    )
-  }
-  const PlayerThree = (size) => {
-    return  (
-      <Player 
-        playerIndex={2} 
-        lifeCounter={counterPlayerThree} 
-        setCounter={setCounterPlayerThree} 
-        scaleSize={size}
-        lifeLogs={playersLifeLogs()} 
-        setLifeLogs={setLifeLogsPlayerThree}
-      />
-    )
-  }
-  const PlayerFour = (size) => {
-    return  (
-      <Player 
-        playerIndex={3} 
-        lifeCounter={counterPlayerFour} 
-        setCounter={setCounterPlayerFour} 
-        scaleSize={size}
-        lifeLogs={playersLifeLogs()} 
-        setLifeLogs={setLifeLogsPlayerFour}
-      />
-    )
-  }
-  
-  const PlayersMosaic = () => {
-    switch (playersNumber) {
-      case 2 : return (
-        <View style={styles.container}>
-          <View style={[styles.playerContainer, styles.down, {borderTopWidth:1}]}>
-            <PlayerTwo size={Size.big}/>
-          </View>
-          <View style={[styles.playerContainer, {borderTopWidth:1}]}>
-            <PlayerOne size={Size.big}/>
-          </View>
-        </View>
-      )
-      case 3 : return (
-        <View style={styles.container}>
-          <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
-            <View style={[styles.playerContainer, styles.down]}>
-              <PlayerThree size={Size.small}/>
+  return (
+    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor]}>
+      <View style={styles.container}>
+        {playersNumber === 2 && 
+          <View style={styles.container}>
+            <View style={[styles.playerContainer, styles.down, {borderTopWidth:1}]}>
+              <Player 
+                playerIndex={1} 
+                lifeCounter={counterPlayerTwo} 
+                setCounter={setCounterPlayerTwo} 
+                scaleSize={Size.big}
+                lifeLogs={playersLifeLogs()} 
+                setLifeLogs={setLifeLogsPlayerTwo}
+              />
             </View>
-            <View style={[styles.playerContainer,{borderTopWidth: 1}]}>
-              <PlayerTwo size={Size.small}/>
+            <View style={[styles.playerContainer, {borderTopWidth:1}]}>
+            <Player 
+              playerIndex={0} 
+              lifeCounter={counterPlayerOne}
+              setCounter={setCounterPlayerOne} 
+              scaleSize={Size.big}
+              lifeLogs={playersLifeLogs()} 
+              setLifeLogs={setLifeLogsPlayerOne}
+            />
             </View>
           </View>
-          <View style={[styles.playerContainer, {borderTopWidth: 1}]}>
-            <PlayerOne size={Size.big}/>
+        }
+        {playersNumber === 3 && 
+          <View style={styles.container}>
+            <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
+              <View style={[styles.playerContainer, styles.down]}>
+                <Player 
+                  playerIndex={2} 
+                  lifeCounter={counterPlayerThree} 
+                  setCounter={setCounterPlayerThree} 
+                  scaleSize={Size.small}
+                  lifeLogs={playersLifeLogs()} 
+                  setLifeLogs={setLifeLogsPlayerThree}
+                />
+              </View>
+              <View style={[styles.playerContainer,{borderTopWidth: 1}]}>
+                <Player 
+                  playerIndex={1} 
+                  lifeCounter={counterPlayerTwo} 
+                  setCounter={setCounterPlayerTwo} 
+                  scaleSize={Size.small}
+                  lifeLogs={playersLifeLogs()} 
+                  setLifeLogs={setLifeLogsPlayerTwo}
+                />
+              </View>
+            </View>
+            <View style={[styles.playerContainer, {borderTopWidth: 1}]}>
+              <Player 
+                playerIndex={0} 
+                lifeCounter={counterPlayerOne}
+                setCounter={setCounterPlayerOne} 
+                scaleSize={Size.big}
+                lifeLogs={playersLifeLogs()} 
+                setLifeLogs={setLifeLogsPlayerOne}
+              />
+            </View>
           </View>
-        </View>
-      )
-      case 4 : return (
+        } 
+        {playersNumber === 4 && 
         <View style={styles.container}>
           <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
             <View style={[styles.playerContainer, styles.down, {borderLeftWidth: 0, borderTopWidth: 1}]}>
-              <PlayerFour size={Size.small}/>
+              <Player 
+                playerIndex={3} 
+                lifeCounter={counterPlayerFour} 
+                setCounter={setCounterPlayerFour} 
+                scaleSize={Size.small}
+                lifeLogs={playersLifeLogs()} 
+                setLifeLogs={setLifeLogsPlayerFour}
+              />
             </View>
             <View style={[styles.playerContainer, {borderRightWidth: 0, borderTopWidth: 1}]}>
-              <PlayerThree size={Size.small}/>
+              <Player 
+                playerIndex={2} 
+                lifeCounter={counterPlayerThree} 
+                setCounter={setCounterPlayerThree} 
+                scaleSize={Size.small}
+                lifeLogs={playersLifeLogs()} 
+                setLifeLogs={setLifeLogsPlayerThree}
+              />
             </View>
           </View>
           <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
             <View style={[styles.playerContainer, styles.down, {borderRightWidth: 1, borderTopWidth: 1,}]}>
-              <PlayerTwo size={Size.small}/>
+              <Player 
+                playerIndex={1} 
+                lifeCounter={counterPlayerTwo} 
+                setCounter={setCounterPlayerTwo} 
+                scaleSize={Size.small}
+                lifeLogs={playersLifeLogs()} 
+                setLifeLogs={setLifeLogsPlayerTwo}
+              />
             </View>
             <View style={[styles.playerContainer, {borderLeftWidth: 1, borderTopWidth: 1,}]}>
-              <PlayerOne size={Size.small}/>
+              <Player 
+                playerIndex={0} 
+                lifeCounter={counterPlayerOne}
+                setCounter={setCounterPlayerOne} 
+                scaleSize={Size.small}
+                lifeLogs={playersLifeLogs()} 
+                setLifeLogs={setLifeLogsPlayerOne}
+              />
             </View>
           </View>
         </View>
-      )
-      default: return (
-        <View style={styles.container}>
-          <View style={[styles.playerContainer, styles.down, {borderTopWidth:1}]}>
-            <PlayerTwo size={Size.big}/>
-          </View>
-          <View style={[styles.playerContainer, {borderTopWidth:1}]}>
-            <PlayerOne size={Size.big}/>
-          </View>
-        </View>
-      )
-    }
-  }
-
-  return (
-    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor]}>
-      <View style={styles.container}>
-        <PlayersMosaic />
+        }
         <View style={[styles.mainMenu, showMainMenu && styles.mainMenu__expanded, {backgroundColor: backgroundColor}]}>
           <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide}>
             <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30}}/>
