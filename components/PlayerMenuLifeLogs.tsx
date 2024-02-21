@@ -6,8 +6,8 @@ export default function PlayerMenuLifeLogs({playerIndex, lifeLogs}) {
 
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
   
-  const playerLogs = playerIndex === 0 ? lifeLogs[playerIndex] : lifeLogs[playerIndex]
-  const opponentLogs = playerIndex === 0 ? lifeLogs[playerIndex] : lifeLogs[playerIndex]
+  const playerLogs = playerIndex === 0 ? lifeLogs[0] : lifeLogs[1]
+  const opponentLogs = playerIndex === 0 ? lifeLogs[1] : lifeLogs[0]
 
   return (
     <View style={styles.container}>
