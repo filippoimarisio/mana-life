@@ -6,7 +6,7 @@ import {Context} from '../context'
 export default function PlayerMenuMana({}) {
 
   type ValueOf<T> = T[keyof T];
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   const [manaCounter, setManaCounter] = useState({
     mountain: 0,

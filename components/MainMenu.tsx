@@ -13,7 +13,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
   }
 
   const [selectedOption, setSelectedOption] = useState(Options.dices)
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
 
   const Restart = () => {

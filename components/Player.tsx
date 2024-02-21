@@ -6,7 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import {Context} from '../context';
 import {Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
 
-export default function Player({playerIndex, lifeCounter, setCounter, scaleSize}) {
+export default function Player({playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs}) {
 
   type ValueOf<T> = T[keyof T];
 
@@ -20,9 +20,8 @@ export default function Player({playerIndex, lifeCounter, setCounter, scaleSize}
   const [poisonCounter, setPoisonCounter] = useState(0)
   const [edhCounter, setEdhCounter] = useState(0)
   const [stormCounter, setStormCounter] = useState(0)
-  const [backgroundImage, setBackgroundImage] = useState('../assets/minus-logo__white.png')
-  
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger] = useContext(Context)
+    
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
     if ( selectedColors.includes(color)) {
@@ -49,22 +48,15 @@ export default function Player({playerIndex, lifeCounter, setCounter, scaleSize}
     }, 2000))
   }
 
-  const logs = playerIndex === 0 ? lifeLogsPlayerOne : lifeLogsPlayerTwo
-
   // Updates the current lifeTotal
   useEffect(() => {
     if (currentCounterType !== CounterTypes.life || showTempCounter || tempCounter === 0) return
-    if (playerIndex === 0) {
-      setLifeLogsPlayerOne([...lifeLogsPlayerOne, lifeCounter])
-    }
-    if (playerIndex === 1) {
-      setLifeLogsPlayerTwo([...lifeLogsPlayerTwo, lifeCounter])
-    }
+    setLifeLogs([...lifeLogs, lifeCounter])
   }, [showTempCounter])
 
   useEffect(() => {
     if (tempCounter !== 0) setTempCounter(0)
-  }, [logs])
+  }, [lifeLogs])
 
   // Resets the temp lifeCounter when changing lifeCounter type
   useEffect(() => {
@@ -256,7 +248,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   mainCounter: {
-    marginTop: '35%',
+    marginTop: '5%',
     marginBottom: '5%',
     display: 'flex',
     alignItems:'center',
@@ -273,7 +265,7 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   counterAmount: {
-    fontSize: 150,
+    fontSize: 50,
     color: 'white',
     shadowColor: 'black',
     textShadowColor: 'rgba(0, 0, 0, 1)',

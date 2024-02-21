@@ -10,7 +10,7 @@ import {Context} from '../context';
 export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex, poisonCounter, edhCounter, stormCounter, lifeCounter, setCurrentCounterType, currentCounterType, selectedCounterTypes, setSelectedCounterTypes}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',

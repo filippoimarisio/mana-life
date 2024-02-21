@@ -6,7 +6,7 @@ import { Context } from '../context';
 export default function PlayerMenuCounters({selectedCounterTypes, setSelectedCounterTypes}) {
 
   type ValueOf<T> = T[keyof T];
-  const [lifeLogsPlayerOne, setLifeLogsPlayerOne, lifeLogsPlayerTwo, setLifeLogsPlayerTwo, resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
 
   const onSelectCounter = (counterType: ValueOf<typeof CounterTypes>) => {
     if(selectedCounterTypes.includes(counterType)) setSelectedCounterTypes([...selectedCounterTypes.filter(type=>type !== counterType)])
