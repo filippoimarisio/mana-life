@@ -6,6 +6,8 @@ import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, Bac
 
 export default function Player({playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs}) {
 
+  console.log(playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs)
+
   type ValueOf<T> = T[keyof T];
 
   const [tempCounter, setTempCounter] = useState(0);

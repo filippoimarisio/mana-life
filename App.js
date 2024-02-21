@@ -71,8 +71,8 @@ export default function App() {
         lifeCounter={counterPlayerOne}
         setCounter={setCounterPlayerOne} 
         scaleSize={size}
-        lifeLogs={lifeLogsPlayerOne} 
-        setLifeLogsPlayerOne={setLifeLogsPlayerOne}
+        lifeLogs={playersLifeLogs()} 
+        setLifeLogs={setLifeLogsPlayerOne}
       />
     )
   }
