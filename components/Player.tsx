@@ -2,9 +2,9 @@ import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {Context} from '../context';
-import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages} from '../utils'
+import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages, scaleSize, Size} from '../utils'
 
-export default function Player({playerIndex, lifeCounter, setCounter, scaleSize, lifeLogs, setLifeLogs, size}) {
+export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, setLifeLogs, size}) {
 
 
   type ValueOf<T> = T[keyof T];
@@ -168,12 +168,13 @@ const getDefaultBackgroundColors = (): string[] => {
   }
 
   const MainCounterLogo = () => {
+    const adjustedSize = scaleSize(30, size)
     switch (currentCounterType) {
-      case CounterTypes.life: return <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
-      case CounterTypes.poison: return <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
-      case CounterTypes.edh: return <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
-      case CounterTypes.storm: return <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
-      default: return <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: 'white'}}/>
+      case CounterTypes.life: return <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: 'white'}}/>
+      case CounterTypes.poison: return <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: 'white'}}/>
+      case CounterTypes.edh: return <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: 'white'}}/>
+      case CounterTypes.storm: return <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: 'white'}}/>
+      default: return <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: 'white'}}/>
     }
   }
 
@@ -185,7 +186,7 @@ const getDefaultBackgroundColors = (): string[] => {
             </View>
           </ImageBackground> 
         </View> }
-          <View style={styles.mainCounter}>
+          <View style={[styles.mainCounter, size === Size.small && styles.mainCounter__small]}>
             <View style={[styles.mainCounterLogo]}>
               <MainCounterLogo />
             </View>
@@ -200,7 +201,7 @@ const getDefaultBackgroundColors = (): string[] => {
                   }}
                 />
               </TouchableOpacity>
-              <Text style={styles.counterAmount}>{currentCounter()}</Text>
+              <Text style={[styles.counterAmount, {fontSize: scaleSize(150, size)}]}>{currentCounter()}</Text>
               <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
                 <Image
                   source={require('../assets/plus-logo__white.png')}
@@ -212,8 +213,8 @@ const getDefaultBackgroundColors = (): string[] => {
                 />
               </TouchableOpacity>
             </View>
-            <View style={[styles.tempCounterWrapper]}>
-              <Text style={[styles.tempCounter, !showTempCounter && styles.hide]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
+            <View style={[styles.tempCounterWrapper, {height: scaleSize(60, size)}]}>
+              <Text style={[styles.tempCounter, !showTempCounter && styles.hide, {fontSize: scaleSize(30, size)}]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
             </View>
           </View>
           <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
@@ -232,6 +233,7 @@ const getDefaultBackgroundColors = (): string[] => {
               selectedCounterTypes={selectedCounterTypes}
               setSelectedCounterTypes={setSelectedCounterTypes}
               lifeLogs={lifeLogs} 
+              size={size}
             />
           </View>
       </View>
@@ -248,10 +250,14 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   mainCounter: {
-    marginTop: '5%',
-    marginBottom: '5%',
     display: 'flex',
     alignItems:'center',
+    marginTop: '35%',
+    marginBottom: '5%'
+  },
+  mainCounter__small: {
+    marginTop: '15%',
+    marginBottom: '0%'
   },
   lifeCounter: {
     flexDirection: 'row',
@@ -265,7 +271,6 @@ const styles = StyleSheet.create({
     display: 'none'
   },
   counterAmount: {
-    fontSize: 50,
     color: 'white',
     shadowColor: 'black',
     textShadowColor: 'rgba(0, 0, 0, 1)',
@@ -280,11 +285,9 @@ const styles = StyleSheet.create({
   },
   tempCounterWrapper: {
     flexDirection: 'row',
-    height: 60,
     alignItems: 'flex-start',
   },
   tempCounter: {
-    fontSize: 30,
     color: 'white',
     textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: {width: -1, height: 1},

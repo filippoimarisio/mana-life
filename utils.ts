@@ -88,11 +88,11 @@ type ValueOf<T> = T[keyof T];
 
 export enum Size {
   small = 'small',
-  big = 'big'
+  medium = 'medium'
 }
 
-export const scaleSize = (value: number|string, size: ValueOf<typeof Size>) => {
-  if (size === Size.big) return value
-  if (typeof value === 'string') return Math.round((Number(value) / 2)).toString()
+export const scaleSize = (value: number|string, size: ValueOf<typeof Size>): number => {
+  if (size === Size.medium) return Number(value)
+  if (typeof value === 'string') return Math.round((Number(value) / 2))
   return Math.round(value / 2)
 }
