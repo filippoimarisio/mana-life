@@ -21,7 +21,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true)
   const [backgroundColor, setBackgroundColor] = useState('')
   const [elementsColor, setElementsColor] = useState('')
-  const [playersNumber, setPlayersNumber] = useState(3)
+  const [playersNumber, setPlayersNumber] = useState(2)
 
   // Sets intial life totale
   useEffect(()=>{

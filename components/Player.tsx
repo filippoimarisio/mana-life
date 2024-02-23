@@ -182,7 +182,7 @@ const getDefaultBackgroundColors = (): string[] => {
       <View style={[styles.container]}>
         {selectedColors.length > 0 && <View style={styles.backgroundImage}>
           <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
-            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.6)'}}>
+            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.5)'}}>
             </View>
           </ImageBackground> 
         </View> }

@@ -58,7 +58,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
   function MenuItemWrapper() {
     return (
       <View style={[styles.menuItem, {width: size === Size.medium ?'100%': '60%',}]}>
-        { selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors}/>}
+        { selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors} size={size}/>}
         { selectedMenu === MenuItemsEnum.lifeLogs && <PlayerMenuLifeLogs playerIndex={playerIndex} lifeLogs={lifeLogs}/>}
         { selectedMenu === MenuItemsEnum.manaCount && <PlayerMenuMana /> }
         { selectedMenu === MenuItemsEnum.counterTypes && <PlayerMenuCounters selectedCounterTypes={selectedCounterTypes} setSelectedCounterTypes={setSelectedCounterTypes} size={size}/> }
