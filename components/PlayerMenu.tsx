@@ -73,13 +73,17 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
   const tintColor = (counterType: ValueOf<typeof CounterTypes>): string => {
     return currentCounterType.includes(counterType) ? isMenuOpen ? elementsColor : 'white' : 'gray'
   }
+
+  const onBackArrow = () => {
+    console.log('onBackArrow')
+    setSelectedMenu('')
+  }
   
   return (
     <View style={styles.container}>
       <View style={[styles.wrapper, { backgroundColor : isMenuOpen ? backgroundColor : undefined, padding: scaleSize(20, size)}]}>
         <View style={[styles.navbar, {marginTop: scaleSize(30, size)}]}>
-          { selectedMenu ? <TouchableOpacity onPress={()=> setSelectedMenu('')} style={styles.backArrow}>
-          <View>
+          { selectedMenu ?<View><TouchableOpacity onPress={()=> onBackArrow()} style={styles.backArrow}>
             <Image
               source={require('../assets/arrow-left__white.png')}
               resizeMode = 'contain'
@@ -89,8 +93,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
                 tintColor: elementsColor
               }}
             />
-          </View>
-          </TouchableOpacity> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size), flex: 1}}></View> }
+          </TouchableOpacity></View> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size), flex: 1}}></View> }
           { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: 'gray', borderLeftWidth: 1}]}>
             <View style={styles.counter}>
               <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor(CounterTypes.life)}}/>
@@ -115,8 +118,8 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
               <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor(CounterTypes.storm)}]}>{stormCounter}</Text>
             </View>
           </TouchableOpacity> }
-          <View>
-            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
+          <View >
+            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), alignItems: 'flex-end', justifyContent: 'center'}}>
               <Image
                 source={require('../assets/burger-menu__white.png')}
                 resizeMode = 'contain'

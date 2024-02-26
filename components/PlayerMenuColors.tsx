@@ -13,17 +13,19 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
 
   const ManaButton = ({baseColor, highlightColor, colorIdentity,}) => {
     return (
-        <TouchableOpacity onPress={()=> handleOnSelectColor(colorIdentity)}>
-          <View style={[
-            styles.manaButtonWrapper, 
-            { height: scaleSize(40, size), width: scaleSize(40, size),
-            backgroundColor: selectedColors.includes(colorIdentity) ? baseColor: 'transparent'}
-          ]}>
+        <TouchableOpacity onPress={()=> handleOnSelectColor(colorIdentity)} style={{width: '100%'}}>
+          <View style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems:'center'}}>
             <View style={[
-              styles.manaButton,
-              { height: scaleSize(30, size), width: scaleSize(30, size),
-              backgroundColor: selectedColors.includes(colorIdentity) ? highlightColor: highlightColor}
-            ]}></View>
+              styles.manaButtonWrapper, 
+              { height: scaleSize(40, size), width: scaleSize(40, size),
+              backgroundColor: selectedColors.includes(colorIdentity) ? baseColor: 'transparent'}
+            ]}>
+              <View style={[
+                styles.manaButton,
+                { height: scaleSize(30, size), width: scaleSize(30, size),
+                backgroundColor: selectedColors.includes(colorIdentity) ? highlightColor: highlightColor}
+              ]}></View>
+            </View>
           </View>
         </TouchableOpacity> 
     )
@@ -35,6 +37,8 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
 
   const CombinedColorElement = () => {
     const colorId = findColorIdentity(selectedColors)
+    console.log(selectedColors)
+    console.log(colorId)
     return (
       <View style={[styles.colorElement]}>
         <View style={styles.manaButtonsContainer}>
@@ -45,7 +49,7 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
             </View>
           )})}
         </View>
-        <View style={[styles.colorElement__image, {backgroundColor: 'white'}]}>
+        <View style={[styles.colorElement__image]}>
           <Image
             source={BackgroundImages[colorId]} 
             style={{
