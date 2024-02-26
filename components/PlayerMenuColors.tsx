@@ -39,14 +39,6 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
     const colorId = findColorIdentity(selectedColors)
     return (
       <View style={[styles.colorElement]}>
-        <View style={styles.manaButtonsContainer}>
-          {selectedColors.map((color: string, index: number)=> {
-          return (
-            <View style={[styles.manaButtonContainer, {marginBottom: '5%', width: (getManaButtonsContainerWidth() as any)}]} key={index}>
-              <ManaButton baseColor={colorCodes[color]} highlightColor={colorCodes[color + '_logo']} colorIdentity={color}/>
-            </View>
-          )})}
-        </View>
         <View style={[styles.colorElement__image]}>
           <Image
             source={BackgroundImages[colorId]} 
@@ -56,6 +48,14 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
               width: '100%',
             }}/> 
         </View>
+        <View style={styles.manaButtonsContainer}>
+          {selectedColors.map((color: string, index: number)=> {
+          return (
+            <View style={[styles.manaButtonContainer, {marginTop: '5%', width: (getManaButtonsContainerWidth() as any)}]} key={index}>
+              <ManaButton baseColor={colorCodes[color]} highlightColor={colorCodes[color + '_logo']} colorIdentity={color}/>
+            </View>
+          )})}
+        </View>
       </View>
     )
   }
@@ -63,9 +63,6 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
   const ColorElement = ({baseColor, highlightColor, colorIdentity}) => {
     return (
       <View style={[styles.colorElement]}>
-        <View style={styles.manaButtonContainer}>
-          <ManaButton baseColor={baseColor} highlightColor={highlightColor} colorIdentity={colorIdentity}/>
-        </View>
         <View style={styles.colorElement__image}>
           {!selectedColors.includes(colorIdentity) && <Image
             source={BackgroundImages[colorIdentity]} 
@@ -85,6 +82,9 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
               tintColor: selectedColors.includes(colorIdentity) ? undefined: 'gray',
               opacity: selectedColors.includes(colorIdentity) ? 1: 0.3
             }}/> 
+        </View>
+        <View style={styles.manaButtonContainer}>
+          <ManaButton baseColor={baseColor} highlightColor={highlightColor} colorIdentity={colorIdentity}/>
         </View>
       </View>
     )
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignItems: 'center',
-    marginBottom: '10%',
+    marginTop: '10%',
   },
   manaButtonWrapper: {
     borderRadius: 60,
