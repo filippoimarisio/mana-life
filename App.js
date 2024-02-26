@@ -71,7 +71,7 @@ export default function App() {
   return (
     <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber]}>
       <View style={[styles.container, {backgroundColor: 'black'}]}>
-        <View style={{marginTop: '20%', position: 'relative', width: '100%', height: '100%'}}>
+        <View style={{marginTop:'6%', position: 'relative', width: '100%', height: '94%'}}>
           {playersNumber === 2 && 
             <View style={styles.container}>
               <View style={[styles.playerContainer, styles.down, {borderTopWidth:2}]}>
@@ -98,7 +98,7 @@ export default function App() {
           }
           {playersNumber === 3 && 
             <View style={styles.container}>
-              <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
+              <View style={[styles.container, {transform: [{ rotate: '90deg'}, ]}]}>
                 <View style={[styles.playerContainer, styles.down]}>
                   <Player 
                     playerIndex={2} 
@@ -134,7 +134,7 @@ export default function App() {
           } 
           {playersNumber === 4 && 
           <View style={styles.container}>
-            <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
+            <View style={[styles.container, {transform: [{ rotate: '90deg'}, ]}]}>
               <View style={[styles.playerContainer, styles.down, {borderLeftWidth: 2, borderTopWidth: 2}]}>
                 <Player 
                   playerIndex={3} 
@@ -156,7 +156,7 @@ export default function App() {
                 />
               </View>
             </View>
-            <View style={[styles.container, {transform: [{ rotate: '90deg'}, {scaleX: 1.05}]}]}>
+            <View style={[styles.container, {transform: [{ rotate: '90deg'}, ]}]}>
               <View style={[styles.playerContainer, styles.down, {borderRightWidth: 2, borderTopWidth: 2,}]}>
                 <Player 
                   playerIndex={1} 
