@@ -10,7 +10,7 @@ import {Context} from '../context';
 export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex, poisonCounter, edhCounter, stormCounter, lifeCounter, setCurrentCounterType, currentCounterType, selectedCounterTypes, setSelectedCounterTypes, lifeLogs, size}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber] = useContext(Context)
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',
@@ -31,26 +31,25 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
   }
 
   function MenuItems() {
-
     const adjustedSize = scaleSize(80, size)
     return (
       <View style={[styles.menuItems__wrapper,{width: size === Size.medium ?'100%': '60%'}]}>
-        <View style={styles.menuItems_row}>
+        <View style={[styles.menuItems_row,{height: playersNumber > 2 ? '100%' : '50%'}]}>
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.colorSelection)}>
-            <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: elementsColor || 'white'}}/>
+            <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor || 'white'}}/>
+          </TouchableOpacity> 
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.counterTypes)}>
+            <Image source={require('../assets/counter-types-logo.png')} resizeMode = 'contain' style= {{ height: 90, width: 90, tintColor: elementsColor || 'white'}}/>
+          </TouchableOpacity> 
+        </View>
+        { playersNumber < 3 && <View style={[styles.menuItems_row]}>
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)}>
+            <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
           <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.lifeLogs)}>
             <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
-        </View>
-        <View style={[styles.menuItems_row]}>
-          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)}>
-            <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: elementsColor || 'white'}}/>
-          </TouchableOpacity> 
-          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.counterTypes)}>
-            <Image source={require('../assets/counter-types-logo.png')} resizeMode = 'contain' style= {{ height: scaleSize(90, size), width: scaleSize(90, size), tintColor: elementsColor || 'white'}}/>
-          </TouchableOpacity> 
-        </View>
+        </View>}
       </View>
     )
   }
@@ -92,7 +91,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
                 tintColor: elementsColor
               }}
             />
-          </TouchableOpacity></View> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size), flex: 1}}></View> }
+          </TouchableOpacity></View> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size)}}></View> }
           { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: 'gray', borderLeftWidth: 1}]}>
             <View style={styles.counter}>
               <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor(CounterTypes.life)}}/>
@@ -136,7 +135,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
           isMenuOpen? undefined : styles.menu_expanded__hide, 
           {height: size === Size.medium ? '80%':'90%', 
           marginTop: '10%',
-          marginBottom: size === Size.medium ? '10%':'2%', 
+          marginBottom: size === Size.medium ? '2%':'2%', 
           width: '100%',
         }]}>
           { selectedMenu === '' ? <MenuItems /> : <MenuItemWrapper />}

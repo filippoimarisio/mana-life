@@ -135,9 +135,9 @@ export default function PlayerMenuMana({}) {
       <View style={[styles.auxiliary, {borderLeftColor: elementsColor}]}>
         <Wubrg/>
         <View style={styles.reset}>
-        <TouchableOpacity onPress={()=>resetCounters()}>
-          <Image source={require('../assets/restart.png')} resizeMode = 'contain' style={[{ tintColor: elementsColor, height: 40, width: 40}]}/>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={()=>resetCounters()}>
+            <Image source={require('../assets/restart.png')} resizeMode = 'contain' style={[{ tintColor: elementsColor, height: 40, width: 40}]}/>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

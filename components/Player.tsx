@@ -114,15 +114,6 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
     setSelectedColors([getRandomColor()])
   }, [])
 
-  const getColorCode = (color: string): string => {
-    if (color === 'mountain') return colorCodes.mountain_logo
-    if (color === 'plains') return colorCodes.plains
-    if (color === 'island') return colorCodes.island_logo
-    if (color === 'forest') return colorCodes.forest_logo
-    if (color === 'swamp') return colorCodes.swamp_logo
-    return colorCodes.plains_logo
-  }
-
   const getRandomColor = (): string => {
     const colors = ['mountain', 'plains', 'island', 'forest', 'swamp']
     const randomIndex = Math.floor(Math.random() * colors.length);

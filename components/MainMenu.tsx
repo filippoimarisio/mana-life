@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView, Switch } f
 import {privacyStatement} from '../utils'
 import {Context} from '../context';
 import MainMenuNumberOfPlayers from './MainMenuNumberOfPlayers'
+import PlayerMenuMana from './PlayerMenuMana'
 
 export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal, darkMode, setDarkMode}) {
 
@@ -11,11 +12,12 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     dices = 'dices',
     initialLife = 'initialLife',
     numberOfPlayers = 'numberOfPlayers',
-    legal = 'legal'
+    legal = 'legal',
+    manaCounter = "manaCounter"
   }
 
   const [selectedOption, setSelectedOption] = useState(Options.dices)
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber] = useContext(Context)
 
 
   const Restart = () => {
@@ -116,6 +118,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     borderColor: elementsColor,
     color: elementsColor
   }
+  
   return (
     
     <View style={styles.container}>
@@ -138,11 +141,14 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         <TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.numberOfPlayers)}>
+          <Image source={require(`../assets/account-multiple.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+        </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.numberOfPlayers)}>
-          <Image source={require(`../assets/account-multiple.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)}>
+          <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.initialLife)}>
           <Image source={require(`../assets/heart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
@@ -157,6 +163,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         {selectedOption === Options.legal && <Legal />}
         {selectedOption === Options.initialLife && <InitialLife />}
         {selectedOption === Options.numberOfPlayers && <MainMenuNumberOfPlayers />}
+        {selectedOption === Options.manaCounter && <PlayerMenuMana />}
       </View>
     </View>
   );
