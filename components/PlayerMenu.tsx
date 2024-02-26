@@ -79,6 +79,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
       <View style={[styles.wrapper, { backgroundColor : isMenuOpen ? backgroundColor : undefined, padding: scaleSize(20, size)}]}>
         <View style={[styles.navbar, {marginTop: scaleSize(30, size)}]}>
           { selectedMenu ? <TouchableOpacity onPress={()=> setSelectedMenu('')} style={styles.backArrow}>
+          <View>
             <Image
               source={require('../assets/arrow-left__white.png')}
               resizeMode = 'contain'
@@ -88,6 +89,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
                 tintColor: elementsColor
               }}
             />
+          </View>
           </TouchableOpacity> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size), flex: 1}}></View> }
           { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: 'gray', borderLeftWidth: 1}]}>
             <View style={styles.counter}>
@@ -113,17 +115,19 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
               <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor(CounterTypes.storm)}]}>{stormCounter}</Text>
             </View>
           </TouchableOpacity> }
-          <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
-            <Image
-              source={require('../assets/burger-menu__white.png')}
-              resizeMode = 'contain'
-              style= {{
-                height: 40,
-                width: 40,
-                tintColor: isMenuOpen ? elementsColor : 'white'
-              }}
-            />
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
+              <Image
+                source={require('../assets/burger-menu__white.png')}
+                resizeMode = 'contain'
+                style= {{
+                  height: 40,
+                  width: 40,
+                  tintColor: isMenuOpen ? elementsColor : 'white'
+                }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={[
           styles.menu_expanded, 
