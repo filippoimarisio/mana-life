@@ -75,7 +75,6 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
   }
 
   const onBackArrow = () => {
-    console.log('onBackArrow')
     setSelectedMenu('')
   }
   

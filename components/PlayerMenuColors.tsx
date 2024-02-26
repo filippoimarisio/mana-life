@@ -37,8 +37,6 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
 
   const CombinedColorElement = () => {
     const colorId = findColorIdentity(selectedColors)
-    console.log(selectedColors)
-    console.log(colorId)
     return (
       <View style={[styles.colorElement]}>
         <View style={styles.manaButtonsContainer}>

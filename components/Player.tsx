@@ -111,8 +111,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
 
   // Assigns random colors on load and handles selected ones
   useEffect(() => {
-    const startingColors = getDefaultBackgroundColors()
-    setSelectedColors(startingColors)
+    setSelectedColors([getRandomColor()])
   }, [])
 
   const getColorCode = (color: string): string => {
@@ -124,38 +123,11 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
     return colorCodes.plains_logo
   }
 
-  const getBackgroundColors = (): string[] => {
-    switch (selectedColors.length) {
-      case 1: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[0])]
-      case 2: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1])]
-      case 3: return [getColorCode(selectedColors[0]), getColorCode(selectedColors[1]), getColorCode(selectedColors[2])]
-      default: return [colorCodes.forest_logo, colorCodes.forest_logo]
-    }
-  }
-
-  const getRandomColor = (excludeColors: string[] = []): string => {
+  const getRandomColor = (): string => {
     const colors = ['mountain', 'plains', 'island', 'forest', 'swamp']
-    const availableColors = colors.filter(color => !excludeColors.includes(color));
-    const randomIndex = Math.floor(Math.random() * availableColors.length);
-    return availableColors[randomIndex];
-};
-
-// Temporirly commented out to test background images as triomes are missing
-const getDefaultBackgroundColors = (): string[] => {
-    let selectedColors: string[];
-    // const numColors = Math.floor(Math.random() * 2) + 2
-    const numColors = 2
-    selectedColors = [getRandomColor(), getRandomColor()];
-    // if (numColors === 3) {
-    //     selectedColors = []
-    //     selectedColors.push(getRandomColor());
-    //     selectedColors.push(getRandomColor([selectedColors[0]]));
-    //     selectedColors.push(getRandomColor([selectedColors[0], selectedColors[1]]));
-    // } else {
-    //     selectedColors = [getRandomColor(), getRandomColor()];
-    // }
-    return selectedColors;
-};
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
 
   const currentCounter = () => {
     switch (currentCounterType) {
