@@ -149,9 +149,10 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
             </View>
           </ImageBackground> 
         </View> }
-          <View style={[styles.mainCounter, size === Size.small && styles.mainCounter__small]}>
-            <View style={[styles.mainCounterLogo]}>
-              <MainCounterLogo />
+          <View style={[styles.mainCounter, selectedCounterTypes.length === 0 ? styles.mainCounter__higherUp : size === Size.small && styles.mainCounter__small]}>
+            <View style={[styles.tempCounterWrapper, {height: scaleSize(50, size), marginTop: selectedCounterTypes.length === 0 ? '10%' : 0}]}>
+              {showTempCounter ? <Text style={[styles.tempCounter, !showTempCounter && styles.hide, {fontSize: scaleSize(30, size)}]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>:
+              selectedCounterTypes.length > 0 && <View style={[styles.mainCounterLogo]}><MainCounterLogo /></View>}
             </View>
             <View style={[styles.lifeCounter]}>
               <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
@@ -164,7 +165,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.counterAmount, {fontSize: scaleSize(150, size)}]}>{currentCounter()}</Text>
+              <Text style={[styles.counterAmount, {fontSize: scaleSize(150, size),lineHeight:scaleSize(150, size),}]}>{currentCounter()}</Text>
               <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
                 <Image
                   source={require('../assets/plus-logo__white.png')}
@@ -175,9 +176,6 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
                   }}
                 />
               </TouchableOpacity>
-            </View>
-            <View style={[styles.tempCounterWrapper, {height: scaleSize(60, size)}]}>
-              <Text style={[styles.tempCounter, !showTempCounter && styles.hide, {fontSize: scaleSize(30, size)}]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>
             </View>
           </View>
           <View style={[styles.playerMenu, isMenuOpen? styles.playerMenu_expanded : undefined]}>
@@ -216,7 +214,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems:'center',
     marginTop: '35%',
-    marginBottom: '5%'
+    marginBottom: '5%',
+  },
+  mainCounter__higherUp: {
+    marginTop: '0%',
+    marginBottom: '0%',
   },
   mainCounter__small: {
     marginTop: '15%',
@@ -239,6 +241,8 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 1)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
+    textAlignVertical: 'center',
+    marginTop: '5%'
   },
   counterButton: {
     height: '100%',
@@ -248,7 +252,8 @@ const styles = StyleSheet.create({
   },
   tempCounterWrapper: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tempCounter: {
     color: 'white',
@@ -268,7 +273,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   mainCounterLogo: {
-    marginBottom: '-5%'
+    display: 'flex',
   },
   backgroundImage: {
     position: 'absolute',
