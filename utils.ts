@@ -52,6 +52,16 @@ export const ColorIdentities = {
   boros: ['plains','mountain'],
   golgari: ['swamp','forest'],
   izzet: ['island','mountain',],
+  temur: ['island','mountain', 'forest'],
+  grixis: ['island','mountain', 'swamp'],
+  jeskai: ['island','mountain', 'plains'],
+  jund: ['swamp','forest','mountain'],
+  sultai: ['swamp','forest', 'island'],
+  abzan: ['swamp','forest', 'plains'],
+  esper: ['island', 'swamp','plains'],
+  mardu: ['mountain','plains','swamp'],
+  naya: ['mountain','plains','forest'],
+  bant: ['island','forest','plains'],
 }
 
 export const BackgroundImages = {
@@ -70,6 +80,16 @@ export const BackgroundImages = {
   boros: require('./assets/boros-background.png'),
   golgari: require('./assets/golgari-background.png'),
   izzet: require('./assets/izzet-background.png'),
+  temur: require('./assets/temur-background.png'),
+  grixis: require('./assets/grixis-background.png'),
+  jeskai: require('./assets/jeskai-background.png'),
+  jund: require('./assets/jund-background.png'),
+  sultai: require('./assets/sultai-background.png'),
+  abzan: require('./assets/abzan-background.png'),
+  esper: require('./assets/esper-background.png'),
+  mardu: require('./assets/mardu-background.png'),
+  naya: require('./assets/naya-background.png'),
+  bant: require('./assets/bant-background.png'),
 }
 
 export const fetchBackgroundImageKey = (selectedColors: string[]) => {

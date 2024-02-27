@@ -51,7 +51,7 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
         <View style={styles.manaButtonsContainer}>
           {selectedColors.map((color: string, index: number)=> {
           return (
-            <View style={[styles.manaButtonContainer, {marginTop: '5%', width: (getManaButtonsContainerWidth() as any)}]} key={index}>
+            <View style={[styles.manaButtonContainer, {marginTop: selectedColors.length === 2 ? '5%' : '3%', width: (getManaButtonsContainerWidth() as any)}]} key={index}>
               <ManaButton baseColor={colorCodes[color]} highlightColor={colorCodes[color + '_logo']} colorIdentity={color}/>
             </View>
           )})}
@@ -93,6 +93,7 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
   const showColourElement = (colourId: ValueOf<Mana>): boolean => {
     if (selectedColors.length === 1) return true
     if (selectedColors.length === 2 && (!selectedColors.includes(colourId) || isSameColour(selectedColors))) return true
+    if (selectedColors.length >= 3 && !selectedColors.includes(colourId)) return true
     return false
   }
 
@@ -106,7 +107,7 @@ export default function PlayerMenuColors({handleOnSelectColor, selectedColors, s
     <View style={styles.container}>
         {showColourElement(Mana.forest) && <View style={[styles.colorElementContainer, styles.oneColour]}><ColorElement baseColor={colorCodes.forest} highlightColor={colorCodes.forest_logo} colorIdentity={Mana.forest}/></View>}
         {showColourElement(Mana.plains) && <View style={[styles.colorElementContainer, styles.oneColour]}><ColorElement baseColor={colorCodes.plains} highlightColor={colorCodes.plains_logo} colorIdentity={Mana.plains}/></View>}
-        {showCombinedColourElement() && <View style={[styles.colorElementContainer,styles.twoColours]}><CombinedColorElement/></View>}
+        {showCombinedColourElement() && <View style={[styles.colorElementContainer, selectedColors.length === 2 && styles.twoColours, selectedColors.length === 3 && styles.threeColours]}><CombinedColorElement/></View>}
         {showColourElement(Mana.island) && <View style={[styles.colorElementContainer, styles.oneColour]}><ColorElement baseColor={colorCodes.island} highlightColor={colorCodes.island_logo} colorIdentity={Mana.island}/></View>}
         {showColourElement(Mana.mountain) && <View style={[styles.colorElementContainer, styles.oneColour]}><ColorElement baseColor={colorCodes.mountain} highlightColor={colorCodes.mountain_logo} colorIdentity={Mana.mountain}/></View>}
         {showColourElement(Mana.swamp) && <View style={[styles.colorElementContainer, styles.oneColour]}><ColorElement baseColor={colorCodes.swamp} highlightColor={colorCodes.swamp_logo} colorIdentity={Mana.swamp}/></View>}
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
   },
   oneColour: {width: '20%'},
   twoColours: {width: '40%'},
+  threeColours: {width: '60%'},
   colorElement: {    
     height: '100%',
     width: '100%'

@@ -28,7 +28,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
       return
     }
     // Temporarly limited to two waiting to have triomes
-    if (selectedColors.length < 2) setSelectedColors([...selectedColors, color])
+    if (selectedColors.length < 3) setSelectedColors([...selectedColors, color])
     else return
   }
 
