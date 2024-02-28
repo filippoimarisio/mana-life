@@ -4,7 +4,7 @@ import PlayerMenu from './PlayerMenu';
 import {Context} from '../context';
 import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages, scaleSize, Size} from '../utils'
 
-export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, setLifeLogs, size}) {
+export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, setLifeLogs, size, selectedColors, setSelectedColors}) {
 
 
   type ValueOf<T> = T[keyof T];
@@ -12,7 +12,6 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
   const [tempCounter, setTempCounter] = useState(0);
   const [showTempCounter, setShowTempCounter] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedColors, setSelectedColors] = useState([])
   const [counterTimeout, setCounterTimeout] = useState(null)
   const [selectedCounterTypes, setSelectedCounterTypes] = useState([])
   const [currentCounterType, setCurrentCounterType] = useState(CounterTypes.life)
@@ -20,14 +19,13 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
   const [edhCounter, setEdhCounter] = useState(0)
   const [stormCounter, setStormCounter] = useState(0)
     
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
 
   const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
     if ( selectedColors.includes(color)) {
       if (selectedColors.length>1) setSelectedColors(selectedColors.filter(selectedColor=>selectedColor !== color))
       return
     }
-    // Temporarly limited to two waiting to have triomes
     if (selectedColors.length < 3) setSelectedColors([...selectedColors, color])
     else return
   }
@@ -143,9 +141,9 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
 
   return (
       <View style={[styles.container]}>
-        {selectedColors.length > 0 && <View style={styles.backgroundImage}>
+        {selectedColors.length > 0 && fullArtPlayerIndex === null && <View style={styles.backgroundImage}>
           <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
-            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.5)'}}>
+            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.4)'}}>
             </View>
           </ImageBackground> 
         </View> }

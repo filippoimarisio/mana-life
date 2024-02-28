@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Image, ImageBackground } from 'reac
 import Player from './components/Player';
 import MainMenu from './components/MainMenu';
 import {Context} from './context'
-import {Size} from './utils'
+import {Size, BackgroundImages, fetchBackgroundImageKey} from './utils'
 
 export default function App() {
 
@@ -16,6 +16,10 @@ export default function App() {
   const [lifeLogsPlayerTwo, setLifeLogsPlayerTwo] = useState([])
   const [lifeLogsPlayerThree, setLifeLogsPlayerThree] = useState([])
   const [lifeLogsPlayerFour, setLifeLogsPlayerFour] = useState([])
+  const [selectedColorsPlayerOne, setSelectedColorsPlayerOne] = useState([])
+  const [selectedColorsPlayerTwo, setSelectedColorsPlayerTwo] = useState([])
+  const [selectedColorsPlayerThree, setSelectedColorsPlayerThree] = useState([])
+  const [selectedColorsPlayerFour, setSelectedColorsPlayerFour] = useState([])
   const [resetTrigger, setResetTrigger] = useState(false)
   const [initialLifeTotal, setInitialLifeTotal] = useState(20)
   const [darkMode, setDarkMode] = useState(true)
@@ -23,6 +27,7 @@ export default function App() {
   const [elementsColor, setElementsColor] = useState('')
   const [playersNumber, setPlayersNumber] = useState(2)
   const [fullArtPlayerIndex, setFullArtPlayerIndex] = useState(null)
+
 
   // Sets intial life totale
   useEffect(()=>{
@@ -76,10 +81,22 @@ export default function App() {
     else setFullArtPlayerIndex(index)
   }
 
+  const getChosenPlayersSelectedColors = () => {
+    if (fullArtPlayerIndex === 0) return selectedColorsPlayerOne
+    if (fullArtPlayerIndex === 1) return selectedColorsPlayerTwo
+    if (fullArtPlayerIndex === 2) return selectedColorsPlayerThree
+    if (fullArtPlayerIndex === 3) return selectedColorsPlayerFour
+  }
+
   return (
     <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex]}>
       <View style={[styles.container, {backgroundColor: 'black'}]}>
         <View style={{marginTop:'6%', position: 'relative', width: '100%', height: '94%'}}>
+          {fullArtPlayerIndex !==null && <View style={styles.backgroundImage}>
+            <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(getChosenPlayersSelectedColors())]} resizeMode="cover">
+              <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.4)'}}></View>
+            </ImageBackground> 
+          </View> }
           {playersNumber === 2 && 
             <View style={styles.container}>
               <View style={[styles.playerContainer, styles.down, {borderTopWidth:2}]}>
@@ -90,6 +107,8 @@ export default function App() {
                   size={Size.medium}
                   lifeLogs={playersLifeLogs()} 
                   setLifeLogs={setLifeLogsPlayerTwo}
+                  setSelectedColors={setSelectedColorsPlayerTwo}
+                  selectedColors={selectedColorsPlayerTwo}
                 />
               </View>
               <View style={[styles.playerContainer, {borderTopWidth:2}]}>
@@ -100,6 +119,8 @@ export default function App() {
                 size={Size.medium}
                 lifeLogs={playersLifeLogs()} 
                 setLifeLogs={setLifeLogsPlayerOne}
+                setSelectedColors={setSelectedColorsPlayerOne}
+                selectedColors={selectedColorsPlayerOne}
               />
               </View>
             </View>
@@ -115,6 +136,8 @@ export default function App() {
                     size={Size.small}
                     lifeLogs={playersLifeLogs()} 
                     setLifeLogs={setLifeLogsPlayerThree}
+                    setSelectedColors={setSelectedColorsPlayerThree}
+                    selectedColors={selectedColorsPlayerThree}
                   />
                 </View>
                 <View style={[styles.playerContainer,{borderTopWidth: 2}]}>
@@ -125,6 +148,8 @@ export default function App() {
                     size={Size.small}
                     lifeLogs={playersLifeLogs()} 
                     setLifeLogs={setLifeLogsPlayerTwo}
+                    setSelectedColors={setSelectedColorsPlayerTwo}
+                    selectedColors={selectedColorsPlayerTwo}
                   />
                 </View>
               </View>
@@ -136,6 +161,8 @@ export default function App() {
                   size={Size.medium}
                   lifeLogs={playersLifeLogs()} 
                   setLifeLogs={setLifeLogsPlayerOne}
+                  setSelectedColors={setSelectedColorsPlayerOne}
+                  selectedColors={selectedColorsPlayerOne}
                 />
               </View>
             </View>
@@ -151,6 +178,8 @@ export default function App() {
                   size={Size.small}
                   lifeLogs={playersLifeLogs()} 
                   setLifeLogs={setLifeLogsPlayerFour}
+                  setSelectedColors={setSelectedColorsPlayerFour}
+                  selectedColors={selectedColorsPlayerFour}
                 />
               </View>
               <View style={[styles.playerContainer, {borderRightWidth: 2, borderTopWidth: 2}]}>
@@ -161,6 +190,8 @@ export default function App() {
                   size={Size.small}
                   lifeLogs={playersLifeLogs()} 
                   setLifeLogs={setLifeLogsPlayerThree}
+                  setSelectedColors={setSelectedColorsPlayerThree}
+                  selectedColors={selectedColorsPlayerThree}
                 />
               </View>
             </View>
@@ -173,6 +204,8 @@ export default function App() {
                   size={Size.small}
                   lifeLogs={playersLifeLogs()} 
                   setLifeLogs={setLifeLogsPlayerTwo}
+                  setSelectedColors={setSelectedColorsPlayerTwo}
+                  selectedColors={selectedColorsPlayerTwo}
                 />
               </View>
               <View style={[styles.playerContainer, {borderLeftWidth: 2, borderTopWidth: 2,}]}>
@@ -183,6 +216,8 @@ export default function App() {
                   size={Size.small}
                   lifeLogs={playersLifeLogs()} 
                   setLifeLogs={setLifeLogsPlayerOne}
+                  setSelectedColors={setSelectedColorsPlayerOne}
+                  selectedColors={selectedColorsPlayerOne}
                 />
               </View>
             </View>
@@ -256,5 +291,13 @@ const styles = StyleSheet.create({
   },
   hide: {
     display: 'none'
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    zIndex: 0,
   }
 });

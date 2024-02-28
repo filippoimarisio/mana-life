@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'gray',
-    borderWidth: 3,
+    borderWidth: 4,
     borderRadius: 10,
   },
   settings: {
