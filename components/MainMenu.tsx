@@ -28,7 +28,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
   const Restart = () => {
     return (
     <View style={styles.reset}>
-      <Text style={{color: elementsColor, fontSize: 25, marginBottom: '20%'}}>Restart a new match?</Text>
+      <Text style={{color: elementsColor, fontSize: 25, marginBottom: '20%'}}>Start a new match?</Text>
       <TouchableOpacity onPress={()=>resetPlayersLife()}>
         <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor}}/>
       </TouchableOpacity>
@@ -166,21 +166,21 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         />
       </View>
       <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
           <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
+        </TouchableOpacity></View>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
+        </TouchableOpacity></View>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)}>
+        </TouchableOpacity></View>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)}>
           <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
+        </TouchableOpacity></View>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
           <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
+        </TouchableOpacity></View>
       </View>
       
       <View style={styles.content}>
