@@ -45,7 +45,7 @@ export default function App() {
       setBackgroundColor('rgba(40, 44, 53, 0.99)')
       setElementsColor('white')
     } else {
-      setBackgroundColor('rgba(175, 238, 238, 0.99)')
+      setBackgroundColor('rgba(178, 255, 255, 0.99)')
       setElementsColor('#282C35')
     }
   }

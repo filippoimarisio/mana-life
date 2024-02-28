@@ -100,7 +100,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
   const InitialLife = () => {
     return (
       <View style={styles.initialLife}>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(20)} activeOpacity={1} delayPressIn={0}>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(20)} activeOpacity={1} delayPressIn={0} style={{alignItems:'flex-start'}}>
           <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 20 && selectedValues]}>
             <Text style={[styles.initialLifeValue, initialLifeTotal === 20 && selectedValues]}>20</Text>
           </View>
@@ -110,7 +110,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
             <Text style={[styles.initialLifeValue, initialLifeTotal === 30 && selectedValues]}>30</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(40)} activeOpacity={1} delayPressIn={0}>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(40)} activeOpacity={1} delayPressIn={0} style={{alignItems:'flex-end'}}>
           <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 40 && selectedValues]}>
             <Text style={[styles.initialLifeValue, initialLifeTotal === 40 && selectedValues]}>40</Text>
           </View>
@@ -133,23 +133,22 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     return (
       <View style={styles.settings}>
         <View style={styles.settings_labels}>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Players:</Text></View>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Full art:</Text></View>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Life:</Text></View>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Players</Text></View>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Life</Text></View>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Full art</Text></View>
         </View>
         <View style={styles.settings_content}>
           <View style={styles.settings_elementWrapper}><MainMenuNumberOfPlayers /></View>
+          <View style={styles.settings_elementWrapper}><InitialLife /></View>
           <View style={[styles.settings_elementWrapper]}>
             <View style={styles.settings_fullArtSelector}><FullArtSelector /></View>
           </View>
-          <View style={styles.settings_elementWrapper}><InitialLife /></View>
         </View>
       </View>
     )
   }
   
-  return (
-    
+  return (   
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}}>
