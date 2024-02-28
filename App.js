@@ -22,6 +22,7 @@ export default function App() {
   const [backgroundColor, setBackgroundColor] = useState('')
   const [elementsColor, setElementsColor] = useState('')
   const [playersNumber, setPlayersNumber] = useState(2)
+  const [fullArtPlayerIndex, setFullArtPlayerIndex] = useState(null)
 
   // Sets intial life totale
   useEffect(()=>{
@@ -31,6 +32,7 @@ export default function App() {
 
   useEffect(()=>{
     setInitialPlayersLife()
+    setFullArtPlayerIndex(null)
   }, [playersNumber])
 
   const setThemeColors = () => {
@@ -46,6 +48,7 @@ export default function App() {
   useEffect(()=>{
     setThemeColors()
   }, [darkMode])
+  
 
   const setInitialPlayersLife = () => {
     setLifeLogsPlayerOne([initialLifeTotal])
@@ -68,8 +71,13 @@ export default function App() {
     return [lifeLogsPlayerOne, lifeLogsPlayerTwo, lifeLogsPlayerThree, lifeLogsPlayerFour]
   }
 
+  const onFullArtPlayerIndex = index => {
+    if (fullArtPlayerIndex === index) setFullArtPlayerIndex(null)
+    else setFullArtPlayerIndex(index)
+  }
+
   return (
-    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber]}>
+    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex]}>
       <View style={[styles.container, {backgroundColor: 'black'}]}>
         <View style={{marginTop:'6%', position: 'relative', width: '100%', height: '94%'}}>
           {playersNumber === 2 && 
@@ -184,7 +192,15 @@ export default function App() {
             <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide}>
               <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30}}/>
             </TouchableOpacity>
-            { showMainMenu && <MainMenu resetPlayersLife={resetPlayersLife} setShowMainMenu={setShowMainMenu} showMainMenu={showMainMenu} initialLifeTotal={initialLifeTotal} setInitialLifeTotal={setInitialLifeTotal} darkMode={darkMode} setDarkMode={setDarkMode}/>}
+            { showMainMenu && 
+              <MainMenu 
+                resetPlayersLife={resetPlayersLife} 
+                setShowMainMenu={setShowMainMenu} 
+                showMainMenu={showMainMenu} 
+                initialLifeTotal={initialLifeTotal} 
+                setInitialLifeTotal={setInitialLifeTotal} 
+                darkMode={darkMode} 
+                setDarkMode={setDarkMode}/>}
           </View>
         </View>
       </View>

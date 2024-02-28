@@ -13,12 +13,17 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     initialLife = 'initialLife',
     numberOfPlayers = 'numberOfPlayers',
     legal = 'legal',
-    manaCounter = "manaCounter"
+    manaCounter = "manaCounter",
+    settings = "settings"
   }
 
-  const [selectedOption, setSelectedOption] = useState(Options.dices)
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber] = useContext(Context)
+  const [selectedOption, setSelectedOption] = useState(Options.settings)
+  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
 
+  const selectedValues = {
+    borderColor: elementsColor,
+    color: elementsColor
+  }
 
   const Restart = () => {
     return (
@@ -95,17 +100,17 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
   const InitialLife = () => {
     return (
       <View style={styles.initialLife}>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(20)}>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(20)} activeOpacity={1} delayPressIn={0}>
           <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 20 && selectedValues]}>
             <Text style={[styles.initialLifeValue, initialLifeTotal === 20 && selectedValues]}>20</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(30)}>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(30)} activeOpacity={1} delayPressIn={0}>
           <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 30 && selectedValues]}>
             <Text style={[styles.initialLifeValue, initialLifeTotal === 30 && selectedValues]}>30</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(40)}>
+        <TouchableOpacity onPress={()=>setInitialLifeTotal(40)} activeOpacity={1} delayPressIn={0}>
           <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 40 && selectedValues]}>
             <Text style={[styles.initialLifeValue, initialLifeTotal === 40 && selectedValues]}>40</Text>
           </View>
@@ -114,9 +119,33 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     )
   }
 
-  const selectedValues = {
-    borderColor: elementsColor,
-    color: elementsColor
+  const FullArtSelector = (): any => {
+    return ([...Array(playersNumber)].map((e, i) => {
+      return <View key={i} style={[styles.playerArtElement__wrapper]}>
+              <TouchableOpacity onPress={()=>onFullArtPlayerIndex(i)} style={[styles.playerArtElement, fullArtPlayerIndex === i && selectedValues]} activeOpacity={1} delayPressIn={0}>
+                <Text style={[styles.playerArtElement_text, fullArtPlayerIndex === i && selectedValues]}>P{i + 1}</Text>
+              </TouchableOpacity>
+            </View>
+    }))
+  }
+
+  const Settings = () => {
+    return (
+      <View style={styles.settings}>
+        <View style={styles.settings_labels}>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Players:</Text></View>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Full art:</Text></View>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Life:</Text></View>
+        </View>
+        <View style={styles.settings_content}>
+          <View style={styles.settings_elementWrapper}><MainMenuNumberOfPlayers /></View>
+          <View style={[styles.settings_elementWrapper]}>
+            <View style={styles.settings_fullArtSelector}><FullArtSelector /></View>
+          </View>
+          <View style={styles.settings_elementWrapper}><InitialLife /></View>
+        </View>
+      </View>
+    )
   }
   
   return (
@@ -136,13 +165,12 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
           style={{width: '10%', transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
         />
       </View>
-      
       <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
+        <TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
+          <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+        </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.numberOfPlayers)}>
-          <Image source={require(`../assets/account-multiple.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
@@ -150,14 +178,13 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         <TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)}>
           <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setSelectedOption(Options.initialLife)}>
-          <Image source={require(`../assets/heart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
-        </TouchableOpacity>
         <TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
           <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
         </TouchableOpacity>
       </View>
+      
       <View style={styles.content}>
+        {selectedOption === Options.settings && <Settings />}
         {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
@@ -217,25 +244,75 @@ const styles = StyleSheet.create({
   },
   initialLife: {
     height: '100%',
+    width: '100%',
     display: 'flex',
-    flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   initialLifeValue: {
-    fontSize: 60,
+    fontSize: 30,
     color: 'gray',
   },
   initialLifeValueWrapper: {
-    padding: 5,
-    width: 130,
-    height: 130,
+    width: 50,
+    height: 50,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: 'gray',
-    borderWidth: 4,
-    borderRadius: 20,
+    borderWidth: 3,
+    borderRadius: 10,
+  },
+  settings: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    flexDirection: 'row'
+  },
+  settings_labels: {
+    width: '35%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+  },
+  settings_elementWrapper: {
+    flex: 1,
+    alignItems:'flex-start',
+    justifyContent: 'center'
+  },
+  settings_label: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  settings_content: {
+    width: '65%',
+  },
+  settings_fullArtSelector: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  playerArtElement__wrapper: {
+    width: '25%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  playerArtElement: {
+    borderWidth: 3,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'gray',
+    borderRadius: 10,
+    marginRight: 20,
+    height: 40,
+    width: 40
+  },
+  playerArtElement_text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'gray',
   }
 });

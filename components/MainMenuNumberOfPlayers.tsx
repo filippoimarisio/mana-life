@@ -14,52 +14,52 @@ export default function MainMenuNumberOfPlayers() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={()=> setPlayersNumber(2)}>
-        <View style={{display: 'flex', justifyContent:'center', flexDirection:'row'}}>
+      <TouchableOpacity onPress={()=> setPlayersNumber(2)} activeOpacity={1} delayPressIn={0} style={{flex:1, width:'33%'}}>
+        <View style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(2)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(2)}}/> 
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(2)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(2)}}/> 
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=> setPlayersNumber(3)}>
-        <View style={{display: 'flex', justifyContent:'center', flexDirection:'row'}}>
+      <TouchableOpacity onPress={()=> setPlayersNumber(3)} activeOpacity={1} delayPressIn={0} style={{flex:1, width:'33%'}}>
+        <View style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(3)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(3)}}/> 
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(3)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(3)}}/> 
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(3)}}/>
+            style= {{ height: 30, width: 30, tintColor: tintColor(3)}}/>
         </View> 
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=> setPlayersNumber(4)}>
-        <View style={{display: 'flex', justifyContent:'center', flexDirection:'row'}}>
+      <TouchableOpacity onPress={()=> setPlayersNumber(4)} activeOpacity={1} delayPressIn={0} style={{flex:1, width:'33%'}}>
+        <View style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(4)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(4)}}/> 
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(4)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(4)}}/> 
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(4)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(4)}}/> 
           <Image 
             source={require('../assets/account.png')} 
             resizeMode = 'contain' 
-            style= {{ height: 70, width: 70, tintColor: tintColor(4)}}/> 
+            style= {{ height: 30, width: 30, tintColor: tintColor(4)}}/> 
         </View>
       </TouchableOpacity>
     </View>
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     height: '100%',
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row'
   }
 });
