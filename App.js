@@ -4,6 +4,7 @@ import Player from './components/Player';
 import MainMenu from './components/MainMenu';
 import {Context} from './context'
 import {Size, BackgroundImages, fetchBackgroundImageKey} from './utils'
+import MainMenuTimer from './components/MainMenuTimer'
 
 export default function App() {
 
@@ -134,7 +135,7 @@ export default function App() {
           }
           {playersNumber === 3 && 
             <View style={styles.container}>
-              <View style={[styles.container, {transform: [{ rotate: '90deg'}, ]}]}>
+              <View style={[styles.container, {transform: [{ rotate: '90deg'}]}]}>
                 <View style={[styles.playerContainer, styles.down]}>
                   <Player 
                     playerIndex={2} 
@@ -247,6 +248,9 @@ export default function App() {
                 setManaCounter={setManaCounter}
                 setDarkMode={setDarkMode}/>}
           </View>
+          <View style={[styles.timer, showMainMenu && styles.hide]}>
+            <MainMenuTimer />
+          </View>
         </View>
       </View>
     </Context.Provider>
@@ -309,5 +313,15 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     zIndex: 0,
+  },
+  timer: {
+    transform: [{ rotate: '270deg'}],
+    position: 'absolute',
+    top: '50%',
+    marginTop: -30,
+    left: -14
+  },
+  hide: {
+    display: 'none'
   }
 });

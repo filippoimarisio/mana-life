@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import PlayerMenu from './PlayerMenu';
 import {Context} from '../context';
-import {CounterTypes, Mana, Operations, colorCodes, fetchBackgroundImageKey, BackgroundImages, scaleSize, Size} from '../utils'
+import {CounterTypes, Mana, Operations, fetchBackgroundImageKey, BackgroundImages, scaleSize, Size} from '../utils'
 
 export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, setLifeLogs, size, selectedColors, setSelectedColors}) {
 
