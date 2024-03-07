@@ -59,8 +59,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapper: {
-    width: "70%",
-    height: '80%',
+    width: "100%",
+    height: '90%',
+    marginTop: '10%'
   },
   names: {
     height: 50,
