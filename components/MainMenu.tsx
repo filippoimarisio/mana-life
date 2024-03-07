@@ -6,7 +6,18 @@ import MainMenuNumberOfPlayers from './MainMenuNumberOfPlayers'
 import PlayerMenuMana from './PlayerMenuMana'
 import MainMenuLifeLogs from './MainMenuLifeLogs'
 
-export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal, darkMode, setDarkMode, playersLifeLogs}) {
+export default function MainMenu({
+  resetPlayersLife, 
+  setShowMainMenu, 
+  showMainMenu, 
+  setInitialLifeTotal, 
+  initialLifeTotal, 
+  darkMode, 
+  setDarkMode, 
+  playersLifeLogs, 
+  manaCounter,
+  setManaCounter
+}) {
 
   enum Options {
     reset = 'reset',
@@ -194,7 +205,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         {selectedOption === Options.legal && <Legal />}
         {selectedOption === Options.initialLife && <InitialLife />}
         {selectedOption === Options.numberOfPlayers && <MainMenuNumberOfPlayers />}
-        {selectedOption === Options.manaCounter && <PlayerMenuMana />}
+        {selectedOption === Options.manaCounter && <PlayerMenuMana manaCounter={manaCounter} setManaCounter={setManaCounter}/>}
         {selectedOption === Options.lifeLogs && <MainMenuLifeLogs playersLifeLogs={playersLifeLogs}/>}
       </View>
     </View>

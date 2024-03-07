@@ -27,6 +27,14 @@ export default function App() {
   const [elementsColor, setElementsColor] = useState('')
   const [playersNumber, setPlayersNumber] = useState(2)
   const [fullArtPlayerIndex, setFullArtPlayerIndex] = useState(null)
+  const [manaCounter, setManaCounter] = useState({
+    mountain: 0,
+    swamp: 0,
+    forest: 0,
+    plains: 0,
+    island: 0,
+    colorless: 0
+  });
 
   // Sets intial life totale
   useEffect(()=>{
@@ -235,6 +243,8 @@ export default function App() {
                 setInitialLifeTotal={setInitialLifeTotal} 
                 darkMode={darkMode} 
                 playersLifeLogs={playersLifeLogs()}
+                manaCounter={manaCounter}
+                setManaCounter={setManaCounter}
                 setDarkMode={setDarkMode}/>}
           </View>
         </View>
