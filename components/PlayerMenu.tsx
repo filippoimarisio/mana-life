@@ -7,7 +7,25 @@ import {CounterTypes, scaleSize, Size} from '../utils'
 import PlayerMenuCounters from './PlayerMenuCounters'
 import {Context} from '../context';
 
-export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColor, selectedColors, playerIndex, poisonCounter, edhCounter, stormCounter, lifeCounter, setCurrentCounterType, currentCounterType, selectedCounterTypes, setSelectedCounterTypes, lifeLogs, size}) {
+export default function PlayerMenu({
+  onBurgerMenu, 
+  isMenuOpen, 
+  handleOnSelectColor, 
+  selectedColors, 
+  playerIndex, 
+  poisonCounter, 
+  edhCounter, 
+  stormCounter, 
+  lifeCounter, 
+  setCurrentCounterType, 
+  currentCounterType, 
+  selectedCounterTypes, 
+  setSelectedCounterTypes, 
+  lifeLogs, 
+  size, 
+  manaCounter, 
+  setManaCounter
+}) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber] = useContext(Context)
@@ -59,7 +77,7 @@ export default function PlayerMenu({onBurgerMenu, isMenuOpen, handleOnSelectColo
       <View style={[styles.menuItem, {width: size === Size.medium ?'100%': '60%',}]}>
         { selectedMenu === MenuItemsEnum.colorSelection && <PlayerMenuColors handleOnSelectColor={handleOnSelectColor} selectedColors={selectedColors} size={size}/>}
         { selectedMenu === MenuItemsEnum.lifeLogs && <PlayerMenuLifeLogs playerIndex={playerIndex} lifeLogs={lifeLogs}/>}
-        { selectedMenu === MenuItemsEnum.manaCount && <PlayerMenuMana /> }
+        { selectedMenu === MenuItemsEnum.manaCount && <PlayerMenuMana manaCounter={manaCounter} setManaCounter={setManaCounter}/> }
         { selectedMenu === MenuItemsEnum.counterTypes && <PlayerMenuCounters selectedCounterTypes={selectedCounterTypes} setSelectedCounterTypes={setSelectedCounterTypes} size={size}/> }
       </View>
     )

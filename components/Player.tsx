@@ -18,6 +18,14 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
   const [poisonCounter, setPoisonCounter] = useState(0)
   const [edhCounter, setEdhCounter] = useState(0)
   const [stormCounter, setStormCounter] = useState(0)
+  const [manaCounter, setManaCounter] = useState({
+    mountain: 0,
+    swamp: 0,
+    forest: 0,
+    plains: 0,
+    island: 0,
+    colorless: 0
+  });
     
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
 
@@ -193,6 +201,8 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
               setSelectedCounterTypes={setSelectedCounterTypes}
               lifeLogs={lifeLogs} 
               size={size}
+              manaCounter={manaCounter}
+              setManaCounter={setManaCounter}
             />
           </View>
       </View>

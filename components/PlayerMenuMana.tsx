@@ -3,19 +3,10 @@ import React, {useState, useEffect, useContext} from 'react';
 import { Mana, colorCodes, Operations } from '../utils'
 import {Context} from '../context'
 
-export default function PlayerMenuMana({}) {
+export default function PlayerMenuMana({manaCounter,setManaCounter}) {
 
   type ValueOf<T> = T[keyof T];
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
-
-  const [manaCounter, setManaCounter] = useState({
-    mountain: 0,
-    swamp: 0,
-    forest: 0,
-    plains: 0,
-    island: 0,
-    colorless: 0
-  });
 
   const resetCounters = () => {
     setManaCounter({
