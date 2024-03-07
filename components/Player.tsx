@@ -143,7 +143,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
       <View style={[styles.container]}>
         {selectedColors.length > 0 && fullArtPlayerIndex === null && <View style={styles.backgroundImage}>
           <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(selectedColors)]} resizeMode="cover">
-            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.4)'}}>
+            <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.3)'}}>
             </View>
           </ImageBackground> 
         </View> }

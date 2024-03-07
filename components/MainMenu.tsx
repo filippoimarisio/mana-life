@@ -4,8 +4,9 @@ import {privacyStatement} from '../utils'
 import {Context} from '../context';
 import MainMenuNumberOfPlayers from './MainMenuNumberOfPlayers'
 import PlayerMenuMana from './PlayerMenuMana'
+import MainMenuLifeLogs from './MainMenuLifeLogs'
 
-export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal, darkMode, setDarkMode}) {
+export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMenu, setInitialLifeTotal, initialLifeTotal, darkMode, setDarkMode, playersLifeLogs}) {
 
   enum Options {
     reset = 'reset',
@@ -14,7 +15,8 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
     numberOfPlayers = 'numberOfPlayers',
     legal = 'legal',
     manaCounter = "manaCounter",
-    settings = "settings"
+    settings = "settings",
+    lifeLogs = 'lifeLogs'
   }
 
   const [selectedOption, setSelectedOption] = useState(Options.settings)
@@ -166,19 +168,22 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
       </View>
       <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
-          <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+          <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
-          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
-          <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+          <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
+        </TouchableOpacity></View>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.lifeLogs)}>
+          <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)}>
-          <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+          <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
-          <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 50, width: 50, tintColor: elementsColor}}/>
+          <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
       </View>
       
@@ -190,6 +195,7 @@ export default function MainMenu({resetPlayersLife, setShowMainMenu, showMainMen
         {selectedOption === Options.initialLife && <InitialLife />}
         {selectedOption === Options.numberOfPlayers && <MainMenuNumberOfPlayers />}
         {selectedOption === Options.manaCounter && <PlayerMenuMana />}
+        {selectedOption === Options.lifeLogs && <MainMenuLifeLogs playersLifeLogs={playersLifeLogs}/>}
       </View>
     </View>
   );

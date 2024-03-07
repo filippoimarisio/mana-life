@@ -28,7 +28,6 @@ export default function App() {
   const [playersNumber, setPlayersNumber] = useState(2)
   const [fullArtPlayerIndex, setFullArtPlayerIndex] = useState(null)
 
-
   // Sets intial life totale
   useEffect(()=>{
     setInitialPlayersLife()
@@ -94,7 +93,7 @@ export default function App() {
         <View style={{marginTop:'6%', position: 'relative', width: '100%', height: '94%'}}>
           {fullArtPlayerIndex !==null && <View style={styles.backgroundImage}>
             <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(getChosenPlayersSelectedColors())]} resizeMode="cover">
-              <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.4)'}}></View>
+              <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.3)'}}></View>
             </ImageBackground> 
           </View> }
           {playersNumber === 2 && 
@@ -235,6 +234,7 @@ export default function App() {
                 initialLifeTotal={initialLifeTotal} 
                 setInitialLifeTotal={setInitialLifeTotal} 
                 darkMode={darkMode} 
+                playersLifeLogs={playersLifeLogs()}
                 setDarkMode={setDarkMode}/>}
           </View>
         </View>
