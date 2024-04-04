@@ -57,9 +57,9 @@ export default function Timer({time, setTime, timerOn, setTimerOn}) {
         time.minutes === 0 && time.seconds === 0 && styles.timerExpired,
         {backgroundColor: backgroundColor}
       ]}>
-      { timerOn && <Image source={require(`../assets/pause-circle-outline.png`)} resizeMode = 'contain' style= {{ height: 15, width: 15, tintColor: elementsColor}}/>}
-      { !timerOn && <Image source={require(`../assets/play-circle-outline.png`)} resizeMode = 'contain' style= {{ height: 15, width: 15, tintColor: elementsColor}}/>}
-      <Text style={[styles.timerText, {color: elementsColor}]}>{formatTime()}</Text>
+      { timerOn && <Image source={require(`../assets/pause-circle-outline.png`)} resizeMode = 'contain' style= {{ height: 15, width: 15, tintColor: time.minutes === 0 && time.seconds === 0 ? 'red' : elementsColor}}/>}
+      { !timerOn && <Image source={require(`../assets/play-circle-outline.png`)} resizeMode = 'contain' style= {{ height: 15, width: 15, tintColor: time.minutes === 0 && time.seconds === 0 ? 'red' : elementsColor}}/>}
+      <Text style={[styles.timerText, {color: time.minutes === 0 && time.seconds === 0 ? 'red' : elementsColor}]}>{formatTime()}</Text>
     </TouchableOpacity>
   );
 };
