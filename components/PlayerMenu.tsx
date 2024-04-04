@@ -87,8 +87,12 @@ export default function PlayerMenu({
     if (currentCounterType !== counterType) setCurrentCounterType(counterType)
   }
 
-  const tintColor = (counterType: ValueOf<typeof CounterTypes>): string => {
-    return currentCounterType.includes(counterType) ? isMenuOpen ? elementsColor : 'white' : 'gray'
+  const tintColor = (): string => {
+    return isMenuOpen ? elementsColor : 'white'
+  }
+
+  const tintBackgroundColor = (counterType: ValueOf<typeof CounterTypes>): string => {
+    return currentCounterType.includes(counterType) && !isMenuOpen ? 'rgba(255,255,255, 0.3)' : 'transparent'
   }
 
   const onBackArrow = () => {
@@ -99,9 +103,9 @@ export default function PlayerMenu({
     <View style={styles.container}>
       <View style={[styles.wrapper, { backgroundColor : isMenuOpen ? backgroundColor : undefined, padding: scaleSize(20, size)}]}>
         <View style={[styles.navbar, {marginTop: scaleSize(30, size)}]}>
-          { selectedMenu ?<View><TouchableOpacity onPress={()=> onBackArrow()} style={styles.backArrow}>
+          { selectedMenu ?<View style={{paddingRight: scaleSize(10, size)}}><TouchableOpacity onPress={()=> onBackArrow()} style={styles.backArrow}>
             <Image
-              source={require('../assets/close.png')}
+              source={require('../assets/arrow-left.png')}
               resizeMode = 'contain'
               style= {{
                 height: 40,
@@ -109,33 +113,33 @@ export default function PlayerMenu({
                 tintColor: elementsColor
               }}
             />
-          </TouchableOpacity></View> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size)}}></View> }
-          { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: 'gray', borderLeftWidth: 1}]}>
-            <View style={styles.counter}>
-              <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor(CounterTypes.life)}}/>
-              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor(CounterTypes.life)}]}>{lifeCounter}</Text>
+          </TouchableOpacity></View> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size), paddingRight: scaleSize(10, size)}}></View> }
+          { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: elementsColor, borderLeftWidth: 1, borderRightColor: elementsColor}]}>
+            <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.life)}]}>
+              <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
+              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{lifeCounter}</Text>
             </View>
           </TouchableOpacity> }
-          { selectedCounterTypes.includes(CounterTypes.poison) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.poison)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide]}>
-            <View style={styles.counter}>
-              <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor(CounterTypes.poison)}}/>
-              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor(CounterTypes.poison)}]}>{poisonCounter}</Text>
+          { selectedCounterTypes.includes(CounterTypes.poison) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.poison)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]}>
+            <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.poison)}]}>
+              <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
+              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{poisonCounter}</Text>
             </View>
           </TouchableOpacity>}
-          { selectedCounterTypes.includes(CounterTypes.edh) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.edh)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide]}>
-            <View style={styles.counter}>
-              <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor(CounterTypes.edh)}}/>
-              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor(CounterTypes.edh)}]}>{edhCounter}</Text>
+          { selectedCounterTypes.includes(CounterTypes.edh) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.edh)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]}>
+            <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.edh)}]}>
+              <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
+              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{edhCounter}</Text>
             </View>
           </TouchableOpacity>}
-          { selectedCounterTypes.includes(CounterTypes.storm) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.storm)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide]}>
-            <View style={styles.counter}>
-              <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor(CounterTypes.storm)}}/>
-              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor(CounterTypes.storm)}]}>{stormCounter}</Text>
+          { selectedCounterTypes.includes(CounterTypes.storm) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.storm)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]}>
+            <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.storm)}]}>
+              <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
+              <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{stormCounter}</Text>
             </View>
           </TouchableOpacity> }
           <View >
-            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), alignItems: 'flex-end', justifyContent: 'center'}}>
+            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), alignItems: 'flex-end', justifyContent: 'center', marginLeft: scaleSize(10, size),}}>
               <Image
                 source={require('../assets/burger-menu__white.png')}
                 resizeMode = 'contain'
@@ -227,7 +231,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   extraCounter: {
-    borderRightColor: 'gray',
     borderRightWidth: 1,
     flex: 1
   },
