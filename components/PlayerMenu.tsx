@@ -98,6 +98,17 @@ export default function PlayerMenu({
   const onBackArrow = () => {
     setSelectedMenu('')
   }
+
+  const getPlayerIcon = () => {
+    if (isMenuOpen) return require('../assets/close.png')
+    switch (playerIndex) {
+      case 0: return require('../assets/p1-logo.png')
+      case 1: return require('../assets/p2-logo.png')
+      case 2: return require('../assets/p3-logo.png')
+      case 3: return require('../assets/p4-logo.png')
+      default: return require('../assets/burger-menu__white.png')
+    }
+  }
   
   return (
     <View style={styles.container}>
@@ -141,7 +152,7 @@ export default function PlayerMenu({
           <View >
             <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), alignItems: 'flex-end', justifyContent: 'center', marginLeft: scaleSize(10, size),}}>
               <Image
-                source={require('../assets/burger-menu__white.png')}
+                source={getPlayerIcon()}
                 resizeMode = 'contain'
                 style= {{
                   height: 40,

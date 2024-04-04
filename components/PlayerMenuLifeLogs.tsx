@@ -13,8 +13,8 @@ export default function PlayerMenuLifeLogs({playerIndex, lifeLogs}) {
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <View style={[styles.names, {borderBottomColor: elementsColor}]}>
-          <Text style={[styles.playerBox, {color: elementsColor,borderRightColor: elementsColor}]}>Me</Text>
-          <Text style={[styles.opponentBox, {color: elementsColor}]}>You</Text>
+          <Text style={[styles.playerBox, {color: elementsColor,borderRightColor: elementsColor}]}>P1</Text>
+          <Text style={[styles.opponentBox, {color: elementsColor}]}>P2</Text>
         </View>
         <ScrollView style={styles.logsWrapper}>
           <View style={styles.logs}>
