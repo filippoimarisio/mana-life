@@ -3,9 +3,8 @@ import { Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import {Context} from '../context';
 
 
-export default function MainMenuTimer() {
-  const [time, setTime] = useState({ minutes: 50, seconds: 0 });
-  const [timerOn, setTimerOn] = useState(false);
+export default function MainMenuTimer({time, setTime, timerOn, setTimerOn}) {
+  
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)

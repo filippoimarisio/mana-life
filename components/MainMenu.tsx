@@ -6,6 +6,7 @@ import MainMenuNumberOfPlayers from './MainMenuNumberOfPlayers'
 import PlayerMenuMana from './PlayerMenuMana'
 import MainMenuLifeLogs from './MainMenuLifeLogs'
 
+
 export default function MainMenu({
   resetPlayersLife, 
   setShowMainMenu, 
@@ -16,7 +17,11 @@ export default function MainMenu({
   setDarkMode, 
   playersLifeLogs, 
   manaCounter,
-  setManaCounter
+  setManaCounter,
+  time, 
+  setTime, 
+  showTimer, 
+  setShowTimer
 }) {
 
   enum Options {
@@ -38,6 +43,13 @@ export default function MainMenu({
     color: elementsColor
   }
 
+  const formatTime = () => {
+    const { minutes, seconds } = time;
+    return `${minutes < 10 ? '0' : ''}${minutes}`;
+  };
+
+  const toggleSwitch = () => setShowTimer(previousState => !previousState);
+
   const Restart = () => {
     return (
     <View style={styles.reset}>
@@ -56,7 +68,7 @@ export default function MainMenu({
     require('../assets/dice-4-outline.png'),
     require('../assets/dice-5-outline.png'),
     require('../assets/dice-6-outline.png')
-  ];
+  ]
 
   const DiceRoller = () => {
     const [diceIndex, setDiceIndex] = useState(5);
@@ -142,20 +154,50 @@ export default function MainMenu({
     }))
   }
 
+  const TimerSettings = () => {
+    return (
+      <View style={styles.timer}>
+        {/* <Switch
+          trackColor={{false: 'gray', true: 'white'}}
+          thumbColor={darkMode ? "#AFEEEE" : elementsColor}
+          ios_backgroundColor="#AFEEEE"
+          onValueChange={toggleSwitch}
+          value={showTimer}
+          style={{transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
+        /> */}
+        <TouchableOpacity onPress={()=>toggleSwitch()}>
+          <Text style={[styles.showText, {color: showTimer ? elementsColor : 'gray', borderColor:showTimer ? 'white':'transparent'}]}>SHOW</Text>
+        </TouchableOpacity>
+        <View style={styles.timerSetter}>
+          <TouchableOpacity onPress={()=>setTime({ minutes: time.minutes + 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center', justifyContent:'flex-end'}}>
+            <Image source={require(`../assets/chevron-up.png`)} resizeMode = 'contain' style= {{ height: 20, width: 20, tintColor: showTimer ? elementsColor : 'gray'}}/>
+          </TouchableOpacity>
+          <Text style={[styles.timerText, {color: showTimer ? elementsColor : 'gray'}]}>{formatTime()}</Text>
+          <TouchableOpacity onPress={()=>setTime({minutes: time.minutes < 5 ? time.minutes : time.minutes - 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center'}}>
+            <Image source={require(`../assets/chevron-down.png`)} resizeMode = 'contain' style= {{ height: 20, width: 20, tintColor: showTimer ? elementsColor : 'gray'}}/>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity onPress={()=>setTime({ minutes: 50, seconds: 0 })}>
+          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   const Settings = () => {
     return (
       <View style={styles.settings}>
         <View style={styles.settings_labels}>
           <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Players</Text></View>
           <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Life</Text></View>
+          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Timer</Text></View>
           <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Full art</Text></View>
         </View>
         <View style={styles.settings_content}>
           <View style={styles.settings_elementWrapper}><MainMenuNumberOfPlayers /></View>
           <View style={styles.settings_elementWrapper}><InitialLife /></View>
-          <View style={[styles.settings_elementWrapper]}>
-            <View style={styles.settings_fullArtSelector}><FullArtSelector /></View>
-          </View>
+          <View style={styles.settings_elementWrapper}><TimerSettings /></View>
+          <View style={[styles.settings_elementWrapper]}><View style={styles.settings_fullArtSelector}><FullArtSelector /></View></View>
         </View>
       </View>
     )
@@ -330,5 +372,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'gray',
+  },
+  timer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  timerSetter: {
+    display: 'flex',
+    flexDirection:'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  timerText: {
+    fontSize: 40,
+  },
+  showText: {
+    fontSize: 20, textAlign:'center', textAlignVertical:'center', padding: 6, borderRadius: 6, borderWidth: 3,
   }
 });

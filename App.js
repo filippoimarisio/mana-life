@@ -36,6 +36,9 @@ export default function App() {
     island: 0,
     colorless: 0
   });
+  const [time, setTime] = useState({ minutes: 50, seconds: 0 });
+  const [timerOn, setTimerOn] = useState(false);
+  const [showTimer, setShowTimer] = useState(false)
 
   // Sets intial life totale
   useEffect(()=>{
@@ -236,7 +239,7 @@ export default function App() {
               <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30}}/>
             </TouchableOpacity>
             { showMainMenu && 
-              <MainMenu 
+              <MainMenu
                 resetPlayersLife={resetPlayersLife} 
                 setShowMainMenu={setShowMainMenu} 
                 showMainMenu={showMainMenu} 
@@ -246,10 +249,19 @@ export default function App() {
                 playersLifeLogs={playersLifeLogs()}
                 manaCounter={manaCounter}
                 setManaCounter={setManaCounter}
+                time={time} 
+                setTime={setTime}
+                showTimer={showTimer} 
+                setShowTimer={setShowTimer}
                 setDarkMode={setDarkMode}/>}
           </View>
-          <View style={[styles.timer, showMainMenu && styles.hide]}>
-            <MainMenuTimer />
+          <View style={[styles.timer, !showMainMenu && showTimer && styles.show]}>
+            <MainMenuTimer 
+              time={time} 
+              setTime={setTime}
+              timerOn={timerOn}
+              setTimerOn={setTimerOn}
+            />
           </View>
         </View>
       </View>
@@ -319,9 +331,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '50%',
     marginTop: -30,
-    left: -14
-  },
-  hide: {
+    left: -14,
     display: 'none'
+  },
+  show: {
+    display: 'flex'
   }
 });
