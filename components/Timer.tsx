@@ -3,7 +3,7 @@ import { Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import {Context} from '../context';
 
 
-export default function MainMenuTimer({time, setTime, timerOn, setTimerOn}) {
+export default function Timer({time, setTime, timerOn, setTimerOn}) {
   
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 

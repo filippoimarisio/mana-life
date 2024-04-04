@@ -35,7 +35,7 @@ export default function MainMenu({
     lifeLogs = 'lifeLogs'
   }
 
-  const [selectedOption, setSelectedOption] = useState(Options.settings)
+  const [selectedOption, setSelectedOption] = useState(Options.reset)
   const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
 
   const selectedValues = {
@@ -157,16 +157,8 @@ export default function MainMenu({
   const TimerSettings = () => {
     return (
       <View style={styles.timer}>
-        {/* <Switch
-          trackColor={{false: 'gray', true: 'white'}}
-          thumbColor={darkMode ? "#AFEEEE" : elementsColor}
-          ios_backgroundColor="#AFEEEE"
-          onValueChange={toggleSwitch}
-          value={showTimer}
-          style={{transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
-        /> */}
         <TouchableOpacity onPress={()=>toggleSwitch()}>
-          <Text style={[styles.showText, {color: showTimer ? elementsColor : 'gray', borderColor:showTimer ? 'white':'transparent'}]}>SHOW</Text>
+          <Text style={[styles.showText, {color: showTimer ? elementsColor : 'gray', borderColor:showTimer ? elementsColor :'transparent'}]}>SHOW</Text>
         </TouchableOpacity>
         <View style={styles.timerSetter}>
           <TouchableOpacity onPress={()=>setTime({ minutes: time.minutes + 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center', justifyContent:'flex-end'}}>
@@ -207,7 +199,7 @@ export default function MainMenu({
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}}>
-          <Image source={require(`../assets/arrow-left.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
+          <Image source={require(`../assets/close.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 90, width: 90}}/>
         <Switch
@@ -220,11 +212,11 @@ export default function MainMenu({
         />
       </View>
       <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
-          <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
+        </TouchableOpacity></View>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
+          <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
         <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>

@@ -4,7 +4,7 @@ import Player from './components/Player';
 import MainMenu from './components/MainMenu';
 import {Context} from './context'
 import {Size, BackgroundImages, fetchBackgroundImageKey} from './utils'
-import MainMenuTimer from './components/MainMenuTimer'
+import Timer from './components/Timer'
 
 export default function App() {
 
@@ -54,7 +54,7 @@ export default function App() {
   const setThemeColors = () => {
     if (darkMode) {
       setBackgroundColor('rgba(40, 44, 53, 0.99)')
-      setElementsColor('white')
+      setElementsColor('rgba(255, 255, 255, 1)')
     } else {
       setBackgroundColor('rgba(178, 255, 255, 0.99)')
       setElementsColor('#282C35')
@@ -255,14 +255,14 @@ export default function App() {
                 setShowTimer={setShowTimer}
                 setDarkMode={setDarkMode}/>}
           </View>
-          <View style={[styles.timer, !showMainMenu && showTimer && styles.show]}>
-            <MainMenuTimer 
+          { backgroundColor && <View style={[styles.timer, !showMainMenu && showTimer && styles.show]}>
+            <Timer 
               time={time} 
               setTime={setTime}
               timerOn={timerOn}
               setTimerOn={setTimerOn}
             />
-          </View>
+          </View> }
         </View>
       </View>
     </Context.Provider>

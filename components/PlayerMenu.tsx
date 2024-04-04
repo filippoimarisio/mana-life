@@ -101,7 +101,7 @@ export default function PlayerMenu({
         <View style={[styles.navbar, {marginTop: scaleSize(30, size)}]}>
           { selectedMenu ?<View><TouchableOpacity onPress={()=> onBackArrow()} style={styles.backArrow}>
             <Image
-              source={require('../assets/arrow-left__white.png')}
+              source={require('../assets/close.png')}
               resizeMode = 'contain'
               style= {{
                 height: 40,
