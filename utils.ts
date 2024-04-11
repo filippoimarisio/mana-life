@@ -34,7 +34,53 @@ export enum Operations {
   minus = 'minus'
 }
 
-export const privacyStatement = "Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. Belay yo-ho-ho keelhaul squiffy black spot yardarm spyglass sheet transom heave to.Trysail Sail ho Corsair red ensign hulk smartly boom jib rum gangway. Case shot Shiver me timbers gangplank crack Jennys tea cup ballast Blimey lee snow crow's nest rutters. Fluke jib scourge of the seven seas boatswain schooner gaff booty Jack Tar transom spirits. <br/> Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. Belay yo-ho-ho keelhaul squiffy black spot yardarm spyglass sheet transom heave to.Trysail Sail ho Corsair red ensign hulk smartly boom jib rum gangway. Case shot Shiver me timbers gangplank crack Jennys tea cup ballast Blimey lee snow crow's nest rutters. Fluke jib scourge of the seven seas boatswain schooner gaff booty Jack Tar transom spirits. <br/> Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. Swab barque interloper chantey doubloon starboard grog black jack gangway rutters.Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. Belay yo-ho-ho keelhaul squiffy black spot yardarm spyglass sheet transom heave to.Trysail Sail ho Corsair red ensign hulk smartly boom jib rum gangway. Case shot Shiver me timbers gangplank crack Jennys tea cup ballast Blimey lee snow crow's nest rutters. Fluke jib scourge of the seven seas boatswain schooner gaff booty Jack Tar transom spirits."
+export const privacyStatement = `Privacy Policy
+
+Effective Date: 08/04/2024
+
+This Privacy Policy describes how Filippo Imarisio (hereinafter referred to as "we", "us", or "our") collects, uses, and shares information when you use our mobile application (the "App"). By accessing or using the App, you agree to the terms of this Privacy Policy.
+
+1. Information We Collect:
+
+    a. Information Collected Automatically: When you use the App, we may automatically collect certain information about your device, including but not limited to your device model, operating system version, unique device identifiers, IP address, mobile network information, and information about how you use the App.
+
+    b. Cookies and Similar Technologies: We may use cookies and similar tracking technologies to provide and improve the App and to deliver and analyze advertisements. You can control cookies through your browser settings and other tools.
+
+2. Use of Information:
+
+    a. We may use the information collected to provide and maintain the App, to improve and personalize the user experience, to analyze usage trends and preferences, and to deliver relevant advertisements.
+
+    b. We may also use the information to comply with legal obligations, to respond to requests or inquiries from users, and to protect our rights, property, or safety or that of others.
+
+3. Sharing of Information:
+
+    a. We may share the information collected with third-party service providers who assist us in providing, maintaining, and analyzing the App.
+
+    b. We may also share the information with advertising partners to deliver targeted advertisements. Please note that these third parties may use cookies and similar tracking technologies to collect information about your activity across different websites and online services.
+
+    c. We may disclose information in response to legal process, to comply with applicable laws, to enforce our policies, to respond to claims that content violates the rights of others, or to protect the rights, property, or safety of us, our users, or the public.
+
+4. Data Retention:
+
+    We will retain the information collected for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
+
+5. Third-Party Links and Services:
+
+    The App may contain links to third-party websites, services, and advertisements that are not owned or controlled by us. We are not responsible for the privacy practices or content of these third parties. We encourage you to review the privacy policies of these third parties before providing any information to them.
+
+6. Children's Privacy:
+
+    The App is not directed to children under the age of 13, and we do not knowingly collect personal information from children under the age of 13. If you believe that we have collected personal information from a child under the age of 13, please contact us at the email address provided below.
+
+7. Contact Us:
+
+    If you have any questions or concerns about this Privacy Policy or our privacy practices, you may contact us at imarisiof@gmail.com.
+
+8. Changes to this Privacy Policy:
+
+    We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+
+By using the App, you consent to the collection, use, and sharing of your information as described in this Privacy Policy.`;
 
 export const ColorIdentities = {
   plains: ['plains'],

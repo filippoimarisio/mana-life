@@ -201,7 +201,7 @@ export default function MainMenu({
         <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}}>
           <Image source={require(`../assets/close.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
         </TouchableOpacity>
-        <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 90, width: 90}}/>
+        <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 100, width: 100}}/>
         <Switch
           trackColor={{false: 'gray', true: 'white'}}
           thumbColor={darkMode ? "#AFEEEE" : elementsColor}
