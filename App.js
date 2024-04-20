@@ -5,6 +5,10 @@ import MainMenu from './components/MainMenu';
 import {Context} from './context'
 import {Size, BackgroundImages, fetchBackgroundImageKey} from './utils'
 import Timer from './components/Timer'
+import 'expo-dev-client'
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : 'ca-app-pub-4003022389627545/9649142112';
 
 export default function App() {
 
@@ -264,6 +268,10 @@ export default function App() {
             />
           </View> }
         </View>
+        <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        />
       </View>
     </Context.Provider>
   );
