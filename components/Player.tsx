@@ -234,14 +234,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     marginBottom: '5%',
   },
-  // mainCounter__higherUp: {
-  //   marginTop: '0%',
-  //   marginBottom: '0%',
-  // },
-  // mainCounter__small: {
-  //   marginTop: '15%',
-  //   marginBottom: '0%'
-  // },
   lifeCounter: {
     flexDirection: 'row',
     flex: 1,

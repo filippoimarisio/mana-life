@@ -43,6 +43,7 @@ export default function App() {
   const [time, setTime] = useState({ minutes: 50, seconds: 0 });
   const [timerOn, setTimerOn] = useState(false);
   const [showTimer, setShowTimer] = useState(false)
+  const [showAdBanner, setShowAdBanner] = useState(true)
 
   // Sets intial life totale
   useEffect(()=>{
@@ -104,11 +105,13 @@ export default function App() {
   }
 
   const containerLayoutSettings = () => {
+    const paddingTop = showAdBanner ? 70 : 40
+    const paddingBottom = showAdBanner ? 30 : 0
     switch (playersNumber) {
-      case 2 : return {paddingTop: 70, paddingBottom: 30, paddingLeft: 0, paddingRight: 0}
-      case 3 : return {paddingTop: 70, paddingBottom: 30, paddingLeft: 14, paddingRight: 14}
-      case 4 : return {paddingTop: 70, paddingBottom: 30, paddingLeft: 14, paddingRight: 14}
-      default: return {paddingTop: 70, paddingBottom: 30, paddingLeft: 0, paddingRight: 0}
+      case 2 : return {paddingTop: paddingTop, paddingBottom: paddingBottom, paddingLeft: 0, paddingRight: 0}
+      case 3 : return {paddingTop: paddingTop, paddingBottom: paddingBottom, paddingLeft: showAdBanner ? 14: 0, paddingRight: showAdBanner ? 14 : 0}
+      case 4 : return {paddingTop: paddingTop, paddingBottom: paddingBottom, paddingLeft: showAdBanner ? 14: 0, paddingRight: showAdBanner ? 14 : 0}
+      default: return {paddingTop: paddingTop, paddingBottom: paddingBottom, paddingLeft: 0, paddingRight: 0}
     }
   }
 
@@ -277,10 +280,10 @@ export default function App() {
             />
           </View> }
         </View>
-        <BannerAd
+        { showAdBanner && <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        />
+        />}
       </View>
     </Context.Provider>
   );
