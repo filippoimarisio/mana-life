@@ -53,18 +53,18 @@ export default function PlayerMenu({
     return (
       <View style={[styles.menuItems__wrapper,{width: size === Size.medium ?'100%': '60%'}]}>
         <View style={[styles.menuItems_row,{height: playersNumber > 2 ? '100%' : '50%'}]}>
-          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.colorSelection)}>
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.colorSelection)} activeOpacity={1} delayPressIn={0}>
             <Image source={require(`../assets/palette.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
-          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.counterTypes)}>
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.counterTypes)} activeOpacity={1} delayPressIn={0}>
             <Image source={require('../assets/counter-types-logo.png')} resizeMode = 'contain' style= {{ height: 90, width: 90, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
         </View>
         { playersNumber < 3 && <View style={[styles.menuItems_row]}>
-          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)}>
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.manaCount)} activeOpacity={1} delayPressIn={0}>
             <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
-          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.lifeLogs)}>
+          <TouchableOpacity onPress={()=> handleMenuSelection(MenuItemsEnum.lifeLogs)} activeOpacity={1} delayPressIn={0}>
             <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: adjustedSize, width: adjustedSize, tintColor: elementsColor || 'white'}}/>
           </TouchableOpacity> 
         </View>}
@@ -114,7 +114,7 @@ export default function PlayerMenu({
     <View style={styles.container}>
       <View style={[styles.wrapper, { backgroundColor : isMenuOpen ? backgroundColor : undefined, padding: scaleSize(20, size)}]}>
         <View style={[styles.navbar, {marginTop: scaleSize(30, size)}]}>
-          { selectedMenu ?<View style={{paddingRight: scaleSize(10, size)}}><TouchableOpacity onPress={()=> onBackArrow()} style={styles.backArrow}>
+          { selectedMenu ?<View style={{paddingRight: scaleSize(10, size)}}><TouchableOpacity onPress={()=> onBackArrow()} style={styles.backArrow} activeOpacity={1} delayPressIn={0}>
             <Image
               source={require('../assets/arrow-left.png')}
               resizeMode = 'contain'
@@ -125,32 +125,32 @@ export default function PlayerMenu({
               }}
             />
           </TouchableOpacity></View> : <View style={{height: scaleSize(40, size), width: scaleSize(40, size), paddingRight: scaleSize(10, size)}}></View> }
-          { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: elementsColor, borderLeftWidth: 1, borderRightColor: elementsColor}]}>
+          { selectedCounterTypes.length > 0 && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.life)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderLeftColor: elementsColor, borderLeftWidth: 1, borderRightColor: elementsColor}]} activeOpacity={1} delayPressIn={0}>
             <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.life)}]}>
               <Image source={require('../assets/heart.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
               <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{lifeCounter}</Text>
             </View>
           </TouchableOpacity> }
-          { selectedCounterTypes.includes(CounterTypes.poison) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.poison)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]}>
+          { selectedCounterTypes.includes(CounterTypes.poison) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.poison)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]} activeOpacity={1} delayPressIn={0}>
             <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.poison)}]}>
               <Image source={require('../assets/poison-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
               <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{poisonCounter}</Text>
             </View>
           </TouchableOpacity>}
-          { selectedCounterTypes.includes(CounterTypes.edh) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.edh)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]}>
+          { selectedCounterTypes.includes(CounterTypes.edh) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.edh)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]} activeOpacity={1} delayPressIn={0}>
             <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.edh)}]}>
               <Image source={require('../assets/edh-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
               <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{edhCounter}</Text>
             </View>
           </TouchableOpacity>}
-          { selectedCounterTypes.includes(CounterTypes.storm) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.storm)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]}>
+          { selectedCounterTypes.includes(CounterTypes.storm) && <TouchableOpacity onPress={()=>onSelectCurrentCounterType(CounterTypes.storm)} style={[ styles.extraCounter, isMenuOpen && selectedMenu !== MenuItemsEnum.counterTypes && styles.hide, {borderRightColor: elementsColor}]} activeOpacity={1} delayPressIn={0}>
             <View style={[styles.counter, {backgroundColor: tintBackgroundColor(CounterTypes.storm)}]}>
               <Image source={require('../assets/storm-logo.png')} resizeMode = 'contain' style= {{height: scaleSize(20, size),width: scaleSize(20, size), tintColor: tintColor()}}/>
               <Text style={[styles.counterAmount, {fontSize: scaleSize(40, size), width: scaleSize(100, size), color: tintColor()}]}>{stormCounter}</Text>
             </View>
           </TouchableOpacity> }
           <View >
-            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), alignItems: 'flex-end', justifyContent: 'center', marginLeft: scaleSize(10, size),}}>
+            <TouchableOpacity onPress={()=>handleOnBurgerMenu()} style={{marginBottom: scaleSize(4, size), alignItems: 'flex-end', justifyContent: 'center', marginLeft: scaleSize(10, size),}} activeOpacity={1} delayPressIn={0}>
               <Image
                 source={getPlayerIcon()}
                 resizeMode = 'contain'

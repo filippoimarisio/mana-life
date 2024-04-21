@@ -172,7 +172,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
               selectedCounterTypes.length > 0 && <View style={[styles.mainCounterLogo]}><MainCounterLogo /></View>}
             </View>
             <View style={[styles.lifeCounter]}>
-              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton}>
+              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.minus)} style={styles.counterButton} delayPressIn={0}>
                 <Image
                   source={require('../assets/minus-logo__white.png')}
                   resizeMode = 'contain'
@@ -183,7 +183,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
                 />
               </TouchableOpacity>
               <Text style={[styles.counterAmount, {fontSize: scaleSize(150, size),lineHeight:scaleSize(150, size),}]}>{currentCounter()}</Text>
-              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton}>
+              <TouchableOpacity onPress={()=>handleCounterInteraction(Operations.plus)} style={styles.counterButton} delayPressIn={0}>
                 <Image
                   source={require('../assets/plus-logo__white.png')}
                   resizeMode = 'contain'

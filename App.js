@@ -251,7 +251,7 @@ export default function App() {
           </View>
           }
           <View style={[styles.mainMenu, showMainMenu && styles.mainMenu__expanded, {backgroundColor: backgroundColor}]}>
-            <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide}>
+            <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={showMainMenu && styles.hide} activeOpacity={1} delayPressIn={0}>
               <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 27, width: 27}}/>
             </TouchableOpacity>
             { showMainMenu && 

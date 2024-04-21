@@ -54,7 +54,7 @@ export default function MainMenu({
     return (
     <View style={styles.reset}>
       <Text style={{color: elementsColor, fontSize: 25, marginBottom: '20%'}}>Start a new match?</Text>
-      <TouchableOpacity onPress={()=>resetPlayersLife()}>
+      <TouchableOpacity onPress={()=>resetPlayersLife()} activeOpacity={1} delayPressIn={0}>
         <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 80, width: 80, tintColor: elementsColor}}/>
       </TouchableOpacity>
     </View>
@@ -103,7 +103,7 @@ export default function MainMenu({
 
     return (
       <View style={styles.dices}>
-        <TouchableOpacity onPress={rollDice}>
+        <TouchableOpacity onPress={rollDice} activeOpacity={1} delayPressIn={0}>
             <Image
                 source={DiceImages[diceIndex]}
                 resizeMode='contain'
@@ -157,19 +157,19 @@ export default function MainMenu({
   const TimerSettings = () => {
     return (
       <View style={styles.timer}>
-        <TouchableOpacity onPress={()=>toggleSwitch()}>
+        <TouchableOpacity onPress={()=>toggleSwitch()} activeOpacity={1} delayPressIn={0}>
           <Text style={[styles.showText, {color: showTimer ? elementsColor : 'gray', borderColor:showTimer ? elementsColor :'transparent'}]}>SHOW</Text>
         </TouchableOpacity>
         <View style={styles.timerSetter}>
-          <TouchableOpacity onPress={()=>setTime({ minutes: time.minutes + 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center', justifyContent:'flex-end'}}>
+          <TouchableOpacity onPress={()=>setTime({ minutes: time.minutes + 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center', justifyContent:'flex-end'}} activeOpacity={1} delayPressIn={0}>
             <Image source={require(`../assets/chevron-up.png`)} resizeMode = 'contain' style= {{ height: 20, width: 20, tintColor: showTimer ? elementsColor : 'gray'}}/>
           </TouchableOpacity>
           <Text style={[styles.timerText, {color: showTimer ? elementsColor : 'gray'}]}>{formatTime()}</Text>
-          <TouchableOpacity onPress={()=>setTime({minutes: time.minutes < 5 ? time.minutes : time.minutes - 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center'}}>
+          <TouchableOpacity onPress={()=>setTime({minutes: time.minutes < 5 ? time.minutes : time.minutes - 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center'}} activeOpacity={1} delayPressIn={0}>
             <Image source={require(`../assets/chevron-down.png`)} resizeMode = 'contain' style= {{ height: 20, width: 20, tintColor: showTimer ? elementsColor : 'gray'}}/>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={()=>setTime({ minutes: 50, seconds: 0 })}>
+        <TouchableOpacity onPress={()=>setTime({ minutes: 50, seconds: 0 })} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
         </TouchableOpacity>
       </View>
@@ -198,7 +198,7 @@ export default function MainMenu({
   return (   
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}}>
+        <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/close.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
         </TouchableOpacity>
         <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 100, width: 100}}/>
@@ -212,22 +212,22 @@ export default function MainMenu({
         />
       </View>
       <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.reset)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.reset)} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.dices)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.dices)} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.lifeLogs)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.lifeLogs)} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.legal)}>
+        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.legal)} activeOpacity={1} delayPressIn={0}>
           <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
         </TouchableOpacity></View>
       </View>

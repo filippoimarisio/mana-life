@@ -19,19 +19,19 @@ export default function PlayerMenuCounters({selectedCounterTypes, setSelectedCou
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={()=> onSelectCounter(CounterTypes.poison)}>
+      <TouchableOpacity onPress={()=> onSelectCounter(CounterTypes.poison)} activeOpacity={1} delayPressIn={0}>
         <Image 
           source={require('../assets/poison-logo.png')} 
           resizeMode = 'contain' 
           style= {{ height: scaleSize(80, size), width: scaleSize(80, size), tintColor: tintColor(CounterTypes.poison)}}/> 
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=> onSelectCounter(CounterTypes.edh)}>
+      <TouchableOpacity onPress={()=> onSelectCounter(CounterTypes.edh)} activeOpacity={1} delayPressIn={0}>
         <Image 
           source={require('../assets/edh-logo.png')} 
           resizeMode = 'contain' 
           style= {{ height: scaleSize(100, size), width: scaleSize(100, size), tintColor: tintColor(CounterTypes.edh)}}/> 
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=> onSelectCounter(CounterTypes.storm)}>
+      <TouchableOpacity onPress={()=> onSelectCounter(CounterTypes.storm)} activeOpacity={1} delayPressIn={0}>
         <Image 
           source={require('../assets/storm-logo.png')} 
           resizeMode = 'contain' 
