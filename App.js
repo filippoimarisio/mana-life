@@ -350,8 +350,8 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '270deg'}],
     position: 'absolute',
     top: '50%',
+    left: -5,
     marginTop: -30,
-    left: -14,
     display: 'none'
   },
   show: {
