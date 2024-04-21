@@ -28,7 +28,7 @@ export default function PlayerMenu({
 }) {
 
   const [selectedMenu, setSelectedMenu] = useState("");
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber] = useContext(Context)
+  const {backgroundColor, elementsColor, playersNumber} = useContext(Context) as any
 
   enum MenuItemsEnum {
     colorSelection = 'colorSelection',

@@ -7,7 +7,7 @@ export default function Timer({time, setTime, timerOn, setTimerOn}) {
   
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
+  const {backgroundColor, elementsColor} = useContext(Context) as any
 
   const startTimer = () => {
     if (intervalRef.current === null) {

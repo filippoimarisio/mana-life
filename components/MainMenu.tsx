@@ -7,22 +7,7 @@ import PlayerMenuMana from './PlayerMenuMana'
 import MainMenuLifeLogs from './MainMenuLifeLogs'
 
 
-export default function MainMenu({
-  resetPlayersLife, 
-  setShowMainMenu, 
-  showMainMenu, 
-  setInitialLifeTotal, 
-  initialLifeTotal, 
-  darkMode, 
-  setDarkMode, 
-  playersLifeLogs, 
-  manaCounter,
-  setManaCounter,
-  time, 
-  setTime, 
-  showTimer, 
-  setShowTimer
-}) {
+export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPlayerIndex}) {
 
   enum Options {
     reset = 'reset',
@@ -36,7 +21,23 @@ export default function MainMenu({
   }
 
   const [selectedOption, setSelectedOption] = useState(Options.reset)
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
+  const {
+    setShowMainMenu, 
+    showMainMenu, 
+    setInitialLifeTotal, 
+    initialLifeTotal, 
+    darkMode, 
+    setDarkMode, 
+    manaCounter,
+    setManaCounter,
+    time, 
+    setTime, 
+    showTimer, 
+    setShowTimer,
+    elementsColor, 
+    playersNumber,
+    fullArtPlayerIndex, 
+  } = useContext(Context) as any
 
   const selectedValues = {
     borderColor: elementsColor,

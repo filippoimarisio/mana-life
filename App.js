@@ -45,6 +45,61 @@ export default function App() {
   const [showTimer, setShowTimer] = useState(false)
   const [showAdBanner, setShowAdBanner] = useState(true)
 
+  const contextObject = {
+    counterPlayerOne, 
+    setCounterPlayerOne, 
+    counterPlayerTwo,
+    setCounterPlayerTwo,
+    counterPlayerThree,
+    setCounterPlayerThree,
+    counterPlayerFour,
+    setCounterPlayerFour,
+    showMainMenu,
+    setShowMainMenu,
+    lifeLogsPlayerOne,
+    setLifeLogsPlayerOne,
+    lifeLogsPlayerTwo,
+    setLifeLogsPlayerTwo,
+    lifeLogsPlayerThree,
+    setLifeLogsPlayerThree,
+    lifeLogsPlayerFour,
+    setLifeLogsPlayerFour,
+    selectedColorsPlayerOne,
+    setSelectedColorsPlayerOne,
+    selectedColorsPlayerTwo,
+    setSelectedColorsPlayerTwo,
+    selectedColorsPlayerThree,
+    setSelectedColorsPlayerThree,
+    selectedColorsPlayerFour,
+    setSelectedColorsPlayerFour,
+    resetTrigger,
+    setResetTrigger,
+    initialLifeTotal,
+    setInitialLifeTotal,
+    darkMode,
+    setDarkMode,
+    backgroundColor,
+    setBackgroundColor,
+    elementsColor,
+    setElementsColor,
+    playersNumber,
+    setPlayersNumber,
+    fullArtPlayerIndex,
+    setFullArtPlayerIndex,
+    manaCounter,
+    setManaCounter,
+    time,
+    setTime,
+    timerOn,
+    setTimerOn,
+    showTimer,
+    setShowTimer,
+    showAdBanner,
+    setShowAdBanner,
+    playersLifeLogs,
+    resetPlayersLife 
+  }
+
   // Sets intial life totale
   useEffect(()=>{
     setInitialPlayersLife()
@@ -116,7 +171,7 @@ export default function App() {
   }
 
   return (
-    <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex]}>
+    <Context.Provider value={contextObject}>
       <View style={[styles.container, {backgroundColor: 'black', ...containerLayoutSettings()}]}>
         <View style={{position: 'relative', width: '100%', height: '100%'}}>
           {fullArtPlayerIndex !==null && <View style={styles.backgroundImage}>
@@ -255,21 +310,7 @@ export default function App() {
               <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 27, width: 27}}/>
             </TouchableOpacity>
             { showMainMenu && 
-              <MainMenu
-                resetPlayersLife={resetPlayersLife} 
-                setShowMainMenu={setShowMainMenu} 
-                showMainMenu={showMainMenu} 
-                initialLifeTotal={initialLifeTotal} 
-                setInitialLifeTotal={setInitialLifeTotal} 
-                darkMode={darkMode} 
-                playersLifeLogs={playersLifeLogs()}
-                manaCounter={manaCounter}
-                setManaCounter={setManaCounter}
-                time={time} 
-                setTime={setTime}
-                showTimer={showTimer} 
-                setShowTimer={setShowTimer}
-                setDarkMode={setDarkMode}/>}
+              <MainMenu resetPlayersLife={resetPlayersLife} playersLifeLogs={playersLifeLogs()} onFullArtPlayerIndex={onFullArtPlayerIndex}/>}
           </View>
           { backgroundColor && <View style={[styles.timer, !showMainMenu && showTimer && styles.show]}>
             <Timer 

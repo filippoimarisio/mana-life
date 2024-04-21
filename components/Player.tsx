@@ -27,7 +27,7 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
     colorless: 0
   });
     
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
+  const {resetTrigger, setResetTrigger, fullArtPlayerIndex} = useContext(Context) as any
 
   const handleOnSelectColor = (color: ValueOf<typeof Mana>) => {
     if ( selectedColors.includes(color)) {

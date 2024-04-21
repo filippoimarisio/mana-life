@@ -1,4 +1,4 @@
 import React, {useState, useEffect} from 'react';
 
-export const Context = React.createContext([])
+export const Context = React.createContext({})
 

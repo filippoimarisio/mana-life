@@ -4,7 +4,7 @@ import {Context} from '../context'
 
 export default function MainMenuLifeLogs({playersLifeLogs}) {
 
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex] = useContext(Context)
+  const {elementsColor, playersNumber} = useContext(Context) as any
 
   return (
     <View style={styles.container}>

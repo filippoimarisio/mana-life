@@ -6,7 +6,7 @@ import {Context} from '../context'
 export default function PlayerMenuMana({manaCounter,setManaCounter}) {
 
   type ValueOf<T> = T[keyof T];
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const {backgroundColor, elementsColor} = useContext(Context) as any
 
   const resetCounters = () => {
     setManaCounter({

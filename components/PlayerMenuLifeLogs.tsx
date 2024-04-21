@@ -4,7 +4,7 @@ import {Context} from '../context'
 
 export default function PlayerMenuLifeLogs({playerIndex, lifeLogs}) {
 
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor] = useContext(Context)
+  const {elementsColor} = useContext(Context) as any
   
   const playerLogs = playerIndex === 0 ? lifeLogs[0] : lifeLogs[1]
   const opponentLogs = playerIndex === 0 ? lifeLogs[1] : lifeLogs[0]

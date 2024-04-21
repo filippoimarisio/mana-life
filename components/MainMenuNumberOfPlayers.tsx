@@ -6,7 +6,7 @@ export default function MainMenuNumberOfPlayers() {
 
   type ValueOf<T> = T[keyof T];
 
-  const [resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber] = useContext(Context)
+  const {elementsColor, playersNumber, setPlayersNumber} = useContext(Context) as any
 
   const tintColor = (players: number): string => {
     return playersNumber === players ? elementsColor : 'gray'
