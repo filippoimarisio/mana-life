@@ -2,18 +2,15 @@ import { useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, Text, ScrollView, Switch } from 'react-native';
 import {privacyStatement} from '../utils'
 import {Context} from '../context';
-import MainMenuNumberOfPlayers from './MainMenuNumberOfPlayers'
 import PlayerMenuMana from './PlayerMenuMana'
 import MainMenuLifeLogs from './MainMenuLifeLogs'
-
+import MainMenuSettings from './MainMenuSettings'
 
 export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPlayerIndex}) {
 
   enum Options {
     reset = 'reset',
     dices = 'dices',
-    initialLife = 'initialLife',
-    numberOfPlayers = 'numberOfPlayers',
     legal = 'legal',
     manaCounter = "manaCounter",
     settings = "settings",
@@ -24,32 +21,13 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
   const {
     setShowMainMenu, 
     showMainMenu, 
-    setInitialLifeTotal, 
-    initialLifeTotal, 
     darkMode, 
     setDarkMode, 
     manaCounter,
     setManaCounter,
-    time, 
-    setTime, 
-    showTimer, 
-    setShowTimer,
-    elementsColor, 
-    playersNumber,
-    fullArtPlayerIndex, 
+    elementsColor,
   } = useContext(Context) as any
 
-  const selectedValues = {
-    borderColor: elementsColor,
-    color: elementsColor
-  }
-
-  const formatTime = () => {
-    const { minutes, seconds } = time;
-    return `${minutes < 10 ? '0' : ''}${minutes}`;
-  };
-
-  const toggleSwitch = () => setShowTimer(previousState => !previousState);
 
   const Restart = () => {
     return (
@@ -122,79 +100,6 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
       </ScrollView>
     )
   }
-
-  const InitialLife = () => {
-    return (
-      <View style={styles.initialLife}>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(20)} activeOpacity={1} delayPressIn={0} style={{alignItems:'flex-start'}}>
-          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 20 && selectedValues]}>
-            <Text style={[styles.initialLifeValue, initialLifeTotal === 20 && selectedValues]}>20</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(30)} activeOpacity={1} delayPressIn={0}>
-          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 30 && selectedValues]}>
-            <Text style={[styles.initialLifeValue, initialLifeTotal === 30 && selectedValues]}>30</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>setInitialLifeTotal(40)} activeOpacity={1} delayPressIn={0} style={{alignItems:'flex-end'}}>
-          <View style={[styles.initialLifeValueWrapper, initialLifeTotal === 40 && selectedValues]}>
-            <Text style={[styles.initialLifeValue, initialLifeTotal === 40 && selectedValues]}>40</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  const FullArtSelector = (): any => {
-    return ([...Array(playersNumber)].map((e, i) => {
-      return <View key={i} style={[styles.playerArtElement__wrapper]}>
-              <TouchableOpacity onPress={()=>onFullArtPlayerIndex(i)} style={[styles.playerArtElement, fullArtPlayerIndex === i && selectedValues]} activeOpacity={1} delayPressIn={0}>
-                <Text style={[styles.playerArtElement_text, fullArtPlayerIndex === i && selectedValues]}>P{i + 1}</Text>
-              </TouchableOpacity>
-            </View>
-    }))
-  }
-
-  const TimerSettings = () => {
-    return (
-      <View style={styles.timer}>
-        <TouchableOpacity onPress={()=>toggleSwitch()} activeOpacity={1} delayPressIn={0}>
-          <Text style={[styles.showText, {color: showTimer ? elementsColor : 'gray', borderColor:showTimer ? elementsColor :'transparent'}]}>SHOW</Text>
-        </TouchableOpacity>
-        <View style={styles.timerSetter}>
-          <TouchableOpacity onPress={()=>setTime({ minutes: time.minutes + 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center', justifyContent:'flex-end'}} activeOpacity={1} delayPressIn={0}>
-            <Image source={require(`../assets/chevron-up.png`)} resizeMode = 'contain' style= {{ height: 20, width: 20, tintColor: showTimer ? elementsColor : 'gray'}}/>
-          </TouchableOpacity>
-          <Text style={[styles.timerText, {color: showTimer ? elementsColor : 'gray'}]}>{formatTime()}</Text>
-          <TouchableOpacity onPress={()=>setTime({minutes: time.minutes < 5 ? time.minutes : time.minutes - 5, seconds: 0 })} style={{width: '100%', height:30, alignItems:'center'}} activeOpacity={1} delayPressIn={0}>
-            <Image source={require(`../assets/chevron-down.png`)} resizeMode = 'contain' style= {{ height: 20, width: 20, tintColor: showTimer ? elementsColor : 'gray'}}/>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={()=>setTime({ minutes: 50, seconds: 0 })} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  const Settings = () => {
-    return (
-      <View style={styles.settings}>
-        <View style={styles.settings_labels}>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Players</Text></View>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Life</Text></View>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Timer</Text></View>
-          <View style={styles.settings_elementWrapper}><Text style={[styles.settings_label,{color: elementsColor}]}>Full art</Text></View>
-        </View>
-        <View style={styles.settings_content}>
-          <View style={styles.settings_elementWrapper}><MainMenuNumberOfPlayers /></View>
-          <View style={styles.settings_elementWrapper}><InitialLife /></View>
-          <View style={styles.settings_elementWrapper}><TimerSettings /></View>
-          <View style={[styles.settings_elementWrapper]}><View style={styles.settings_fullArtSelector}><FullArtSelector /></View></View>
-        </View>
-      </View>
-    )
-  }
   
   return (   
     <View style={styles.container}>
@@ -234,12 +139,10 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
       </View>
       
       <View style={styles.content}>
-        {selectedOption === Options.settings && <Settings />}
+        {selectedOption === Options.settings && <MainMenuSettings onFullArtPlayerIndex={onFullArtPlayerIndex}/>}
         {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
-        {selectedOption === Options.initialLife && <InitialLife />}
-        {selectedOption === Options.numberOfPlayers && <MainMenuNumberOfPlayers />}
         {selectedOption === Options.manaCounter && <PlayerMenuMana manaCounter={manaCounter} setManaCounter={setManaCounter}/>}
         {selectedOption === Options.lifeLogs && <MainMenuLifeLogs playersLifeLogs={playersLifeLogs}/>}
       </View>
@@ -293,95 +196,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  initialLife: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  initialLifeValue: {
-    fontSize: 30,
-    color: 'gray',
-  },
-  initialLifeValueWrapper: {
-    width: 50,
-    height: 50,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'gray',
-    borderWidth: 4,
-    borderRadius: 10,
-  },
-  settings: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    flexDirection: 'row'
-  },
-  settings_labels: {
-    width: '35%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-  },
-  settings_elementWrapper: {
-    flex: 1,
-    alignItems:'flex-start',
-    justifyContent: 'center'
-  },
-  settings_label: {
-    fontSize: 25,
-    fontWeight: 'bold'
-  },
-  settings_content: {
-    width: '65%',
-  },
-  settings_fullArtSelector: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  playerArtElement__wrapper: {
-    width: '25%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  playerArtElement: {
-    borderWidth: 3,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'gray',
-    borderRadius: 10,
-    marginRight: 20,
-    height: 40,
-    width: 40
-  },
-  playerArtElement_text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'gray',
-  },
-  timer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  timerSetter: {
-    display: 'flex',
-    flexDirection:'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  timerText: {
-    fontSize: 40,
-  },
+
   showText: {
     fontSize: 20, textAlign:'center', textAlignVertical:'center', padding: 6, borderRadius: 6, borderWidth: 3,
   }

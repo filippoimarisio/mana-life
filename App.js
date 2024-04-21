@@ -159,7 +159,7 @@ export default function App() {
     if (fullArtPlayerIndex === 3) return selectedColorsPlayerFour
   }
 
-  const containerLayoutSettings = () => {
+  const containerLayout = () => {
     const paddingTop = showAdBanner ? 70 : 40
     const paddingBottom = showAdBanner ? 30 : 0
     switch (playersNumber) {
@@ -172,7 +172,7 @@ export default function App() {
 
   return (
     <Context.Provider value={contextObject}>
-      <View style={[styles.container, {backgroundColor: 'black', ...containerLayoutSettings()}]}>
+      <View style={[styles.container, {backgroundColor: 'black', ...containerLayout()}]}>
         <View style={{position: 'relative', width: '100%', height: '100%'}}>
           {fullArtPlayerIndex !==null && <View style={styles.backgroundImage}>
             <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(getChosenPlayersSelectedColors())]} resizeMode="cover">
@@ -360,15 +360,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    marginLeft: -23,
-    marginTop: -23,
+    marginLeft: -22,
+    marginTop: -22,
     borderColor:'#DAA520',
     borderWidth: 4,
     borderRadius: 30,
     padding: 4,
   },
   mainMenu__expanded: {
-    top: 0,
+    top: -2,
     bottom: 0,
     right: 0,
     left: 0,

@@ -1,8 +1,8 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
-import React, {useState, useContext} from 'react';
+import React, {memo, useContext} from 'react';
 import {Context} from '../context'
 
-export default function MainMenuNumberOfPlayers() {
+const MainMenuNumberOfPlayers = () => {
 
   type ValueOf<T> = T[keyof T];
 
@@ -71,6 +71,8 @@ export default function MainMenuNumberOfPlayers() {
     </View>
   );
 }
+
+export default memo(MainMenuNumberOfPlayers)
 
 const styles = StyleSheet.create({
   container: {
