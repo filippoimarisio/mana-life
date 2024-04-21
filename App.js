@@ -103,10 +103,19 @@ export default function App() {
     if (fullArtPlayerIndex === 3) return selectedColorsPlayerFour
   }
 
+  const containerLayoutSettings = () => {
+    switch (playersNumber) {
+      case 2 : return {paddingTop: 70, paddingBottom: 30, paddingLeft: 0, paddingRight: 0}
+      case 3 : return {paddingTop: 70, paddingBottom: 30, paddingLeft: 14, paddingRight: 14}
+      case 4 : return {paddingTop: 70, paddingBottom: 30, paddingLeft: 14, paddingRight: 14}
+      default: return {paddingTop: 70, paddingBottom: 30, paddingLeft: 0, paddingRight: 0}
+    }
+  }
+
   return (
     <Context.Provider value={[resetTrigger, setResetTrigger, backgroundColor, elementsColor, playersNumber, setPlayersNumber, fullArtPlayerIndex, onFullArtPlayerIndex]}>
-      <View style={[styles.container, {backgroundColor: 'black'}]}>
-        <View style={{marginTop:'6%', position: 'relative', width: '100%', height: '94%'}}>
+      <View style={[styles.container, {backgroundColor: 'black', ...containerLayoutSettings()}]}>
+        <View style={{position: 'relative', width: '100%', height: '100%'}}>
           {fullArtPlayerIndex !==null && <View style={styles.backgroundImage}>
             <ImageBackground source={BackgroundImages[fetchBackgroundImageKey(getChosenPlayersSelectedColors())]} resizeMode="cover">
               <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0, 0.3)'}}></View>

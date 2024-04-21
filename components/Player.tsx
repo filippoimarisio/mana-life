@@ -147,6 +147,17 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
     }
   }
 
+  const counterMarginTop = (): any => {
+    if (size === Size.small) {
+      if (selectedCounterTypes.length === 0) return { marginTop: '-8%' }
+      else return { marginTop: '8%' }
+    }
+    else {
+      if (selectedCounterTypes.length === 0) return { marginTop: '0%' }
+      else return { marginTop: '35%' }
+    }
+  }
+
   return (
       <View style={[styles.container]}>
         {selectedColors.length > 0 && fullArtPlayerIndex === null && <View style={styles.backgroundImage}>
@@ -155,8 +166,8 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
             </View>
           </ImageBackground> 
         </View> }
-          <View style={[styles.mainCounter, selectedCounterTypes.length === 0 ? styles.mainCounter__higherUp : size === Size.small && styles.mainCounter__small]}>
-            <View style={[styles.tempCounterWrapper, {height: scaleSize(50, size), marginTop: selectedCounterTypes.length === 0 ? '10%' : 0}]}>
+          <View style={[styles.mainCounter, {...counterMarginTop()}]}>
+            <View style={[styles.tempCounterWrapper, {height: 50, alignItems: size === Size.small ? 'flex-end':'flex-start', marginTop: selectedCounterTypes.length === 0 ? '10%' : 0}]}>
               {showTempCounter ? <Text style={[styles.tempCounter, !showTempCounter && styles.hide, {fontSize: scaleSize(30, size)}]}>{tempCounter > 0 ? '+':''}{tempCounter}</Text>:
               selectedCounterTypes.length > 0 && <View style={[styles.mainCounterLogo]}><MainCounterLogo /></View>}
             </View>
@@ -221,17 +232,16 @@ const styles = StyleSheet.create({
   mainCounter: {
     display: 'flex',
     alignItems:'center',
-    marginTop: '35%',
     marginBottom: '5%',
   },
-  mainCounter__higherUp: {
-    marginTop: '0%',
-    marginBottom: '0%',
-  },
-  mainCounter__small: {
-    marginTop: '15%',
-    marginBottom: '0%'
-  },
+  // mainCounter__higherUp: {
+  //   marginTop: '0%',
+  //   marginBottom: '0%',
+  // },
+  // mainCounter__small: {
+  //   marginTop: '15%',
+  //   marginBottom: '0%'
+  // },
   lifeCounter: {
     flexDirection: 'row',
     flex: 1,
