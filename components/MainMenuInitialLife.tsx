@@ -6,8 +6,6 @@ const MainMenuInitialLife = () => {
 
   const {setInitialLifeTotal, initialLifeTotal, elementsColor} = useContext(Context) as any
 
-  console.log('refresh')
-
   const selectedValues = {
     borderColor: elementsColor,
     color: elementsColor

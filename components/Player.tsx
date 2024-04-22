@@ -212,8 +212,6 @@ export default function Player({playerIndex, lifeCounter, setCounter, lifeLogs, 
               setSelectedCounterTypes={setSelectedCounterTypes}
               lifeLogs={lifeLogs} 
               size={size}
-              manaCounter={manaCounter}
-              setManaCounter={setManaCounter}
             />
           </View>
       </View>

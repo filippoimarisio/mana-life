@@ -23,8 +23,6 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
     showMainMenu, 
     darkMode, 
     setDarkMode, 
-    manaCounter,
-    setManaCounter,
     elementsColor,
   } = useContext(Context) as any
 
@@ -143,7 +141,7 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
         {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
-        {selectedOption === Options.manaCounter && <PlayerMenuMana manaCounter={manaCounter} setManaCounter={setManaCounter}/>}
+        {selectedOption === Options.manaCounter && <PlayerMenuMana/>}
         {selectedOption === Options.lifeLogs && <MainMenuLifeLogs playersLifeLogs={playersLifeLogs}/>}
       </View>
     </View>

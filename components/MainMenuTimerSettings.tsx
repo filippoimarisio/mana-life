@@ -4,8 +4,6 @@ import {Context} from '../context'
 
 const MainMenuTimerSettings = () => {
 
-  console.log('refresh')
-
   const {elementsColor, showTimer, setShowTimer, setTime, time} = useContext(Context) as any
 
   const toggleSwitch = () => setShowTimer(previousState => !previousState);

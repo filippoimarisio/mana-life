@@ -3,10 +3,10 @@ import React, {useState, useEffect, useContext} from 'react';
 import { Mana, colorCodes, Operations } from '../utils'
 import {Context} from '../context'
 
-export default function PlayerMenuMana({manaCounter,setManaCounter}) {
+export default function PlayerMenuMana() {
 
   type ValueOf<T> = T[keyof T];
-  const {backgroundColor, elementsColor} = useContext(Context) as any
+  const {manaCounter, setManaCounter, backgroundColor, elementsColor} = useContext(Context) as any
 
   const resetCounters = () => {
     setManaCounter({
@@ -39,9 +39,8 @@ export default function PlayerMenuMana({manaCounter,setManaCounter}) {
             updatedCounterObject[color]--;
         }
     });
-
     setManaCounter(updatedCounterObject);
-}
+  }
 
   const ManaCounter = ({manaColor}) => {
     return (
@@ -113,6 +112,7 @@ export default function PlayerMenuMana({manaCounter,setManaCounter}) {
       </View>
     )
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.manaList}>
@@ -192,10 +192,10 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   manaLogoWrapper: {
-    marginBottom: -12,
+    marginBottom: -14,
     zIndex: 2,
-    height: 25,
-    width: 25,
+    height: 26,
+    width: 26,
     borderRadius: 30,
     display: 'flex',
     alignItems: 'center',
