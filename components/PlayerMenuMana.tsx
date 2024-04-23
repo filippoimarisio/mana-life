@@ -3,13 +3,13 @@ import React, {useState, useEffect, useContext} from 'react';
 import { Mana, colorCodes, Operations } from '../utils'
 import {Context} from '../context'
 
-export default function PlayerMenuMana() {
+export default function PlayerMenuMana({modifyManaCounter}) {
 
   type ValueOf<T> = T[keyof T];
-  const {manaCounter, setManaCounter, backgroundColor, elementsColor} = useContext(Context) as any
+  const {manaCounter, backgroundColor, elementsColor} = useContext(Context) as any
 
   const resetCounters = () => {
-    setManaCounter({
+    modifyManaCounter({
       mountain: 0,
       swamp: 0,
       forest: 0,
@@ -22,7 +22,7 @@ export default function PlayerMenuMana() {
   const handleCounterInteraction = (mana: ValueOf<typeof Mana>, operation: ValueOf<typeof Operations>) => {
     const modifier = operation === Operations.plus ? 1 : -1;
     const counterObject = {...manaCounter, [mana]: manaCounter[mana] + modifier};
-    setManaCounter(counterObject);
+    modifyManaCounter(counterObject);
   }
 
   const handleWubrgInteraction = (operation: ValueOf<typeof Operations>) => {
@@ -39,7 +39,37 @@ export default function PlayerMenuMana() {
             updatedCounterObject[color]--;
         }
     });
-    setManaCounter(updatedCounterObject);
+    modifyManaCounter(updatedCounterObject);
+  }
+
+  const Wubrg = () => {
+    return (
+      <View style={styles.wubrg}>
+        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.minus)} style={[styles.counterButton, styles.wubrgButton]} activeOpacity={1} delayPressIn={0}>
+          <Image
+            source={require('../assets/minus-logo__white.png')}
+            resizeMode = 'contain'
+            style= {{
+              height: 25,
+              width: 25,
+              tintColor: elementsColor
+            }}
+          />
+        </TouchableOpacity>
+        <Image source={require('../assets/wubrg_compact.png')} resizeMode = 'contain' style={[{ height: 55, width: 55}]}/>
+        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.plus)} style={[styles.counterButton, styles.wubrgButton]} activeOpacity={1} delayPressIn={0}>
+          <Image
+            source={require('../assets/plus-logo__white.png')}
+            resizeMode = 'contain'
+            style= {{
+              height: 25,
+              width: 25,
+              tintColor: elementsColor
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   const ManaCounter = ({manaColor}) => {
@@ -72,35 +102,6 @@ export default function PlayerMenuMana() {
     )
   }
 
-  const Wubrg = () => {
-    return (
-      <View style={styles.wubrg}>
-        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.minus)} style={[styles.counterButton, styles.wubrgButton]} activeOpacity={1} delayPressIn={0}>
-          <Image
-            source={require('../assets/minus-logo__white.png')}
-            resizeMode = 'contain'
-            style= {{
-              height: 25,
-              width: 25,
-              tintColor: elementsColor
-            }}
-          />
-        </TouchableOpacity>
-        <Image source={require('../assets/wubrg_compact.png')} resizeMode = 'contain' style={[{ height: 55, width: 55}]}/>
-        <TouchableOpacity onPress={()=>handleWubrgInteraction(Operations.plus)} style={[styles.counterButton, styles.wubrgButton]} activeOpacity={1} delayPressIn={0}>
-          <Image
-            source={require('../assets/plus-logo__white.png')}
-            resizeMode = 'contain'
-            style= {{
-              height: 25,
-              width: 25,
-              tintColor: elementsColor
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    )
-  }
 
   const ManaButton = ({baseColor, highlightColor, colorIdentity}) => {
     return (

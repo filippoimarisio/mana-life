@@ -5,8 +5,9 @@ import {Context} from '../context';
 import PlayerMenuMana from './PlayerMenuMana'
 import MainMenuLifeLogs from './MainMenuLifeLogs'
 import MainMenuSettings from './MainMenuSettings'
+import MainMenuSelection from './MainMenuSelection'
 
-export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPlayerIndex}) {
+export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPlayerIndex, modifyManaCounter}) {
 
   enum Options {
     reset = 'reset',
@@ -101,47 +102,20 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
   
   return (   
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={()=> setShowMainMenu(!showMainMenu)} style={{width: '10%'}} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/close.png`)} resizeMode = 'contain' style= {{ height: 30, width: 30, tintColor: elementsColor}}/>
-        </TouchableOpacity>
-        <Image source={require(`../assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 100, width: 100}}/>
-        <Switch
-          trackColor={{false: 'gray', true: 'white'}}
-          thumbColor={darkMode ? "#AFEEEE" : elementsColor}
-          ios_backgroundColor="#AFEEEE"
-          onValueChange={setDarkMode}
-          value={darkMode}
-          style={{width: '10%', transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }}
-        />
-      </View>
-      <View style={[styles.options, {borderBottomWidth: 2, borderBottomColor: elementsColor}]}>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.reset)} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/restart.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.settings)} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/cog.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.dices)} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/dice-6-outline.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.lifeLogs)} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/heart-pulse.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.manaCounter)} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/bottle-tonic.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
-        <View style={{flex: 1, alignItems:'center'}}><TouchableOpacity onPress={()=>setSelectedOption(Options.legal)} activeOpacity={1} delayPressIn={0}>
-          <Image source={require(`../assets/gavel.png`)} resizeMode = 'contain' style= {{ height: 40, width: 40, tintColor: elementsColor}}/>
-        </TouchableOpacity></View>
-      </View>
-      
+      <MainMenuSelection 
+        setSelectedOption={setSelectedOption} 
+        showMainMenu={showMainMenu} 
+        setShowMainMenu={setShowMainMenu} 
+        elementsColor={elementsColor} 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode}
+      />
       <View style={styles.content}>
         {selectedOption === Options.settings && <MainMenuSettings onFullArtPlayerIndex={onFullArtPlayerIndex}/>}
         {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
-        {selectedOption === Options.manaCounter && <PlayerMenuMana/>}
+        {selectedOption === Options.manaCounter && <PlayerMenuMana modifyManaCounter={modifyManaCounter}/>}
         {selectedOption === Options.lifeLogs && <MainMenuLifeLogs playersLifeLogs={playersLifeLogs}/>}
       </View>
     </View>
@@ -156,23 +130,6 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '100%',
     margin: '5%'
-  },
-  header: {
-    height: '20%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: '100%'
-  },
-  options: {
-    height: '10%',
-    display: 'flex',
-    justifyContent:'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: '100%',
-    marginBottom: 10
   },
   content: {
     height: '70%'

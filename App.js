@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, ImageBackground } from 'react-native';
 import Player from './components/Player';
 import MainMenu from './components/MainMenu';
@@ -87,7 +87,6 @@ export default function App() {
     fullArtPlayerIndex,
     setFullArtPlayerIndex,
     manaCounter,
-    setManaCounter,
     time,
     setTime,
     timerOn,
@@ -124,6 +123,11 @@ export default function App() {
   useEffect(()=>{
     setThemeColors()
   }, [darkMode])
+
+  // Memoized functions
+  const modifyManaCounter = useCallback(newValue => {
+		setManaCounter(newValue)
+	});
   
 
   const setInitialPlayersLife = () => {
@@ -310,7 +314,12 @@ export default function App() {
               <Image source={require(`./assets/mtg-logo.png`)} resizeMode = 'contain' style= {{ height: 27, width: 27}}/>
             </TouchableOpacity>
             { showMainMenu && 
-              <MainMenu resetPlayersLife={resetPlayersLife} playersLifeLogs={playersLifeLogs()} onFullArtPlayerIndex={onFullArtPlayerIndex}/>}
+              <MainMenu 
+                resetPlayersLife={resetPlayersLife} 
+                playersLifeLogs={playersLifeLogs()} 
+                onFullArtPlayerIndex={onFullArtPlayerIndex}
+                modifyManaCounter={modifyManaCounter}
+            />}
           </View>
           { backgroundColor && <View style={[styles.timer, !showMainMenu && showTimer && styles.show]}>
             <Timer 
