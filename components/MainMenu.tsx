@@ -7,7 +7,9 @@ import MainMenuLifeLogs from './MainMenuLifeLogs'
 import MainMenuSettings from './MainMenuSettings'
 import MainMenuSelection from './MainMenuSelection'
 
-export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPlayerIndex, modifyManaCounter}) {
+export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPlayerIndex}) {
+
+  console.log('refresh MainMenu')
 
   enum Options {
     reset = 'reset',
@@ -115,7 +117,7 @@ export default function MainMenu({resetPlayersLife, playersLifeLogs, onFullArtPl
         {selectedOption === Options.reset && <Restart />}
         {selectedOption === Options.dices && <DiceRoller />}
         {selectedOption === Options.legal && <Legal />}
-        {selectedOption === Options.manaCounter && <PlayerMenuMana modifyManaCounter={modifyManaCounter}/>}
+        {selectedOption === Options.manaCounter && <PlayerMenuMana />}
         {selectedOption === Options.lifeLogs && <MainMenuLifeLogs playersLifeLogs={playersLifeLogs}/>}
       </View>
     </View>

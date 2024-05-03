@@ -12,6 +12,8 @@ const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : 'ca-app-pub-400302238962754
 
 export default function App() {
 
+  console.log('refresh App')
+
   const [counterPlayerOne, setCounterPlayerOne] = useState(0)
   const [counterPlayerTwo, setCounterPlayerTwo] = useState(0)
   const [counterPlayerThree, setCounterPlayerThree] = useState(0)
@@ -45,60 +47,6 @@ export default function App() {
   const [showTimer, setShowTimer] = useState(false)
   const [showAdBanner, setShowAdBanner] = useState(true)
 
-  const contextObject = {
-    counterPlayerOne, 
-    setCounterPlayerOne, 
-    counterPlayerTwo,
-    setCounterPlayerTwo,
-    counterPlayerThree,
-    setCounterPlayerThree,
-    counterPlayerFour,
-    setCounterPlayerFour,
-    showMainMenu,
-    setShowMainMenu,
-    lifeLogsPlayerOne,
-    setLifeLogsPlayerOne,
-    lifeLogsPlayerTwo,
-    setLifeLogsPlayerTwo,
-    lifeLogsPlayerThree,
-    setLifeLogsPlayerThree,
-    lifeLogsPlayerFour,
-    setLifeLogsPlayerFour,
-    selectedColorsPlayerOne,
-    setSelectedColorsPlayerOne,
-    selectedColorsPlayerTwo,
-    setSelectedColorsPlayerTwo,
-    selectedColorsPlayerThree,
-    setSelectedColorsPlayerThree,
-    selectedColorsPlayerFour,
-    setSelectedColorsPlayerFour,
-    resetTrigger,
-    setResetTrigger,
-    initialLifeTotal,
-    setInitialLifeTotal,
-    darkMode,
-    setDarkMode,
-    backgroundColor,
-    setBackgroundColor,
-    elementsColor,
-    setElementsColor,
-    playersNumber,
-    setPlayersNumber,
-    fullArtPlayerIndex,
-    setFullArtPlayerIndex,
-    manaCounter,
-    time,
-    setTime,
-    timerOn,
-    setTimerOn,
-    showTimer,
-    setShowTimer,
-    showAdBanner,
-    setShowAdBanner,
-    playersLifeLogs,
-    resetPlayersLife 
-  }
-
   // Sets intial life totale
   useEffect(()=>{
     setInitialPlayersLife()
@@ -127,7 +75,7 @@ export default function App() {
   // Memoized functions
   const modifyManaCounter = useCallback(newValue => {
 		setManaCounter(newValue)
-	});
+	},[setManaCounter]);
   
 
   const setInitialPlayersLife = () => {
@@ -172,6 +120,61 @@ export default function App() {
       case 4 : return {paddingTop: paddingTop, paddingBottom: paddingBottom, paddingLeft: showAdBanner ? 14: 0, paddingRight: showAdBanner ? 14 : 0}
       default: return {paddingTop: paddingTop, paddingBottom: paddingBottom, paddingLeft: 0, paddingRight: 0}
     }
+  }
+
+  const contextObject = {
+    counterPlayerOne, 
+    setCounterPlayerOne, 
+    counterPlayerTwo,
+    setCounterPlayerTwo,
+    counterPlayerThree,
+    setCounterPlayerThree,
+    counterPlayerFour,
+    setCounterPlayerFour,
+    showMainMenu,
+    setShowMainMenu,
+    lifeLogsPlayerOne,
+    setLifeLogsPlayerOne,
+    lifeLogsPlayerTwo,
+    setLifeLogsPlayerTwo,
+    lifeLogsPlayerThree,
+    setLifeLogsPlayerThree,
+    lifeLogsPlayerFour,
+    setLifeLogsPlayerFour,
+    selectedColorsPlayerOne,
+    setSelectedColorsPlayerOne,
+    selectedColorsPlayerTwo,
+    setSelectedColorsPlayerTwo,
+    selectedColorsPlayerThree,
+    setSelectedColorsPlayerThree,
+    selectedColorsPlayerFour,
+    setSelectedColorsPlayerFour,
+    resetTrigger,
+    setResetTrigger,
+    initialLifeTotal,
+    setInitialLifeTotal,
+    darkMode,
+    setDarkMode,
+    backgroundColor,
+    setBackgroundColor,
+    elementsColor,
+    setElementsColor,
+    playersNumber,
+    setPlayersNumber,
+    fullArtPlayerIndex,
+    setFullArtPlayerIndex,
+    manaCounter,
+    modifyManaCounter,
+    time,
+    setTime,
+    timerOn,
+    setTimerOn,
+    showTimer,
+    setShowTimer,
+    showAdBanner,
+    setShowAdBanner,
+    playersLifeLogs,
+    resetPlayersLife 
   }
 
   return (
@@ -318,7 +321,6 @@ export default function App() {
                 resetPlayersLife={resetPlayersLife} 
                 playersLifeLogs={playersLifeLogs()} 
                 onFullArtPlayerIndex={onFullArtPlayerIndex}
-                modifyManaCounter={modifyManaCounter}
             />}
           </View>
           { backgroundColor && <View style={[styles.timer, !showMainMenu && showTimer && styles.show]}>
